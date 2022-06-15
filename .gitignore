@@ -55,3 +55,10 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
+
+# Divi theme cache
+wp-content/et-cache
+
+# Phpstorm
+.idea
+
