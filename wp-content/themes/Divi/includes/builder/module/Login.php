@@ -242,7 +242,16 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 		return parent::get_transition_fields_css_props();
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view             = et_pb_multi_view_options( $this );
 		$module_id              = $this->props['module_id'];
 		$title                  = $multi_view->render_element(
@@ -296,16 +305,16 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 				<div class="et_pb_newsletter_form et_pb_login_form">
 					<form action="%7$s" method="post">
 						<p class="et_pb_contact_form_field">
-							<label class="et_pb_contact_form_label" for="user_login_%12$s" style="display: none;">%3$s</label>
-							<input id="user_login_%12$s" placeholder="%4$s" class="input" type="text" value="" name="log" />
+							<label class="et_pb_contact_form_label" for="user_login_%11$s" style="display: none;">%3$s</label>
+							<input id="user_login_%11$s" placeholder="%4$s" class="input" type="text" value="" name="log" />
 						</p>
 						<p class="et_pb_contact_form_field">
-							<label class="et_pb_contact_form_label" for="user_pass_%12$s" style="display: none;">%5$s</label>
-							<input id="user_pass_%12$s" placeholder="%6$s" class="input" type="password" value="" name="pwd" />
+							<label class="et_pb_contact_form_label" for="user_pass_%11$s" style="display: none;">%5$s</label>
+							<input id="user_pass_%11$s" placeholder="%6$s" class="input" type="password" value="" name="pwd" />
 						</p>
 						<p class="et_pb_forgot_password"><a href="%2$s">%1$s</a></p>
 						<p>
-							<button type="submit" name="et_builder_submit_button" class="et_pb_newsletter_button et_pb_button%11$s"%10$s%13$s%14$s>%8$s</button>
+							<button type="submit" name="et_builder_submit_button" class="et_pb_newsletter_button et_pb_button"%10$s%12$s%13$s>%8$s</button>
 							%9$s
 						</p>
 					</form>
@@ -326,7 +335,6 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 					' data-icon="%1$s"',
 					esc_attr( et_pb_process_font_icon( $custom_icon ) )
 				) : '', // #10
-				( '' !== $custom_icon || '' !== $custom_icon_tablet || '' !== $custom_icon_phone ) && 'on' === $button_custom ? ' et_pb_custom_button_icon' : '',
 				// Prevent an accidental "duplicate ID" error if there's more than one instance of this module
 				( '' !== $module_id ? esc_attr( $module_id ) : uniqid() ),
 				'' !== $custom_icon_tablet && 'on' === $button_custom ? sprintf( ' data-icon-tablet="%1$s"', esc_attr( et_pb_process_font_icon( $custom_icon_tablet ) ) ) : '',
@@ -407,9 +415,11 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 		);
 
 		$output = sprintf(
-			'<div%4$s class="%2$s"%7$s%7$s>
+			'<div%4$s class="%2$s"%7$s%8$s>
 				%6$s
 				%5$s
+				%9$s
+				%10$s
 				%3$s
 				%1$s
 			</div>',
@@ -420,7 +430,9 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 			$video_background, // #5
 			$parallax_image_background,
 			et_core_esc_previously( $data_background_layout ),
-			$wrapper_multi_view_classes
+			$wrapper_multi_view_classes,
+			et_core_esc_previously( $this->background_pattern() ), // #9
+			et_core_esc_previously( $this->background_mask() ) // #10
 		);
 
 		return $output;
@@ -478,4 +490,6 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Login();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Login();
+}

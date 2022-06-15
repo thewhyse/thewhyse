@@ -406,7 +406,16 @@ class ET_Builder_Module_Fullwidth_Portfolio extends ET_Builder_Module_Type_PostB
 		return $query;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		global $post;
 
 		$sticky             = et_pb_sticky_options();
@@ -470,6 +479,22 @@ class ET_Builder_Module_Fullwidth_Portfolio extends ET_Builder_Module_Type_PostB
 				'icon_tablet' => $hover_icon_tablet,
 				'icon_phone'  => $hover_icon_phone,
 				'icon_sticky' => $hover_icon_sticky,
+			)
+		);
+
+		// Overlay Icon Styles.
+		$this->generate_styles(
+			array(
+				'hover'          => false,
+				'utility_arg'    => 'icon_font_family',
+				'render_slug'    => $render_slug,
+				'base_attr_name' => 'hover_icon',
+				'important'      => true,
+				'selector'       => "{$zoom_and_hover_selector} .et_overlay:before",
+				'processor'      => array(
+					'ET_Builder_Module_Helper_Style_Processor',
+					'process_extended_icon',
+				),
 			)
 		);
 
@@ -617,10 +642,12 @@ class ET_Builder_Module_Fullwidth_Portfolio extends ET_Builder_Module_Type_PostB
 				%8$s
 				%7$s
 				%6$s
+				%10$s
+				%11$s
 				<div class="et_pb_portfolio_items clearfix" data-portfolio-columns="">
 					%2$s
-				</div><!-- .et_pb_portfolio_items -->
-			</div> <!-- .et_pb_fullwidth_portfolio -->',
+				</div>
+			</div>',
 			$this->module_classname( $render_slug ),
 			$posts,
 			$this->module_id(),
@@ -629,7 +656,9 @@ class ET_Builder_Module_Fullwidth_Portfolio extends ET_Builder_Module_Type_PostB
 			$title,
 			$video_background,
 			$parallax_image_background,
-			et_core_esc_previously( $data_background_layout )
+			et_core_esc_previously( $data_background_layout ),
+			et_core_esc_previously( $this->background_pattern() ), // #10
+			et_core_esc_previously( $this->background_mask() ) // #11
 		);
 
 		return $output;
@@ -672,4 +701,6 @@ class ET_Builder_Module_Fullwidth_Portfolio extends ET_Builder_Module_Type_PostB
 	}
 }
 
-new ET_Builder_Module_Fullwidth_Portfolio();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Fullwidth_Portfolio();
+}

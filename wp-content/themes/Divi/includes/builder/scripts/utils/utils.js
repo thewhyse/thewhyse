@@ -5,10 +5,25 @@
 
 // External dependencies
 import includes from 'lodash/includes';
+import get from 'lodash/get';
 import $ from 'jquery';
 
 // Internal dependencies
 import { top_window } from '@core/admin/js/frame-helpers';
+
+export const getBuilderUtilsParams = () => {
+  if (window.et_builder_utils_params) {
+    return window.et_builder_utils_params;
+  }
+
+  if (top_window.et_builder_utils_params) {
+    return top_window.et_builder_utils_params;
+  }
+
+  return {};
+};
+
+export const getBuilderType = () => get(getBuilderUtilsParams(), 'builderType', '');
 
 /**
  * Check current page's builder Type.
@@ -19,7 +34,7 @@ import { top_window } from '@core/admin/js/frame-helpers';
  *
  * @returns {bool}
  */
-export const isBuilderType = builderType => builderType === window.et_builder_utils_params.builderType;
+export const isBuilderType = (builderType) => builderType === getBuilderType();
 
 /**
  * Return condition value.
@@ -30,7 +45,7 @@ export const isBuilderType = builderType => builderType === window.et_builder_ut
  *
  * @returns {bool}
  */
-export const is = conditionName => window.et_builder_utils_params.condition[conditionName];
+export const is = conditionName => get(getBuilderUtilsParams(), `condition.${conditionName}`);
 
 /**
  * Is current page Frontend.
@@ -109,7 +124,7 @@ export const isLBP = isBuilderType('lbp');
  *
  * @type {bool}
  */
-export const isBlockEditor = $(top_window.document).find('.edit-post-layout__content').length > 0;
+export const isBlockEditor = 0 < $(top_window.document).find('.edit-post-layout__content').length;
 
 /**
  * Check if current window is builder window (VB, BFB, TB, LBB).
@@ -118,7 +133,7 @@ export const isBlockEditor = $(top_window.document).find('.edit-post-layout__con
  *
  * @type {bool}
  */
-export const isBuilder = includes(['vb', 'bfb', 'tb', 'lbb'], window.et_builder_utils_params.builderType);
+export const isBuilder = includes(['vb', 'bfb', 'tb', 'lbb'], getBuilderType());
 
 /**
  * Get offsets value of all sides.
@@ -135,9 +150,14 @@ export const getOffsets = ($selector, width = 0, height = 0) => {
   // Return previously saved offset if sticky tab is active; retrieving actual offset contain risk
   // of incorrect offsets if sticky horizontal / vertical offset of relative position is modified.
   const isStickyTabActive = isBuilder && $selector.hasClass('et_pb_sticky') && 'fixed' !== $selector.css('position');
+  const cachedOffsets     = $selector.data('et-offsets');
+  const cachedDevice      = $selector.data('et-offsets-device');
+  const currentDevice     = get(window.ET_FE, 'stores.window.breakpoint', '');
 
-  if (isStickyTabActive) {
-    return $selector.data('et-offsets');
+  // Only return cachedOffsets if sticky tab is active and cachedOffsets is not undefined and
+  // cachedDevice equal to currentDevice.
+  if (isStickyTabActive && cachedOffsets !== undefined && cachedDevice === currentDevice) {
+    return cachedOffsets;
   }
 
   // Get top & left offsets
@@ -194,6 +214,11 @@ export const getOffsets = ($selector, width = 0, height = 0) => {
   // Save copy of the offset on element's .data() in case of scenario where retrieving actual
   // offset value will lead to incorrect offset value (eg. sticky tab active with position offset)
   $selector.data('et-offsets', offsets);
+
+  // Add current device to cache
+  if ('' !== currentDevice) {
+    $selector.data('et-offsets-device', offsets);
+  }
 
   return offsets;
 };

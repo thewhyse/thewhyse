@@ -112,7 +112,7 @@ if ( ! function_exists( 'et_builder_should_load_framework' ) ) :
 		}
 
 		$is_admin              = is_admin();
-		$required_admin_pages  = array( 'edit.php', 'post.php', 'post-new.php', 'admin.php', 'customize.php', 'edit-tags.php', 'admin-ajax.php', 'export.php', 'options-permalink.php', 'themes.php', 'revision.php' ); // list of admin pages where we need to load builder files.
+		$required_admin_pages  = array( 'edit.php', 'post.php', 'post-new.php', 'admin.php', 'customize.php', 'edit-tags.php', 'admin-ajax.php', 'export.php', 'options-permalink.php', 'themes.php', 'revision.php', 'widgets.php', 'site-editor.php' ); // list of admin pages where we need to load builder files.
 		$specific_filter_pages = array( 'edit.php', 'post.php', 'post-new.php', 'admin.php', 'edit-tags.php' ); // list of admin pages where we need more specific filtering.
 		$post_id               = (int) et_()->array_get( $_GET, 'post', 0 );
 
@@ -149,9 +149,27 @@ if ( ! function_exists( 'et_builder_should_load_framework' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'et_builder_load_library' ) ) :
+	/**
+	 * Load Divi Library and Divi Cloud.
+	 *
+	 * @return void
+	 */
+	function et_builder_load_library() {
+		// Initialize the Divi Library.
+		require_once ET_BUILDER_DIR . 'feature/Library.php';
+
+		// Initialize DiviCloud.
+		if ( defined( 'ET_BUILDER_PLUGIN_ACTIVE' ) ) {
+			require_once ET_BUILDER_PLUGIN_DIR . '/cloud/cloud-app.php';
+		} else {
+			require_once get_template_directory() . '/cloud/cloud-app.php';
+		}
+	}
+endif;
+
 if ( et_builder_should_load_framework() ) {
-	// Initialize the Divi Library.
-	require_once ET_BUILDER_DIR . 'feature/Library.php';
+	et_builder_load_library();
 }
 
 if ( ! function_exists( 'et_builder_maybe_enable_inline_styles' ) ) :
@@ -624,6 +642,9 @@ function et_builder_get_enabled_builder_post_types() {
 	 */
 	$options = apply_filters( 'et_builder_enabled_builder_post_type_options', array() );
 
+	// Ensure $options value type is array.
+	$options = is_array( $options ) ? $options : array();
+
 	foreach ( $default as $post_type ) {
 		if ( ! isset( $options[ $post_type ] ) ) {
 			$options[ $post_type ] = 'on';
@@ -750,6 +771,27 @@ function et_builder_is_post_type_public( $post_type ) {
 
 	// Note: the page post type is not publicly_queryable but we should treat it as such.
 	return ( $pto && ( $pto->publicly_queryable || 'page' === $pto->name ) );
+}
+
+/**
+ * Check whether the styles for the current request should be wrapped.
+ * We wrap styles on non-native custom post types and custom post archives.
+ *
+ * @since 4.10.6
+ *
+ * @return boolean
+ */
+function et_builder_should_wrap_styles() {
+	static $should_wrap = null;
+
+	if ( null === $should_wrap ) {
+		$post_id = get_the_ID();
+
+		// Warp on custom post type archives and on non-native custom post types when the builder is used.
+		$should_wrap = et_builder_is_custom_post_type_archive() || ( et_builder_post_is_of_custom_post_type( $post_id ) && et_pb_is_pagebuilder_used( $post_id ) );
+	}
+
+	return $should_wrap;
 }
 
 /**
@@ -1232,9 +1274,13 @@ function et_pb_retrieve_templates( $layout_type = 'layout', $module_width = '', 
 		)
 	);
 
-	wp_reset_postdata();
-
 	if ( ! empty( $query->posts ) ) {
+		// Call the_post() to properly configure post data. Make sure to call the_post() and
+		// wp_reset_postdata() only if the posts result exist to avoid unexpected issues.
+		$query->the_post();
+
+		wp_reset_postdata();
+
 		foreach ( $query->posts as $single_post ) {
 
 			if ( 'module' === $layout_type ) {
@@ -1375,6 +1421,7 @@ if ( ! function_exists( 'et_pb_add_new_layout' ) ) {
 			die();
 		}
 
+		$layout_location  = et_()->array_get_sanitized( $processed_data_array, 'et_pb_template_cloud', 'local' );
 		$layout_type      = et_()->array_get_sanitized( $processed_data_array, 'new_template_type', 'layout' );
 		$layout_is_global = 'global' === et_()->array_get( $processed_data_array, 'et_pb_template_global', 'not_global' );
 		if ( 'layout' === $layout_type ) {
@@ -1385,11 +1432,14 @@ if ( ! function_exists( 'et_pb_add_new_layout' ) ) {
 		$args = array(
 			'layout_type'          => $layout_type,
 			'layout_selected_cats' => ! empty( $processed_data_array['selected_cats'] ) ? sanitize_text_field( $processed_data_array['selected_cats'] ) : '',
+			'layout_selected_tags' => ! empty( $processed_data_array['selected_tags'] ) ? sanitize_text_field( $processed_data_array['selected_tags'] ) : '',
 			'built_for_post_type'  => ! empty( $processed_data_array['et_builder_layout_built_for_post_type'] ) ? sanitize_text_field( $processed_data_array['et_builder_layout_built_for_post_type'] ) : 'page',
 			'layout_new_cat'       => ! empty( $processed_data_array['et_pb_new_cat_name'] ) ? sanitize_text_field( $processed_data_array['et_pb_new_cat_name'] ) : '',
+			'layout_new_tag'       => ! empty( $processed_data_array['et_pb_new_tag_name'] ) ? sanitize_text_field( $processed_data_array['et_pb_new_tag_name'] ) : '',
 			'columns_layout'       => ! empty( $processed_data_array['et_columns_layout'] ) ? sanitize_text_field( $processed_data_array['et_columns_layout'] ) : '0',
 			'module_type'          => ! empty( $processed_data_array['et_module_type'] ) ? sanitize_text_field( $processed_data_array['et_module_type'] ) : 'et_pb_unknown',
 			'layout_scope'         => $layout_is_global ? 'global' : 'not_global',
+			'layout_location'      => $layout_location,
 			'module_width'         => 'regular',
 			'layout_content'       => ! empty( $processed_data_array['template_shortcode'] ) ? $processed_data_array['template_shortcode'] : '',
 			'layout_name'          => ! empty( $processed_data_array['et_pb_new_template_name'] ) ? sanitize_text_field( $processed_data_array['et_pb_new_template_name'] ) : '',
@@ -1467,10 +1517,16 @@ if ( ! function_exists( 'et_pb_submit_layout' ) ) :
 		}
 
 		$layout_cats_processed = array();
+		$layout_tags_processed = array();
 
 		if ( '' !== $args['layout_selected_cats'] ) {
 			$layout_cats_array     = explode( ',', $args['layout_selected_cats'] );
 			$layout_cats_processed = array_map( 'intval', $layout_cats_array );
+		}
+
+		if ( '' !== $args['layout_selected_tags'] ) {
+			$layout_tags_array     = explode( ',', $args['layout_selected_tags'] );
+			$layout_tags_processed = array_map( 'intval', $layout_tags_array );
 		}
 
 		$meta = array();
@@ -1496,9 +1552,11 @@ if ( ! function_exists( 'et_pb_submit_layout' ) ) :
 			'layout_type'     => $args['layout_type'],
 			'module_width'    => $args['module_width'],
 			'layout_category' => $layout_cats_processed,
+			'layout_tag'      => $layout_tags_processed,
+			'layout_location' => et_()->array_get_sanitized( $args, 'layout_location', 'local' ),
 		);
 
-		$new_layout_id            = et_pb_create_layout( $args['layout_name'], $args['layout_content'], $meta, $tax_input, $args['layout_new_cat'] );
+		$new_layout_id            = et_pb_create_layout( $args['layout_name'], $args['layout_content'], $meta, $tax_input, $args['layout_new_cat'], $args['layout_new_tag'] );
 		$new_post_data['post_id'] = (int) $new_layout_id;
 
 		$new_post_data['edit_link'] = esc_url_raw( get_edit_post_link( $new_layout_id ) );
@@ -1518,11 +1576,11 @@ if ( ! function_exists( 'et_pb_create_layout' ) ) :
 	 * @param array  $tax_input  Array of taxonomy terms keyed by their taxonomy name.
 	 * @param string $new_category The layout category.
 	 */
-	function et_pb_create_layout( $name, $content, $meta = array(), $tax_input = array(), $new_category = '' ) {
+	function et_pb_create_layout( $name, $content, $meta = array(), $tax_input = array(), $new_category = '', $new_tag = '', $post_status = 'publish' ) {
 		$layout = array(
 			'post_title'   => sanitize_text_field( $name ),
 			'post_content' => $content,
-			'post_status'  => 'publish',
+			'post_status'  => $post_status,
 			'post_type'    => ET_BUILDER_LAYOUT_POST_TYPE,
 		);
 
@@ -1533,18 +1591,40 @@ if ( ! function_exists( 'et_pb_create_layout' ) ) :
 				add_post_meta( $layout_id, $meta_key, sanitize_text_field( $meta_value ) );
 			}
 		}
+
 		if ( '' !== $new_category ) {
-			$new_term_id                    = wp_insert_term( $new_category, 'layout_category' );
-			$tax_input['layout_category'][] = (int) $new_term_id['term_id'];
+			// Multiple categories could be provided.
+			$category_names = explode( ',', $new_category );
+
+			foreach ( $category_names as $term_name ) {
+				$new_term = wp_insert_term( $term_name, 'layout_category' );
+
+				if ( ! is_wp_error( $new_term ) && isset( $new_term['term_id'] ) ) {
+					$tax_input['layout_category'][] = (int) $new_term['term_id'];
+				}
+			}
+		}
+
+		if ( '' !== $new_tag ) {
+			// Multiple tags could be provided.
+			$tag_names = explode( ',', $new_tag );
+
+			foreach ( $tag_names as $term_name ) {
+				$new_term = wp_insert_term( $term_name, 'layout_tag' );
+
+				if ( ! is_wp_error( $new_term ) && isset( $new_term['term_id'] ) ) {
+					$tax_input['layout_tag'][] = (int) $new_term['term_id'];
+				}
+			}
 		}
 
 		if ( ! empty( $tax_input ) ) {
 			foreach ( $tax_input as $taxonomy => $terms ) {
 				wp_set_post_terms( $layout_id, $terms, $taxonomy );
 			}
-		}
 
-		return $layout_id;
+			return $layout_id;
+		}
 	}
 endif;
 
@@ -1569,6 +1649,7 @@ function et_pb_save_layout() {
 		'layout_selected_cats' => isset( $_POST['et_layout_cats'] ) ? sanitize_text_field( $_POST['et_layout_cats'] ) : '',
 		'built_for_post_type'  => isset( $_POST['et_post_type'] ) ? sanitize_text_field( $_POST['et_post_type'] ) : 'page',
 		'layout_new_cat'       => isset( $_POST['et_layout_new_cat'] ) ? sanitize_text_field( $_POST['et_layout_new_cat'] ) : '',
+		'layout_new_tag'       => isset( $_POST['et_layout_new_tag'] ) ? sanitize_text_field( $_POST['et_layout_new_tag'] ) : '',
 		'columns_layout'       => isset( $_POST['et_columns_layout'] ) ? sanitize_text_field( $_POST['et_columns_layout'] ) : '0',
 		'module_type'          => isset( $_POST['et_module_type'] ) ? sanitize_text_field( $_POST['et_module_type'] ) : 'et_pb_unknown',
 		'layout_scope'         => isset( $_POST['et_layout_scope'] ) ? sanitize_text_field( $_POST['et_layout_scope'] ) : 'not_global',
@@ -1614,9 +1695,13 @@ function et_pb_get_global_module() {
 			)
 		);
 
-		wp_reset_postdata();
-
 		if ( ! empty( $query->post ) ) {
+			// Call the_post() to properly configure post data. Make sure to call the_post() and
+			// wp_reset_postdata() only if the posts result exist to avoid unexpected issues.
+			$query->the_post();
+
+			wp_reset_postdata();
+
 			if ( 'skip' === $global_autop ) {
 				$post_content = $query->post->post_content;
 			} else {
@@ -2447,6 +2532,9 @@ function et_fb_get_nonces() {
 		'processImportedData'             => wp_create_nonce( 'et_fb_process_imported_data_nonce' ),
 		'retrieveLibraryModules'          => wp_create_nonce( 'et_fb_retrieve_library_modules_nonce' ),
 		'saveLibraryModules'              => wp_create_nonce( 'et_fb_save_library_modules_nonce' ),
+		'clearTempPresets'                => wp_create_nonce( 'et_fb_clear_temp_presets_nonce' ),
+		'saveCloudItemContent'            => wp_create_nonce( 'et_fb_save_cloud_item_nonce' ),
+		'removeLibraryModules'            => wp_create_nonce( 'et_fb_remove_library_modules_nonce' ),
 		'preview'                         => wp_create_nonce( 'et_pb_preview_nonce' ),
 		'autosave'                        => wp_create_nonce( 'et_fb_autosave_nonce' ),
 		'moduleEmailOptinFetchLists'      => wp_create_nonce( 'et_builder_email_fetch_lists_nonce' ),
@@ -2456,7 +2544,11 @@ function et_fb_get_nonces() {
 		'abTestingReport'                 => wp_create_nonce( 'ab_testing_builder_nonce' ),
 		'libraryLayoutsData'              => wp_create_nonce( 'et_builder_library_get_layouts_data' ),
 		'libraryGetLayout'                => wp_create_nonce( 'et_builder_library_get_layout' ),
+		'libraryUpdateLayout'             => wp_create_nonce( 'et_builder_library_update_layout' ),
+		'libraryUpdateTerms'              => wp_create_nonce( 'et_builder_library_update_terms' ),
+		'libraryUpdateLocation'           => wp_create_nonce( 'et_builder_library_toggle_item_location' ),
 		'libraryUpdateAccount'            => wp_create_nonce( 'et_builder_library_update_account' ),
+		'libraryGetCloudToken'            => wp_create_nonce( 'et_builder_library_get_cloud_token' ),
 		'fetchAttachments'                => wp_create_nonce( 'et_fb_fetch_attachments' ),
 		'droploaderProcess'               => wp_create_nonce( 'et_builder_droploader_process_nonce' ),
 		'resolvePostContent'              => wp_create_nonce( 'et_fb_resolve_post_content' ),
@@ -2468,6 +2560,18 @@ function et_fb_get_nonces() {
 		'retrieveGlobalPresetsHistory'    => wp_create_nonce( 'et_builder_retrieve_global_presets_history' ),
 		'migrateModuleCustomizerPhaseTwo' => wp_create_nonce( 'et_builder_migrate_module_customizer_phase_two' ),
 		'getWoocommerceTabs'              => wp_create_nonce( 'et_builder_get_woocommerce_tabs' ),
+		'getPostTypes'                    => wp_create_nonce( 'et_builder_ajax_get_post_types' ),
+		'getAuthors'                      => wp_create_nonce( 'et_builder_ajax_get_authors' ),
+		'getUserRoles'                    => wp_create_nonce( 'et_builder_ajax_get_user_roles' ),
+		'getCategories'                   => wp_create_nonce( 'et_builder_ajax_get_categories' ),
+		'getTags'                         => wp_create_nonce( 'et_builder_ajax_get_tags' ),
+		'searchProducts'                  => wp_create_nonce( 'et_builder_ajax_search_products' ),
+		'getDisplayConditionsStatus'      => wp_create_nonce( 'et_builder_ajax_get_display_conditions_status' ),
+		'getPostMetaFields'               => wp_create_nonce( 'et_builder_ajax_get_post_meta_fields' ),
+		'globalColorsSave'                => wp_create_nonce( 'et_builder_global_colors_save' ),
+		'defaultColorsUpdate'             => wp_create_nonce( 'et_builder_default_colors_update' ),
+		'saveDomainToken'                 => wp_create_nonce( 'et_builder_ajax_save_domain_token' ),
+		'beforeAfterComponents'           => wp_create_nonce( 'et_fb_fetch_before_after_components_nonce' ),
 	);
 
 	return array_merge( $nonces, $fb_nonces );
@@ -2546,7 +2650,7 @@ if ( ! function_exists( 'et_builder_email_add_account' ) ) :
 
 		$provider_slug = isset( $_POST['et_provider'] ) ? sanitize_text_field( $_POST['et_provider'] ) : '';
 		$name_key      = "et_{$provider_slug}_account_name";
-		$account_name  = isset( $_POST[ $name_key ] ) ? sanitize_text_field( $_POST[ $name_key ] ) : '';
+		$account_name  = isset( $_POST[ $name_key ] ) ? sanitize_text_field( stripslashes( $_POST[ $name_key ] ) ) : ''; // phpcs:ignore ET.Sniffs.ValidatedSanitizedInput.InputNotSanitized -- sanitize_text_field() function does sanitation.
 
 		if ( isset( $_POST['module_class'] ) && in_array( $_POST['module_class'], array( 'Signup', 'Contact_Form' ), true ) ) {
 			$module_class = sanitize_text_field( $_POST['module_class'] );
@@ -2588,6 +2692,14 @@ if ( ! function_exists( 'et_builder_email_add_account' ) ) :
 				'custom_fields'            => $_->array_get( $list_data, 'custom_fields', array() ),
 				'predefined_custom_fields' => ET_Core_API_Email_Providers::instance()->custom_fields_data(),
 			);
+		} elseif ( is_array( $result ) && isset( $result['redirect_url'] ) ) {
+			$result = array(
+				'error'                    => false,
+				'redirect_url'             => $result['redirect_url'],
+				'accounts_list'            => $_->array_get( $list_data, 'accounts_list', $list_data ),
+				'custom_fields'            => $_->array_get( $list_data, 'custom_fields', array() ),
+				'predefined_custom_fields' => ET_Core_API_Email_Providers::instance()->custom_fields_data(),
+			);
 		} else {
 			$result = array(
 				'error'                    => true,
@@ -2604,6 +2716,69 @@ if ( ! function_exists( 'et_builder_email_add_account' ) ) :
 	add_action( 'wp_ajax_et_builder_email_add_account', 'et_builder_email_add_account' );
 endif;
 
+if ( ! function_exists( 'et_builder_finish_oauth2_authorization' ) ) :
+	/**
+	 * Process the Email Optin OAuth2 authorization from builder / VB.
+	 * This will be loaded in a popup window.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @throws Exception If the Provider or Account not exists.
+	 *
+	 * @return void
+	 */
+	function et_builder_finish_oauth2_authorization() {
+		if ( ! isset( $_GET['et-core-api-email-auth'] ) || empty( esc_attr( $_GET['et-core-api-email-auth'] ) ) ) { // // phpcs:ignore ET.Sniffs.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Recommended -- logic for nonce checks are following
+			return;
+		}
+
+		if ( ! isset( $_GET['state'] ) || 0 !== strpos( $_GET['state'], 'ET_Core' ) ) { // phpcs:ignore ET.Sniffs.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Recommended -- logic for nonce checks are following
+			return;
+		}
+
+		$authenticated = false;
+		try {
+			et_core_nonce_verified_previously();
+
+			list( $_, $name, $account, $nonce ) = explode( '|', sanitize_text_field( rawurldecode( $_GET['state'] ) ) ); // @phpcs:ignore ET.Sniffs.ValidatedSanitizedInput.InputNotSanitized -- Sanitized with sanitize_text_field
+
+			if ( ! $name || ! $account || ! $nonce ) {
+				return;
+			}
+
+			$_GET['nonce'] = $nonce;
+
+			et_core_security_check( 'manage_options', 'et_core_api_service_oauth2', 'nonce', '_GET' );
+
+			$providers = ET_Core_API_Email_Providers::instance();
+			if ( ! $providers->account_exists( $name, $account ) ) {
+				throw new Exception( __( 'Account not exists.', 'et_builder' ) );
+			}
+
+			$provider = $providers->get( $name, $account, 'builder' );
+			if ( ! $provider ) {
+				throw new Exception( __( 'Email provider not exists.', 'et_builder' ) );
+			}
+
+			$authenticated = $provider->is_authenticated();
+			if ( ! $authenticated ) {
+				$authenticated = $provider->authenticate();
+			}
+		} catch ( Exception $err ) {
+			$authenticated = false;
+		}
+		?>
+		<script type="text/javascript">
+			// Send a message to the window opener to close this window and process further.
+			if (window.opener) {
+				window.opener.postMessage({ authenticated: <?php echo $authenticated ? 1 : 0; ?> }, window.opener.location);
+			}
+		</script>
+		<?php
+		exit();
+	}
+	add_action( 'init', 'et_builder_finish_oauth2_authorization' );
+endif;
 
 if ( ! function_exists( 'et_builder_email_get_fields_from_post_data' ) ) :
 	/**
@@ -2682,8 +2857,8 @@ if ( ! function_exists( 'et_builder_email_get_lists_field_data' ) ) :
 			);
 
 			if ( 'Signup' === $module_class ) {
-				$signup_field                 = new ET_Builder_Module_Signup_Item();
-				$fields_data['custom_fields'] = $signup_field->get_fields();
+				$signup_field                = new ET_Builder_Module_Signup_Item();
+				$field_data['custom_fields'] = $signup_field->get_fields();
 			}
 		}
 		// phpcs:enable
@@ -2695,8 +2870,6 @@ if ( ! function_exists( 'et_builder_email_get_lists_field_data' ) ) :
 endif;
 
 
-
-
 if ( ! function_exists( 'et_builder_email_get_lists' ) ) :
 	/**
 	 * Ajax handler for the Email Opt-in Module's "Fetch Lists" action.
@@ -2705,7 +2878,7 @@ if ( ! function_exists( 'et_builder_email_get_lists' ) ) :
 		et_core_security_check( 'manage_options', 'et_builder_email_fetch_lists_nonce' );
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase -- BB is common abbreviation.
 		$provider_slug = isset( $_POST['et_provider'] ) ? sanitize_text_field( $_POST['et_provider'] ) : '';
-		$account_name  = isset( $_POST['et_account'] ) ? sanitize_text_field( $_POST['et_account'] ) : '';
+		$account_name  = isset( $_POST['et_account'] ) ? sanitize_text_field( stripslashes( $_POST['et_account'] ) ) : ''; // phpcs:ignore ET.Sniffs.ValidatedSanitizedInput.InputNotSanitized -- sanitize_text_field() function does sanitation.
 		$is_bb         = isset( $_POST['et_bb'] );
 
 		if ( empty( $provider_slug ) || empty( $account_name ) ) {
@@ -2835,7 +3008,7 @@ if ( ! function_exists( 'et_builder_email_remove_account' ) ) :
 		et_core_security_check( 'manage_options', 'et_builder_email_remove_account_nonce' );
 
 		$provider_slug = isset( $_POST['et_provider'] ) ? sanitize_text_field( $_POST['et_provider'] ) : '';
-		$account_name  = isset( $_POST['et_account'] ) ? sanitize_text_field( $_POST['et_account'] ) : '';
+		$account_name  = isset( $_POST['et_account'] ) ? sanitize_text_field( stripslashes( $_POST['et_account'] ) ) : ''; // phpcs:ignore ET.Sniffs.ValidatedSanitizedInput.InputNotSanitized -- sanitize_text_field() function does sanitation.
 
 		if ( isset( $_POST['module_class'] ) && in_array( $_POST['module_class'], array( 'Signup', 'Contact_Form' ), true ) ) {
 			$module_class = sanitize_text_field( $_POST['module_class'] );
@@ -2890,7 +3063,7 @@ if ( ! function_exists( 'et_pb_submit_subscribe_form' ) ) :
 		$use_spam_service = get_option( 'et_pb_signup_' . $checksum );
 
 		$provider_slug = $utils->array_get_sanitized( $_POST, 'et_provider' );
-		$account_name  = $utils->array_get_sanitized( $_POST, 'et_account' );
+		$account_name  = stripslashes( $utils->array_get_sanitized( $_POST, 'et_account' ) );
 		$custom_fields = $utils->array_get( $_POST, 'et_custom_fields', array() );
 		$provider      = $providers->get( $provider_slug, $account_name, 'builder' );
 
@@ -3787,8 +3960,8 @@ if ( ! function_exists( 'et_builder_get_disabled_link_modal' ) ) :
 				<div class="et_pb_prompt_buttons">
 					<a href="#" class="et_pb_prompt_proceed">%3$s</a>
 				</div>
-			</div><!-- .et_pb_prompt_modal -->
-		</div><!-- .et_pb_modal_overlay -->',
+			</div>
+		</div>',
 			esc_html__( 'Link Disabled', 'et_builder' ),
 			esc_html__( 'During preview, link to different page is disabled', 'et_builder' ),
 			esc_html__( 'Close', 'et_builder' )
@@ -4585,7 +4758,8 @@ if ( ! function_exists( 'et_fb_is_enabled' ) ) :
 			return $check;
 		}
 
-		if ( ! $post_id ) {
+		// phpcs:ignore WordPress.Security.NonceVerification -- This function does not change any state, and is therefore not susceptible to CSRF.
+		if ( empty( $_GET['et_fb'] ) ) {
 			return false;
 		}
 
@@ -4595,10 +4769,6 @@ if ( ! function_exists( 'et_fb_is_enabled' ) ) :
 
 		$cache[ $post_id ] = false;
 
-		if ( ! is_singular() ) {
-			return false;
-		}
-
 		if ( is_admin() ) {
 			return false;
 		}
@@ -4607,16 +4777,19 @@ if ( ! function_exists( 'et_fb_is_enabled' ) ) :
 			return false;
 		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification -- This function does not change any state, and is therefore not susceptible to CSRF.
-		if ( empty( $_GET['et_fb'] ) ) {
-			return false;
-		}
-
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return false;
 		}
 
-		if ( ! et_pb_is_pagebuilder_used( $post_id ) ) {
+		if ( ! et_pb_is_pagebuilder_used( $post_id ) && ! et_fb_is_theme_builder_used_on_page() ) {
+			return false;
+		}
+
+		if ( is_singular() && ! current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
+		if ( ! is_singular() && ! et_pb_is_allowed( 'theme_builder' ) ) {
 			return false;
 		}
 
@@ -4627,6 +4800,60 @@ if ( ! function_exists( 'et_fb_is_enabled' ) ) :
 		$cache[ $post_id ] = true;
 
 		return true;
+	}
+endif;
+
+if ( ! function_exists( 'et_fb_is_enabled_on_any_template' ) ) :
+	/**
+	 * Determine fb enabled status of a post / page or any theme builder layout used in the page.
+	 *
+	 * @internal NOTE: Don't use this from outside builder code! {@see et_core_is_fb_enabled()}.
+	 *
+	 * @return bool
+	 */
+	function et_fb_is_enabled_on_any_template() {
+		$theme_builder_layouts = et_theme_builder_get_template_layouts();
+
+		// Unset main template from Theme Builder layouts to avoid PHP Notices.
+		if ( isset( $theme_builder_layouts['et_template'] ) ) {
+			unset( $theme_builder_layouts['et_template'] );
+		}
+
+		// Check if Builder is enabled on any Theme Builder Layout used.
+		foreach ( $theme_builder_layouts as $key => $theme_builder_layout ) {
+			if ( $theme_builder_layout['enabled'] && $theme_builder_layout['override'] ) {
+				if ( et_fb_is_enabled( $theme_builder_layout['id'] ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+endif;
+
+if ( ! function_exists( 'et_fb_is_theme_builder_used_on_page' ) ) :
+	/**
+	 * Check if Theme Builder is Used on the page.
+	 *
+	 * @return bool
+	 */
+	function et_fb_is_theme_builder_used_on_page() {
+		$theme_builder_layouts = et_theme_builder_get_template_layouts();
+
+		// Unset main template from Theme Builder layouts to avoid PHP Notices.
+		if ( isset( $theme_builder_layouts['et_template'] ) ) {
+			unset( $theme_builder_layouts['et_template'] );
+		}
+
+		// If any template is used and enabled return true.
+		foreach ( $theme_builder_layouts as $theme_builder_layout ) {
+			if ( $theme_builder_layout['enabled'] && $theme_builder_layout['override'] ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 endif;
 
@@ -4667,6 +4894,23 @@ if ( ! function_exists( 'et_fb_is_computed_callback_ajax' ) ) :
 		}
 
 		return 'et_pb_process_computed_property' === $_REQUEST['action'];
+		// phpcs:enable
+	}
+endif;
+
+if ( ! function_exists( 'et_fb_is_before_after_components_callback_ajax' ) ) :
+	/**
+	 * Returns whether current request is before & after components callback AJAX call.
+	 *
+	 * @since 4.14.5
+	 *
+	 * @return bool
+	 */
+	function et_fb_is_before_after_components_callback_ajax() {
+		// phpcs:disable WordPress.Security.NonceVerification -- This function does not change any state, and is therefore not susceptible to CSRF.
+		$action = ! empty( $_REQUEST['action'] ) ? sanitize_text_field( $_REQUEST['action'] ) : '';
+
+		return wp_doing_ajax() && 'et_fb_fetch_before_after_components' === $action;
 		// phpcs:enable
 	}
 endif;
@@ -4867,7 +5111,7 @@ endif;
 
 if ( ! function_exists( 'et_builder_get_fonts' ) ) :
 	/**
-	 * Return websage and google font list.
+	 * Return websafe and google font list.
 	 *
 	 * @param array $settings {
 	 *  Font settings.
@@ -5012,25 +5256,40 @@ function et_builder_old_fonts_mapping() {
 
 if ( ! function_exists( 'et_builder_google_fonts_sync' ) ) :
 	/**
-	 * Sync google fonts. clear font cache every 12 hours.
+	 * Sync Google Fonts. Clear font cache every 24 hours.
 	 */
 	function et_builder_google_fonts_sync() {
 		$google_api_key = et_pb_get_google_api_key();
 
+		// Bail early if 'fonts_cache_status' transient is not expired.
+		if ( false !== get_transient( 'fonts_cache_status' ) ) {
+			return;
+		}
+
+		// Bail early if Google API Key is empty or Google Fonts is disabled.
 		if ( '' === $google_api_key || ! et_core_use_google_fonts() ) {
 			return;
 		}
 
+		// Set 'fonts_cache_status' transient to true, marking the font cache update attempt to avoid making the request more than once a day in case of an error.
+		set_transient( 'fonts_cache_status', true, 24 * HOUR_IN_SECONDS );
+
 		$google_fonts_api_url  = sprintf( 'https://www.googleapis.com/webfonts/v1/webfonts?key=%1$s', $google_api_key );
 		$google_fonts_response = wp_remote_get( esc_url_raw( $google_fonts_api_url ) );
 
-		$google_fonts = is_array( $google_fonts_response ) ? et_core_parse_google_fonts_json( wp_remote_retrieve_body( $google_fonts_response ) ) : array();
+		// Check if the response is an array and we have a valid 200 response, otherwise log an error.
+		if ( is_array( $google_fonts_response ) && 200 === $google_fonts_response['response']['code'] ) {
+			$google_fonts_json = wp_remote_retrieve_body( $google_fonts_response );
+			$google_fonts_json = et_core_parse_google_fonts_json( $google_fonts_json );
 
-		if ( ! empty( $google_fonts ) ) {
-			// save google fonts.
-			update_option( 'et_google_fonts_cache', $google_fonts );
-			// save google fonts cache status.
-			set_transient( 'fonts_cache_status', 'valid', 12 * HOUR_IN_SECONDS );
+			if ( ! empty( $google_fonts_json ) ) {
+				// Save Google Fonts Data, if it's not empty.
+				update_option( 'et_google_fonts_cache', $google_fonts_json );
+			}
+		} else {
+			et_debug( 'An unkown error has occured while trying to retrieve the fonts from the Google Fonts API. Please ensure your Google API Key is valid and active.' );
+
+			return;
 		}
 	}
 endif;
@@ -5045,12 +5304,10 @@ if ( ! function_exists( 'et_builder_get_google_fonts' ) ) :
 			return array();
 		}
 
-		// Update fonts cache daily.
-		if ( 'valid' !== get_transient( 'fonts_cache_status' ) ) {
-			et_builder_google_fonts_sync();
-		}
+		et_builder_google_fonts_sync();
 
 		$google_fonts_cache = get_option( 'et_google_fonts_cache', array() );
+		$google_fonts_cache = is_array( $google_fonts_cache ) ? $google_fonts_cache : et_core_parse_google_fonts_json( $google_fonts_cache );
 
 		if ( ! empty( $google_fonts_cache ) ) {
 			// Use cache if it's not empty.
@@ -5834,6 +6091,8 @@ function et_prevent_duplicate_item( $string_list, $delimiter ) {
  * @since 4.6.2 Removes static $should_load to ensure it's filtered with latest value.
  *
  * @return bool
+ *
+ * @deprecated ??
  */
 function et_load_unminified_scripts() {
 	$is_script_debug = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
@@ -5845,6 +6104,8 @@ function et_load_unminified_scripts() {
  * Determining whether unminified styles should be loaded or not
  *
  * @since 4.6.2 Removes static $should_load to ensure it's filtered with latest value.
+ *
+ * @deprecated ??
  */
 function et_load_unminified_styles() {
 	$is_script_debug = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
@@ -6129,8 +6390,8 @@ if ( ! function_exists( 'et_builder_show_bfb_welcome_modal' ) ) :
 			</div>
 		</div> );
 		<script>
-			jQuery(document).ready(function() {
-				etCore.modalOpen(jQuery('.et-builder-bfb-welcome-modal:first'));
+			jQuery(function() {
+				etCore.modalOpen(jQuery('.et-builder-bfb-welcome-modal').first());
 			});
 		</script>
 		<?php
@@ -6301,8 +6562,8 @@ function et_builder_get_layout_closing_wrapper() {
 
 	return sprintf(
 		'
-		</div><!-- .et_builder_inner_content -->
-	</%1$s><!-- .et-l -->
+		</div>
+	</%1$s>
 	',
 		esc_attr( $el )
 	);
@@ -6317,12 +6578,12 @@ function et_builder_get_layout_closing_wrapper() {
  */
 function et_builder_get_builder_content_closing_wrapper() {
 	$is_dbp                   = et_is_builder_plugin_active();
-	$dbp_compat_wrapper_close = $is_dbp ? '</div><!-- .et_builder_outer_content -->' : '';
+	$dbp_compat_wrapper_close = $is_dbp ? '</div>' : '';
 
 	return sprintf(
 		'
 			%1$s
-		</div><!-- #et-boc -->
+		</div>
 		',
 		et_core_intentionally_unescaped( $dbp_compat_wrapper_close, 'fixed_string' )
 	);
@@ -6361,7 +6622,10 @@ function et_builder_add_builder_content_wrapper( $content ) {
 	 *
 	 * @param bool $wrap
 	 */
-	$wrap = apply_filters( 'et_builder_add_outer_content_wrap', true );
+	$post_id                   = is_singular() ? get_the_ID() : 0;
+	$is_custom_post_type       = et_builder_post_is_of_custom_post_type( $post_id ) && ! ET_Builder_Element::is_theme_builder_layout();
+	$should_content_be_wrapped = $is_custom_post_type || et_is_builder_plugin_active() || et_core_is_fb_enabled();
+	$wrap                      = apply_filters( 'et_builder_add_outer_content_wrap', $should_content_be_wrapped );
 
 	if ( $wrap ) {
 		$content = et_builder_get_builder_content_opening_wrapper() . $content . et_builder_get_builder_content_closing_wrapper();
@@ -6378,7 +6642,7 @@ add_filter( 'et_builder_render_layout', 'et_builder_add_builder_content_wrapper'
  * that target elements both inside AND outside the wrapper element.
  *
  * @since 3.10
- * @since ?? New $inside_selectors parameter to extend default inside selector.
+ * @since 4.6.6 New $inside_selectors parameter to extend default inside selector.
  *
  * @param string  $selector         CSS selector to wrap.
  * @param string  $suffix           Selector partial to add to the wrapped selector after the wrapper (a space will be added first).
@@ -6476,7 +6740,7 @@ function et_builder_maybe_wrap_css_selector( $selector, $suffix = '', $clone = t
  * at once (eg. selector1, selector2, selector3)
  *
  * @since 3.10
- * @since ?? New $inside_selectors parameter to extend default inside selector.
+ * @since 4.6.6 New $inside_selectors parameter to extend default inside selector.
  *
  * @param string $selector         CSS selectors to wrap.
  * @param bool   $clone            {@see et_builder_maybe_wrap_css_selector()}.
@@ -6700,20 +6964,12 @@ endif;
 
 if ( ! function_exists( 'et_fb_enqueue_open_sans' ) ) :
 	/**
-	 * Load Open snas fonts.
+	 * Load Open Sans font.
 	 *
 	 * @deprecated See {@see et_builder_enqueue_open_sans()}
 	 */
 	function et_fb_enqueue_open_sans() {
-		$protocol   = is_ssl() ? 'https' : 'http';
-		$query_args = array(
-			'family' => 'Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800',
-			'subset' => 'latin,latin-ext',
-		);
-
-		// phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Font Apis does not have versions.
-		wp_enqueue_style( 'et-fb-fonts', esc_url_raw( add_query_arg( $query_args, "{$protocol}://fonts.googleapis.com/css" ) ), array(), null );
-		// phpcs:enable
+		et_builder_enqueue_open_sans();
 	}
 endif;
 
@@ -6946,11 +7202,12 @@ function et_builder_filter_main_query_paged_for_blog_module( $query ) {
 	 *
 	 * @var integer
 	 */
-	global $__et_blog_module_paged;
+	global $__et_blog_module_paged, $__et_portfolio_module_paged;
 
 	// phpcs:ignore WordPress.Security.NonceVerification -- This function does not change any state, and is therefore not susceptible to CSRF.
-	if ( isset( $_GET['et_blog'] ) && $query->is_main_query() ) {
-		$__et_blog_module_paged = $query->get( 'paged' );
+	if ( ( isset( $_GET['et_blog'] ) || isset( $_GET['et_portfolio'] ) ) && $query->is_main_query() ) {
+		$__et_blog_module_paged      = $query->get( 'paged' );
+		$__et_portfolio_module_paged = $query->get( 'paged' );
 		$query->set( 'paged', 0 );
 	}
 }
@@ -7014,7 +7271,7 @@ function et_builder_widgets_init() {
 					'name'          => sanitize_text_field( $name ),
 					'id'            => sanitize_text_field( $id ),
 					'before_widget' => '<div id="%1$s" class="et_pb_widget %2$s">',
-					'after_widget'  => '</div> <!-- end .et_pb_widget -->',
+					'after_widget'  => '</div>',
 					'before_title'  => '<h4 class="widgettitle">',
 					'after_title'   => '</h4>',
 				)
@@ -7034,4 +7291,23 @@ if ( et_is_builder_plugin_active() ) {
 	add_action( 'init', 'et_builder_widgets_init', 20 );
 } else {
 	add_action( 'widgets_init', 'et_builder_widgets_init' );
+}
+
+/**
+ * For Dev Use
+ */
+function et_light_debug_backtrace() {
+	$debug_backtrace       = debug_backtrace();
+	$keys                  = [ 'file', 'line', 'function', 'class' ];
+	$light_debug_backtrace = [];
+
+	foreach ( $debug_backtrace as $key => $value ) {
+		foreach ( $keys as $_key ) {
+			if ( isset( $value[ $_key ] ) ) {
+				$light_debug_backtrace[ $key ][ $_key ] = $value[ $_key ];
+			}
+		}
+	}
+
+	return array_slice( $light_debug_backtrace, 1 );
 }

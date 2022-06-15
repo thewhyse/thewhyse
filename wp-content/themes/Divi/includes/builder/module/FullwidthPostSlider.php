@@ -342,6 +342,22 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 			$query_args['cat'] = $args['include_categories'];
 		}
 
+		// WP_Query doesn't return sticky posts when it performed via Ajax.
+		// This happens because `is_home` is false in this case, but on FE it's true if no category set for the query.
+		// Set `is_home` = true to emulate the FE behavior with sticky posts in VB.
+		if ( empty( $query_args['cat'] ) ) {
+			add_action(
+				'pre_get_posts',
+				function( $query ) {
+					if ( true === $query->get( 'et_is_home' ) ) {
+						$query->is_home = true;
+					}
+				}
+			);
+
+			$query_args['et_is_home'] = true;
+		}
+
 		if ( 'date_desc' !== $args['orderby'] ) {
 			switch ( $args['orderby'] ) {
 				case 'date_asc':
@@ -920,7 +936,16 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		global $post;
 
 		/**
@@ -963,6 +988,18 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 		$excerpt_length          = $this->props['excerpt_length'];
 		$header_level            = $this->props['header_level'];
 		$offset_number           = $this->props['offset_number'];
+
+		$use_gradient_options    = $this->props['use_background_color_gradient'];
+		$gradient_overlays_image = $this->props['background_color_gradient_overlays_image'];
+
+		$background_options        = et_pb_background_options();
+		$gradient_properties       = $background_options->get_gradient_properties( $this->props, 'background', '' );
+		$background_gradient_style = $background_options->get_gradient_style( $gradient_properties );
+		$is_gradient_on            = false;
+
+		if ( 'on' === $use_gradient_options && 'on' === $gradient_overlays_image && 'on' === $parallax ) {
+			$is_gradient_on = '' !== $background_gradient_style;
+		}
 
 		$custom_icon_values = et_pb_responsive_options()->get_property_values( $this->props, 'button_icon' );
 		$custom_icon        = isset( $custom_icon_values['desktop'] ) ? $custom_icon_values['desktop'] : '';
@@ -1158,7 +1195,7 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 					)
 				) : '';
 
-				$slide_class  = 'off' !== $show_image && in_array( $image_placement, array( 'left', 'right' ) ) && $has_post_thumbnail ? ' et_pb_slide_with_image' : '';
+				$slide_class  = 'off' !== $show_image && in_array( $image_placement, array( 'left', 'right' ), true ) && $has_post_thumbnail ? ' et_pb_slide_with_image et_pb_media_alignment_center' : '';
 				$slide_class .= 'off' !== $show_image && ! $has_post_thumbnail ? ' et_pb_slide_with_no_image' : '';
 				$slide_class .= ' ' . implode( ' ', $background_layout_class_names );
 
@@ -1178,7 +1215,7 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 				$should_apply_bg_image = $is_show_image && 'background' === $image_placement;
 				$inline_background     = $should_apply_bg_image && $query->posts[ $post_index ]->post_featured_image ? 'style="background-image: url(' . esc_url( $query->posts[ $post_index ]->post_featured_image ) . ');"' : '';
 				?>
-			<div class="et_pb_slide et_pb_media_alignment_center<?php echo esc_attr( $slide_class ); ?>" <?php echo et_core_esc_previously( $multi_view_attrs_wrapper ); ?> <?php echo et_core_esc_previously( $inline_background ); ?>>
+			<div class="et_pb_slide<?php echo esc_attr( $slide_class ); ?>" <?php echo et_core_esc_previously( $multi_view_attrs_wrapper ); ?> <?php echo et_core_esc_previously( $inline_background ); ?>>
 				<?php if ( 'on' === $parallax && $should_apply_bg_image ) { ?>
 					<div class="et_parallax_bg_wrap">
 						<div class="et_parallax_bg
@@ -1187,6 +1224,21 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 							echo ' et_pb_parallax_css'; }
 						?>
 						" style="background-image: url(<?php echo esc_url( $query->posts[ $post_index ]->post_featured_image ); ?>);"<?php echo et_core_esc_previously( $multi_view_attrs_parallax_bg ); ?>></div>
+						<?php
+						if ( $is_gradient_on ) {
+							printf(
+								'<span class="et_parallax_gradient" style="%1$s%2$s"></span>',
+								sprintf(
+									'background-image: %1$s;',
+									esc_html( $background_gradient_style )
+								),
+								( '' !== $background_blend && 'normal' !== $background_blend ) ? sprintf(
+									'mix-blend-mode: %1$s;',
+									esc_html( $background_blend )
+								) : ''
+							);
+						}
+						?>
 					</div>
 				<?php } ?>
 				<?php if ( 'on' === $use_bg_overlay ) { ?>
@@ -1269,15 +1321,15 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 									)
 								);
 							?>
-						</div> <!-- .et_pb_slide_description -->
+						</div>
 						<?php if ( $is_show_image && $has_post_thumbnail && 'bottom' === $image_placement ) { ?>
 							<div class="et_pb_slide_image"<?php echo et_core_esc_previously( $multi_view_attrs_show_image ); ?>>
 								<?php the_post_thumbnail(); ?>
 							</div>
 						<?php } ?>
 					</div>
-				</div> <!-- .et_pb_container -->
-			</div> <!-- .et_pb_slide -->
+				</div>
+			</div>
 				<?php
 				$post_index++;
 				ET_Post_Stack::pop();
@@ -1373,11 +1425,13 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 			'<div%3$s class="%1$s"%7$s%8$s>
 				%5$s
 				%4$s
+				%9$s
+				%10$s
 				<div class="et_pb_slides">
 					%2$s
-				</div> <!-- .et_pb_slides -->
+				</div>
 				%6$s
-			</div> <!-- .et_pb_slider -->
+			</div>
 			',
 			$this->module_classname( $render_slug ),
 			$content,
@@ -1386,7 +1440,9 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 			$parallax_image_background, // #5
 			$this->inner_shadow_back_compatibility( $render_slug ),
 			et_core_esc_previously( $data_background_layout ),
-			$muti_view_data_attr
+			$muti_view_data_attr,
+			et_core_esc_previously( $this->background_pattern() ), // #9
+			et_core_esc_previously( $this->background_mask() ) // #10
 		);
 
 		// Restore $wp_filter
@@ -1489,4 +1545,6 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 	}
 }
 
-new ET_Builder_Module_Fullwidth_Post_Slider();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Fullwidth_Post_Slider();
+}

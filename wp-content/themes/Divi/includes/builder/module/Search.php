@@ -61,7 +61,7 @@ class ET_Builder_Module_Search extends ET_Builder_Module {
 			),
 			'background'     => array(
 				'css' => array(
-					'main' => "{$this->main_css_element} input.et_pb_s",
+					'main' => "{$this->main_css_element} .et_pb_searchform",
 				),
 			),
 			'borders'        => array(
@@ -278,7 +278,16 @@ class ET_Builder_Module_Search extends ET_Builder_Module {
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view                = et_pb_multi_view_options( $this );
 		$exclude_categories        = $this->props['include_categories'];
 		$exclude_posts             = $this->props['exclude_posts'];
@@ -388,6 +397,8 @@ class ET_Builder_Module_Search extends ET_Builder_Module {
 			'<div%3$s class="%2$s"%12$s%13$s>
 				%11$s
 				%10$s
+				%14$s
+				%15$s
 				<form role="search" method="get" class="et_pb_searchform" action="%1$s">
 					<div>
 						<label class="screen-reader-text" for="s">%8$s</label>
@@ -399,7 +410,7 @@ class ET_Builder_Module_Search extends ET_Builder_Module {
 						<input type="submit" value="%9$s" class="et_pb_searchsubmit">
 					</div>
 				</form>
-			</div> <!-- .et_pb_text -->',
+			</div>',
 			esc_url( home_url( '/' ) ),
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
@@ -412,11 +423,15 @@ class ET_Builder_Module_Search extends ET_Builder_Module {
 			$video_background, // #10
 			$parallax_image_background,
 			et_core_esc_previously( $data_background_layout ),
-			$multi_view_show_button_data_attr
+			$multi_view_show_button_data_attr,
+			et_core_esc_previously( $this->background_pattern() ), // #14
+			et_core_esc_previously( $this->background_mask() ) // #15
 		);
 
 		return $output;
 	}
 }
 
-new ET_Builder_Module_Search();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Search();
+}

@@ -190,7 +190,16 @@ class ET_Builder_Module_Divider extends ET_Builder_Module {
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view                  = et_pb_multi_view_options( $this );
 		$show_divider                = $this->props['show_divider'];
 		$divider_position_customizer = ! et_is_builder_plugin_active() ? et_get_option( 'et_pb_divider-divider_position', 'top' ) : 'top';
@@ -377,16 +386,20 @@ class ET_Builder_Module_Divider extends ET_Builder_Module {
 		);
 
 		$output = sprintf(
-			'<div%2$s class="%1$s"%5$s>%4$s%3$s<div class="et_pb_divider_internal"></div></div>',
+			'<div%2$s class="%1$s"%5$s>%4$s%3$s%6$s%7$s<div class="et_pb_divider_internal"></div></div>',
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
 			$video_background,
 			$parallax_image_background,
-			$multi_view_data_attr
+			$multi_view_data_attr,
+			et_core_esc_previously( $this->background_pattern() ), // #6
+			et_core_esc_previously( $this->background_mask() ) // #7
 		);
 
 		return $output;
 	}
 }
 
-new ET_Builder_Module_Divider();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Divider();
+}

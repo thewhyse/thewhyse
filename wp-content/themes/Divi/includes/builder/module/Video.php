@@ -47,6 +47,15 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 					),
 				),
 			),
+			'borders'         => array(
+				'default' => array(
+					'css' => array(
+						'main' => array(
+							'border_radii' => '%%order_class%%, %%order_class%% iframe',
+						),
+					),
+				),
+			),
 			'box_shadow'      => array(
 				'default' => array(
 					'css' => array(
@@ -150,6 +159,17 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 				'hover'          => 'tabs',
 				'mobile_options' => true,
 				'sticky'         => true,
+			),
+			'font_icon'      => array(
+				'label'          => esc_html__( 'Icon', 'et_builder' ),
+				'toggle_slug'    => 'play_icon',
+				'type'           => 'select_icon',
+				'class'          => array( 'et-pb-font-icon' ),
+				'description'    => esc_html__( 'Choose an icon to display with your blurb.', 'et_builder' ),
+				'mobile_options' => true,
+				'hover'          => 'tabs',
+				'sticky'         => true,
+				'tab_slug'       => 'advanced',
 			),
 			'__video'                 => array(
 				'type'                => 'computed',
@@ -299,7 +319,16 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 		return $image_output;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view         = et_pb_multi_view_options( $this );
 		$src                = $this->props['src'];
 		$src_webm           = $this->props['src_webm'];
@@ -339,6 +368,21 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 				'css_property'                    => 'color',
 				'render_slug'                     => $render_slug,
 				'type'                            => 'color',
+			)
+		);
+
+		// Play Icon Styles.
+		$this->generate_styles(
+			array(
+				'utility_arg'    => 'icon_font_family_and_content',
+				'render_slug'    => $render_slug,
+				'base_attr_name' => 'font_icon',
+				'important'      => true,
+				'selector'       => '%%order_class%% .et_pb_video_overlay .et_pb_video_play:before',
+				'processor'      => array(
+					'ET_Builder_Module_Helper_Style_Processor',
+					'process_extended_icon',
+				),
 			)
 		);
 
@@ -399,6 +443,8 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 			'<div%2$s class="%3$s">
 				%6$s
 				%5$s
+				%7$s
+				%8$s
 				%1$s
 				%4$s
 			</div>',
@@ -407,7 +453,9 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 			$this->module_classname( $render_slug ),
 			$muti_view_video_overlay,
 			$video_background,
-			$parallax_image_background
+			$parallax_image_background,
+			et_core_esc_previously( $this->background_pattern() ), // #7
+			et_core_esc_previously( $this->background_mask() ) // #8
 		);
 
 		return $output;
@@ -448,4 +496,6 @@ class ET_Builder_Module_Video extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Video();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Video();
+}

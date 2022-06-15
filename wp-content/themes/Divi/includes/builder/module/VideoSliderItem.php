@@ -206,6 +206,17 @@ class ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 				'sticky'           => true,
 				'hover'            => 'tabs',
 			),
+			'font_icon'          => array(
+				'label'          => esc_html__( 'Icon', 'et_builder' ),
+				'toggle_slug'    => 'arrows_color',
+				'type'           => 'select_icon',
+				'class'          => array( 'et-pb-font-icon' ),
+				'description'    => esc_html__( 'Choose an icon to display with your blurb.', 'et_builder' ),
+				'mobile_options' => true,
+				'hover'          => 'tabs',
+				'sticky'         => true,
+				'tab_slug'       => 'advanced',
+			),
 		);
 		return $fields;
 	}
@@ -315,7 +326,16 @@ class ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 		return $video_src;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		global $et_pb_slider_image_overlay,
 			$et_pb_video_slider_sticky;
 
@@ -341,6 +361,21 @@ class ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 				'important'                       => true,
 				'render_slug'                     => $render_slug,
 				'type'                            => 'color',
+			)
+		);
+
+		// Play Icon Styles.
+		$this->generate_styles(
+			array(
+				'utility_arg'    => 'icon_font_family_and_content',
+				'render_slug'    => $render_slug,
+				'base_attr_name' => 'font_icon',
+				'important'      => true,
+				'selector'       => '%%order_class%%.et_pb_slide .et_pb_video_play:before',
+				'processor'      => array(
+					'ET_Builder_Module_Helper_Style_Processor',
+					'process_extended_icon',
+				),
 			)
 		);
 
@@ -491,7 +526,7 @@ class ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 		$output = sprintf(
 			'<div class="%1$s"%3$s%4$s%5$s>
 				%2$s
-			</div> <!-- .et_pb_slide -->
+			</div>
 			',
 			$this->module_classname( $render_slug ),
 			( '' !== $video_output ? $video_output : '' ),
@@ -504,4 +539,6 @@ class ET_Builder_Module_Video_Slider_Item extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Video_Slider_Item();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Video_Slider_Item();
+}

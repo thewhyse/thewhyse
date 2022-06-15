@@ -449,7 +449,16 @@ class ET_Builder_Module_Post_Title extends ET_Builder_Module {
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view         = et_pb_multi_view_options( $this );
 		$featured_placement = $this->props['featured_placement'];
 		$text_color         = $this->props['text_color'];
@@ -463,7 +472,6 @@ class ET_Builder_Module_Post_Title extends ET_Builder_Module {
 			$post_id = 0;
 		}
 
-		$this->process_additional_options( $render_slug );
 
 		$output                    = '';
 		$featured_image_output     = '';
@@ -714,6 +722,8 @@ class ET_Builder_Module_Post_Title extends ET_Builder_Module {
 			'<div%3$s class="%2$s" %8$s %9$s %10$s>
 				%4$s
 				%7$s
+				%11$s
+				%12$s
 				%5$s
 				<div class="et_pb_title_container">
 					%1$s
@@ -729,7 +739,9 @@ class ET_Builder_Module_Post_Title extends ET_Builder_Module {
 			$video_background,
 			et_core_esc_previously( $data_background_layout ),
 			et_core_esc_previously( $data_background_layout_hover ),
-			et_core_esc_previously( $muti_view_data_attr ) // #10
+			et_core_esc_previously( $muti_view_data_attr ), // #10
+			et_core_esc_previously( $this->background_pattern() ), // #11
+			et_core_esc_previously( $this->background_mask() ) // #12
 		);
 
 		return $output;
@@ -777,4 +789,6 @@ class ET_Builder_Module_Post_Title extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Post_Title();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Post_Title();
+}

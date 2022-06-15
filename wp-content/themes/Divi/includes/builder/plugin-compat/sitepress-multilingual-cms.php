@@ -152,7 +152,8 @@ class ET_Builder_Plugin_Compat_WPML_Multilingual_CMS extends ET_Builder_Plugin_C
 			$new_ids    = array();
 
 			foreach ( $cats_array as $cat_id ) {
-				$new_ids[] = apply_filters( 'wpml_object_id', $cat_id, 'product_cat' );
+				$translated_cat_id = apply_filters( 'wpml_object_id', $cat_id, 'product_cat' );
+				$new_ids[]         = ! empty( $translated_cat_id ) ? $translated_cat_id : $cat_id;
 			}
 
 			$shortcode_atts['include_categories'] = implode( ',', $new_ids );
@@ -309,9 +310,9 @@ class ET_Builder_Plugin_Compat_WPML_Multilingual_CMS extends ET_Builder_Plugin_C
 		$translation_language_args = array(
 			'element_id'           => $translation_layout_id,
 			'element_type'         => $element_type,
-			'trid'                 => $original_language_info->trid,
+			'trid'                 => ! empty( $original_language_info->trid ) ? $original_language_info->trid : null,
 			'language_code'        => $translation_lang_id,
-			'source_language_code' => $original_language_info->language_code,
+			'source_language_code' => ! empty( $original_language_info->language_code ) ? $original_language_info->language_code : null,
 		);
 
 		// 2. Set the new layout as translation of the original layout.

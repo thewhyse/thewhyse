@@ -919,7 +919,6 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 				$button_icon_phone  = $custom_icon_phone && 'on' === $this->props['custom_button'];
 
 				$button_rel = $this->props['button_rel'];
-				$icon_class = $button_icon || $button_icon_tablet || $button_icon_phone ? ' et_pb_custom_button_icon' : '';
 
 				$icon_attr        = $button_icon ? et_pb_process_font_icon( $custom_icon ) : '';
 				$icon_attr_tablet = $button_icon_tablet ? et_pb_process_font_icon( $custom_icon_tablet ) : '';
@@ -928,12 +927,11 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 				$html = sprintf(
 					'
 					<p class="et_pb_newsletter_button_wrap">
-						<a class="et_pb_newsletter_button et_pb_button%1$s" href="#"%2$s data-icon="%3$s"%5$s%6$s>
+						<a class="et_pb_newsletter_button et_pb_button" href="#"%1$s data-icon="%2$s"%4$s%5$s>
 							<span class="et_subscribe_loader"></span>
-							%4$s
+							%3$s
 						</a>
 					</p>',
-					esc_attr( $icon_class ),
 					$this->get_rel_attributes( $button_rel ),
 					esc_attr( $icon_attr ),
 					et_pb_multi_view_options( $this )->render_element(
@@ -965,7 +963,9 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 					$ip_address = 'on' === $this->props['ip_address'] ? 'true' : 'false';
 
 					if ( false !== strpos( $list, '|' ) ) {
-						list( $account_name, $list ) = explode( '|', $list );
+						$exploded     = explode( '|', $list );
+						$list         = array_pop( $exploded ); // Pops the last index as the list id.
+						$account_name = implode( '|', $exploded ); // Rebuild the rest array as the account name, in case there is a vertical line `|` in the account name and it was exploded.
 					} else {
 						$account_name = self::get_account_name_for_list_id( $provider, $list );
 					}
@@ -1009,7 +1009,16 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 		return self::$_providers;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		parent::render( $attrs, $content, $render_slug );
 
 		global $et_pb_half_width_counter;
@@ -1185,7 +1194,7 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 			$this->add_classname( 'et_pb_newsletter_description_no_title' );
 		}
 
-		if ( ! $multi_view->has_value( 'content' ) ) {
+		if ( ! $multi_view->has_value( 'description' ) ) {
 			$this->add_classname( 'et_pb_newsletter_description_no_content' );
 		}
 
@@ -1236,6 +1245,8 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 			'<div%5$s class="%3$s"%4$s%8$s%9$s%10$s%11$s>
 				%7$s
 				%6$s
+				%12$s
+				%13$s
 				%1$s
 				%2$s
 			</div>',
@@ -1249,7 +1260,9 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 			$success_redirect_url,
 			$success_redirect_query,
 			et_core_esc_previously( $data_background_layout ), // #10,
-			$wrapper_multi_view_classes
+			$wrapper_multi_view_classes,
+			et_core_esc_previously( $this->background_pattern() ), // #12
+			et_core_esc_previously( $this->background_mask() ) // #13
 		);
 
 		return $output;
@@ -1297,4 +1310,7 @@ class ET_Builder_Module_Signup extends ET_Builder_Module_Type_WithSpamProtection
 		return $raw_value;
 	}
 }
-new ET_Builder_Module_Signup();
+
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Signup();
+}

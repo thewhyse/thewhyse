@@ -141,6 +141,153 @@ if (top && top.__Cypress__) {
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/_Hash.js":
+/*!*******************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_Hash.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var hashClear = __webpack_require__(/*! ./_hashClear */ "./includes/builder/node_modules/lodash/_hashClear.js"),
+    hashDelete = __webpack_require__(/*! ./_hashDelete */ "./includes/builder/node_modules/lodash/_hashDelete.js"),
+    hashGet = __webpack_require__(/*! ./_hashGet */ "./includes/builder/node_modules/lodash/_hashGet.js"),
+    hashHas = __webpack_require__(/*! ./_hashHas */ "./includes/builder/node_modules/lodash/_hashHas.js"),
+    hashSet = __webpack_require__(/*! ./_hashSet */ "./includes/builder/node_modules/lodash/_hashSet.js");
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+module.exports = Hash;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_ListCache.js":
+/*!************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_ListCache.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var listCacheClear = __webpack_require__(/*! ./_listCacheClear */ "./includes/builder/node_modules/lodash/_listCacheClear.js"),
+    listCacheDelete = __webpack_require__(/*! ./_listCacheDelete */ "./includes/builder/node_modules/lodash/_listCacheDelete.js"),
+    listCacheGet = __webpack_require__(/*! ./_listCacheGet */ "./includes/builder/node_modules/lodash/_listCacheGet.js"),
+    listCacheHas = __webpack_require__(/*! ./_listCacheHas */ "./includes/builder/node_modules/lodash/_listCacheHas.js"),
+    listCacheSet = __webpack_require__(/*! ./_listCacheSet */ "./includes/builder/node_modules/lodash/_listCacheSet.js");
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+module.exports = ListCache;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_Map.js":
+/*!******************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_Map.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./includes/builder/node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./includes/builder/node_modules/lodash/_root.js");
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map');
+
+module.exports = Map;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_MapCache.js":
+/*!***********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_MapCache.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var mapCacheClear = __webpack_require__(/*! ./_mapCacheClear */ "./includes/builder/node_modules/lodash/_mapCacheClear.js"),
+    mapCacheDelete = __webpack_require__(/*! ./_mapCacheDelete */ "./includes/builder/node_modules/lodash/_mapCacheDelete.js"),
+    mapCacheGet = __webpack_require__(/*! ./_mapCacheGet */ "./includes/builder/node_modules/lodash/_mapCacheGet.js"),
+    mapCacheHas = __webpack_require__(/*! ./_mapCacheHas */ "./includes/builder/node_modules/lodash/_mapCacheHas.js"),
+    mapCacheSet = __webpack_require__(/*! ./_mapCacheSet */ "./includes/builder/node_modules/lodash/_mapCacheSet.js");
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+module.exports = MapCache;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/_Symbol.js":
 /*!*********************************************************!*\
   !*** ./includes/builder/node_modules/lodash/_Symbol.js ***!
@@ -250,6 +397,38 @@ module.exports = arrayMap;
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/_assocIndexOf.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_assocIndexOf.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var eq = __webpack_require__(/*! ./eq */ "./includes/builder/node_modules/lodash/eq.js");
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+module.exports = assocIndexOf;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/_baseFindIndex.js":
 /*!****************************************************************!*\
   !*** ./includes/builder/node_modules/lodash/_baseFindIndex.js ***!
@@ -281,6 +460,41 @@ function baseFindIndex(array, predicate, fromIndex, fromRight) {
 }
 
 module.exports = baseFindIndex;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_baseGet.js":
+/*!**********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_baseGet.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var castPath = __webpack_require__(/*! ./_castPath */ "./includes/builder/node_modules/lodash/_castPath.js"),
+    toKey = __webpack_require__(/*! ./_toKey */ "./includes/builder/node_modules/lodash/_toKey.js");
+
+/**
+ * The base implementation of `_.get` without support for default values.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @returns {*} Returns the resolved value.
+ */
+function baseGet(object, path) {
+  path = castPath(path, object);
+
+  var index = 0,
+      length = path.length;
+
+  while (object != null && index < length) {
+    object = object[toKey(path[index++])];
+  }
+  return (index && index == length) ? object : undefined;
+}
+
+module.exports = baseGet;
 
 
 /***/ }),
@@ -403,6 +617,64 @@ function baseIsNaN(value) {
 }
 
 module.exports = baseIsNaN;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_baseIsNative.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_baseIsNative.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./includes/builder/node_modules/lodash/isFunction.js"),
+    isMasked = __webpack_require__(/*! ./_isMasked */ "./includes/builder/node_modules/lodash/_isMasked.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./includes/builder/node_modules/lodash/isObject.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "./includes/builder/node_modules/lodash/_toSource.js");
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+module.exports = baseIsNative;
 
 
 /***/ }),
@@ -550,6 +822,84 @@ module.exports = baseTimes;
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/_baseToString.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_baseToString.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./includes/builder/node_modules/lodash/_Symbol.js"),
+    arrayMap = __webpack_require__(/*! ./_arrayMap */ "./includes/builder/node_modules/lodash/_arrayMap.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./includes/builder/node_modules/lodash/isArray.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./includes/builder/node_modules/lodash/isSymbol.js");
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0;
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolToString = symbolProto ? symbolProto.toString : undefined;
+
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+  if (isArray(value)) {
+    // Recursively convert values (susceptible to call stack limits).
+    return arrayMap(value, baseToString) + '';
+  }
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+module.exports = baseToString;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_baseTrim.js":
+/*!***********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_baseTrim.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var trimmedEndIndex = __webpack_require__(/*! ./_trimmedEndIndex */ "./includes/builder/node_modules/lodash/_trimmedEndIndex.js");
+
+/** Used to match leading whitespace. */
+var reTrimStart = /^\s+/;
+
+/**
+ * The base implementation of `_.trim`.
+ *
+ * @private
+ * @param {string} string The string to trim.
+ * @returns {string} Returns the trimmed string.
+ */
+function baseTrim(string) {
+  return string
+    ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+    : string;
+}
+
+module.exports = baseTrim;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/_baseUnary.js":
 /*!************************************************************!*\
   !*** ./includes/builder/node_modules/lodash/_baseUnary.js ***!
@@ -605,6 +955,55 @@ module.exports = baseValues;
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/_castPath.js":
+/*!***********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_castPath.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isArray = __webpack_require__(/*! ./isArray */ "./includes/builder/node_modules/lodash/isArray.js"),
+    isKey = __webpack_require__(/*! ./_isKey */ "./includes/builder/node_modules/lodash/_isKey.js"),
+    stringToPath = __webpack_require__(/*! ./_stringToPath */ "./includes/builder/node_modules/lodash/_stringToPath.js"),
+    toString = __webpack_require__(/*! ./toString */ "./includes/builder/node_modules/lodash/toString.js");
+
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {Array} Returns the cast property path array.
+ */
+function castPath(value, object) {
+  if (isArray(value)) {
+    return value;
+  }
+  return isKey(value, object) ? [value] : stringToPath(toString(value));
+}
+
+module.exports = castPath;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_coreJsData.js":
+/*!*************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_coreJsData.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./includes/builder/node_modules/lodash/_root.js");
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+module.exports = coreJsData;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/_freeGlobal.js":
 /*!*************************************************************!*\
   !*** ./includes/builder/node_modules/lodash/_freeGlobal.js ***!
@@ -618,6 +1017,63 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 module.exports = freeGlobal;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_getMapData.js":
+/*!*************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_getMapData.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isKeyable = __webpack_require__(/*! ./_isKeyable */ "./includes/builder/node_modules/lodash/_isKeyable.js");
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+module.exports = getMapData;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_getNative.js":
+/*!************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_getNative.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "./includes/builder/node_modules/lodash/_baseIsNative.js"),
+    getValue = __webpack_require__(/*! ./_getValue */ "./includes/builder/node_modules/lodash/_getValue.js");
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
 
 /***/ }),
 
@@ -678,6 +1134,193 @@ module.exports = getRawTag;
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/_getValue.js":
+/*!***********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_getValue.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+module.exports = getValue;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_hashClear.js":
+/*!************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_hashClear.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./includes/builder/node_modules/lodash/_nativeCreate.js");
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+
+module.exports = hashClear;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_hashDelete.js":
+/*!*************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_hashDelete.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = hashDelete;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_hashGet.js":
+/*!**********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_hashGet.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./includes/builder/node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+module.exports = hashGet;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_hashHas.js":
+/*!**********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_hashHas.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./includes/builder/node_modules/lodash/_nativeCreate.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+}
+
+module.exports = hashHas;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_hashSet.js":
+/*!**********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_hashSet.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./includes/builder/node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+module.exports = hashSet;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/_isIndex.js":
 /*!**********************************************************!*\
   !*** ./includes/builder/node_modules/lodash/_isIndex.js ***!
@@ -714,6 +1357,103 @@ module.exports = isIndex;
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/_isKey.js":
+/*!********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_isKey.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isArray = __webpack_require__(/*! ./isArray */ "./includes/builder/node_modules/lodash/isArray.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./includes/builder/node_modules/lodash/isSymbol.js");
+
+/** Used to match property names within property paths. */
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+    reIsPlainProp = /^\w*$/;
+
+/**
+ * Checks if `value` is a property name and not a property path.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+ */
+function isKey(value, object) {
+  if (isArray(value)) {
+    return false;
+  }
+  var type = typeof value;
+  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
+      value == null || isSymbol(value)) {
+    return true;
+  }
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
+    (object != null && value in Object(object));
+}
+
+module.exports = isKey;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_isKeyable.js":
+/*!************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_isKeyable.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+module.exports = isKeyable;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_isMasked.js":
+/*!***********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_isMasked.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var coreJsData = __webpack_require__(/*! ./_coreJsData */ "./includes/builder/node_modules/lodash/_coreJsData.js");
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+module.exports = isMasked;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/_isPrototype.js":
 /*!**************************************************************!*\
   !*** ./includes/builder/node_modules/lodash/_isPrototype.js ***!
@@ -739,6 +1479,372 @@ function isPrototype(value) {
 }
 
 module.exports = isPrototype;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_listCacheClear.js":
+/*!*****************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_listCacheClear.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+module.exports = listCacheClear;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_listCacheDelete.js":
+/*!******************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_listCacheDelete.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./includes/builder/node_modules/lodash/_assocIndexOf.js");
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype;
+
+/** Built-in value references. */
+var splice = arrayProto.splice;
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+module.exports = listCacheDelete;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_listCacheGet.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_listCacheGet.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./includes/builder/node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+module.exports = listCacheGet;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_listCacheHas.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_listCacheHas.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./includes/builder/node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+module.exports = listCacheHas;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_listCacheSet.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_listCacheSet.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./includes/builder/node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+module.exports = listCacheSet;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_mapCacheClear.js":
+/*!****************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_mapCacheClear.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Hash = __webpack_require__(/*! ./_Hash */ "./includes/builder/node_modules/lodash/_Hash.js"),
+    ListCache = __webpack_require__(/*! ./_ListCache */ "./includes/builder/node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./includes/builder/node_modules/lodash/_Map.js");
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+module.exports = mapCacheClear;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_mapCacheDelete.js":
+/*!*****************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_mapCacheDelete.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./includes/builder/node_modules/lodash/_getMapData.js");
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = mapCacheDelete;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_mapCacheGet.js":
+/*!**************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_mapCacheGet.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./includes/builder/node_modules/lodash/_getMapData.js");
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+module.exports = mapCacheGet;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_mapCacheHas.js":
+/*!**************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_mapCacheHas.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./includes/builder/node_modules/lodash/_getMapData.js");
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+module.exports = mapCacheHas;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_mapCacheSet.js":
+/*!**************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_mapCacheSet.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./includes/builder/node_modules/lodash/_getMapData.js");
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+module.exports = mapCacheSet;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_memoizeCapped.js":
+/*!****************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_memoizeCapped.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var memoize = __webpack_require__(/*! ./memoize */ "./includes/builder/node_modules/lodash/memoize.js");
+
+/** Used as the maximum memoize cache size. */
+var MAX_MEMOIZE_SIZE = 500;
+
+/**
+ * A specialized version of `_.memoize` which clears the memoized function's
+ * cache when it exceeds `MAX_MEMOIZE_SIZE`.
+ *
+ * @private
+ * @param {Function} func The function to have its output memoized.
+ * @returns {Function} Returns the new memoized function.
+ */
+function memoizeCapped(func) {
+  var result = memoize(func, function(key) {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
+      cache.clear();
+    }
+    return key;
+  });
+
+  var cache = result.cache;
+  return result;
+}
+
+module.exports = memoizeCapped;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_nativeCreate.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_nativeCreate.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./includes/builder/node_modules/lodash/_getNative.js");
+
+/* Built-in method references that are verified to be native. */
+var nativeCreate = getNative(Object, 'create');
+
+module.exports = nativeCreate;
 
 
 /***/ }),
@@ -911,6 +2017,235 @@ function strictIndexOf(array, value, fromIndex) {
 }
 
 module.exports = strictIndexOf;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_stringToPath.js":
+/*!***************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_stringToPath.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var memoizeCapped = __webpack_require__(/*! ./_memoizeCapped */ "./includes/builder/node_modules/lodash/_memoizeCapped.js");
+
+/** Used to match property names within property paths. */
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+/** Used to match backslashes in property paths. */
+var reEscapeChar = /\\(\\)?/g;
+
+/**
+ * Converts `string` to a property path array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the property path array.
+ */
+var stringToPath = memoizeCapped(function(string) {
+  var result = [];
+  if (string.charCodeAt(0) === 46 /* . */) {
+    result.push('');
+  }
+  string.replace(rePropName, function(match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
+  });
+  return result;
+});
+
+module.exports = stringToPath;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_toKey.js":
+/*!********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_toKey.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isSymbol = __webpack_require__(/*! ./isSymbol */ "./includes/builder/node_modules/lodash/isSymbol.js");
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0;
+
+/**
+ * Converts `value` to a string key if it's not a string or symbol.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {string|symbol} Returns the key.
+ */
+function toKey(value) {
+  if (typeof value == 'string' || isSymbol(value)) {
+    return value;
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+module.exports = toKey;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_toSource.js":
+/*!***********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_toSource.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+module.exports = toSource;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/_trimmedEndIndex.js":
+/*!******************************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/_trimmedEndIndex.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to match a single whitespace character. */
+var reWhitespace = /\s/;
+
+/**
+ * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+ * character of `string`.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {number} Returns the index of the last non-whitespace character.
+ */
+function trimmedEndIndex(string) {
+  var index = string.length;
+
+  while (index-- && reWhitespace.test(string.charAt(index))) {}
+  return index;
+}
+
+module.exports = trimmedEndIndex;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/eq.js":
+/*!****************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/eq.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+module.exports = eq;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/get.js":
+/*!*****************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/get.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGet = __webpack_require__(/*! ./_baseGet */ "./includes/builder/node_modules/lodash/_baseGet.js");
+
+/**
+ * Gets the value at `path` of `object`. If the resolved value is
+ * `undefined`, the `defaultValue` is returned in its place.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.7.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @param {*} [defaultValue] The value returned for `undefined` resolved values.
+ * @returns {*} Returns the resolved value.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.get(object, 'a[0].b.c');
+ * // => 3
+ *
+ * _.get(object, ['a', '0', 'b', 'c']);
+ * // => 3
+ *
+ * _.get(object, 'a.b.c', 'default');
+ * // => 'default'
+ */
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : baseGet(object, path);
+  return result === undefined ? defaultValue : result;
+}
+
+module.exports = get;
 
 
 /***/ }),
@@ -1500,6 +2835,90 @@ module.exports = keys;
 
 /***/ }),
 
+/***/ "./includes/builder/node_modules/lodash/memoize.js":
+/*!*********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/memoize.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MapCache = __webpack_require__(/*! ./_MapCache */ "./includes/builder/node_modules/lodash/_MapCache.js");
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a function that memoizes the result of `func`. If `resolver` is
+ * provided, it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the map cache key. The `func`
+ * is invoked with the `this` binding of the memoized function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the
+ * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+ * method interface of `clear`, `delete`, `get`, `has`, and `set`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to have its output memoized.
+ * @param {Function} [resolver] The function to resolve the cache key.
+ * @returns {Function} Returns the new memoized function.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2 };
+ * var other = { 'c': 3, 'd': 4 };
+ *
+ * var values = _.memoize(_.values);
+ * values(object);
+ * // => [1, 2]
+ *
+ * values(other);
+ * // => [3, 4]
+ *
+ * object.a = 2;
+ * values(object);
+ * // => [1, 2]
+ *
+ * // Modify the result cache.
+ * values.cache.set(object, ['a', 'b']);
+ * values(object);
+ * // => ['a', 'b']
+ *
+ * // Replace `_.memoize.Cache`.
+ * _.memoize.Cache = WeakMap;
+ */
+function memoize(func, resolver) {
+  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function() {
+    var args = arguments,
+        key = resolver ? resolver.apply(this, args) : args[0],
+        cache = memoized.cache;
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result) || cache;
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || MapCache);
+  return memoized;
+}
+
+// Expose `MapCache`.
+memoize.Cache = MapCache;
+
+module.exports = memoize;
+
+
+/***/ }),
+
 /***/ "./includes/builder/node_modules/lodash/stubFalse.js":
 /*!***********************************************************!*\
   !*** ./includes/builder/node_modules/lodash/stubFalse.js ***!
@@ -1636,14 +3055,12 @@ module.exports = toInteger;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(/*! ./isObject */ "./includes/builder/node_modules/lodash/isObject.js"),
+var baseTrim = __webpack_require__(/*! ./_baseTrim */ "./includes/builder/node_modules/lodash/_baseTrim.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./includes/builder/node_modules/lodash/isObject.js"),
     isSymbol = __webpack_require__(/*! ./isSymbol */ "./includes/builder/node_modules/lodash/isSymbol.js");
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
-
-/** Used to match leading and trailing whitespace. */
-var reTrim = /^\s+|\s+$/g;
 
 /** Used to detect bad signed hexadecimal string values. */
 var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
@@ -1694,7 +3111,7 @@ function toNumber(value) {
   if (typeof value != 'string') {
     return value === 0 ? value : +value;
   }
-  value = value.replace(reTrim, '');
+  value = baseTrim(value);
   var isBinary = reIsBinary.test(value);
   return (isBinary || reIsOctal.test(value))
     ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
@@ -1702,6 +3119,45 @@ function toNumber(value) {
 }
 
 module.exports = toNumber;
+
+
+/***/ }),
+
+/***/ "./includes/builder/node_modules/lodash/toString.js":
+/*!**********************************************************!*\
+  !*** ./includes/builder/node_modules/lodash/toString.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseToString = __webpack_require__(/*! ./_baseToString */ "./includes/builder/node_modules/lodash/_baseToString.js");
+
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+
+module.exports = toString;
 
 
 /***/ }),
@@ -1779,9 +3235,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setImportantInlineValue", function() { return setImportantInlineValue; });
 /* harmony import */ var lodash_includes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/includes */ "./includes/builder/node_modules/lodash/includes.js");
 /* harmony import */ var lodash_includes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_includes__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _core_admin_js_frame_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/admin/js/frame-helpers */ "./core/admin/js/frame-helpers.js");
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/get */ "./includes/builder/node_modules/lodash/get.js");
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _core_admin_js_frame_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/admin/js/frame-helpers */ "./core/admin/js/frame-helpers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
@@ -1789,6 +3247,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
  * imported by various frontend scripts; need to keep frontend script size low.
  */
 // External dependencies
+
 
  // Internal dependencies
 
@@ -1897,7 +3356,7 @@ var isLBP = isBuilderType('lbp');
  * @type {bool}
  */
 
-var isBlockEditor = jquery__WEBPACK_IMPORTED_MODULE_1___default()(_core_admin_js_frame_helpers__WEBPACK_IMPORTED_MODULE_2__["top_window"].document).find('.edit-post-layout__content').length > 0;
+var isBlockEditor = 0 < jquery__WEBPACK_IMPORTED_MODULE_2___default()(_core_admin_js_frame_helpers__WEBPACK_IMPORTED_MODULE_3__["top_window"].document).find('.edit-post-layout__content').length;
 /**
  * Check if current window is builder window (VB, BFB, TB, LBB).
  *
@@ -1925,9 +3384,13 @@ var getOffsets = function getOffsets($selector) {
   // Return previously saved offset if sticky tab is active; retrieving actual offset contain risk
   // of incorrect offsets if sticky horizontal / vertical offset of relative position is modified.
   var isStickyTabActive = isBuilder && $selector.hasClass('et_pb_sticky') && 'fixed' !== $selector.css('position');
+  var cachedOffsets = $selector.data('et-offsets');
+  var cachedDevice = $selector.data('et-offsets-device');
+  var currentDevice = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(window.ET_FE, 'stores.window.breakpoint', ''); // Only return cachedOffsets if sticky tab is active and cachedOffsets is not undefined and
+  // cachedDevice equal to currentDevice.
 
-  if (isStickyTabActive) {
-    return $selector.data('et-offsets');
+  if (isStickyTabActive && cachedOffsets !== undefined && cachedDevice === currentDevice) {
+    return cachedOffsets;
   } // Get top & left offsets
 
 
@@ -1973,7 +3436,12 @@ var getOffsets = function getOffsets($selector) {
   offsets.bottom = top + height; // Save copy of the offset on element's .data() in case of scenario where retrieving actual
   // offset value will lead to incorrect offset value (eg. sticky tab active with position offset)
 
-  $selector.data('et-offsets', offsets);
+  $selector.data('et-offsets', offsets); // Add current device to cache
+
+  if ('' !== currentDevice) {
+    $selector.data('et-offsets-device', offsets);
+  }
+
   return offsets;
 };
 /**
@@ -2079,11 +3547,11 @@ __webpack_require__.r(__webpack_exports__);
   var top_window = builder_scripts_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isBuilder"] ? ET_Builder.Frames.top : window;
 
   function et_get_first_section() {
-    return $('.et-l:not(.et-l--footer) .et_pb_section:visible:first');
+    return $('.et-l:not(.et-l--footer) .et_pb_section:visible').first();
   }
 
   function et_get_first_module() {
-    return $('.et-l .et_pb_module:visible:first');
+    return $('.et-l .et_pb_module:visible').first();
   }
 
   var $et_pb_post_fullwidth = $('.single.et_pb_pagebuilder_layout.et_full_width_page'),
@@ -2100,9 +3568,9 @@ __webpack_require__.r(__webpack_exports__);
       $main_header = $('#main-header'),
       $main_container_wrapper = $('#page-container'),
       $et_main_content_first_row = $('#main-content .container:first-child'),
-      $et_main_content_first_row_meta_wrapper = $et_main_content_first_row.find('.et_post_meta_wrapper:first'),
+      $et_main_content_first_row_meta_wrapper = $et_main_content_first_row.find('.et_post_meta_wrapper').first(),
       $et_main_content_first_row_meta_wrapper_title = $et_main_content_first_row_meta_wrapper.find('h1.entry-title'),
-      $et_main_content_first_row_content = $et_main_content_first_row.find('.entry-content:first'),
+      $et_main_content_first_row_content = $et_main_content_first_row.find('.entry-content').first(),
       $et_single_post = $('body.single'),
       $et_window = $(window),
       etRecalculateOffset = false,
@@ -2196,7 +3664,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   }
 
-  $(document).ready(function () {
+  document.addEventListener('DOMContentLoaded', function () {
     var $et_top_menu = $('ul.nav, ul.menu'),
         $et_search_icon = $('#et_search_icon'),
         et_parent_menu_longpress_limit = 300,
@@ -2208,7 +3676,7 @@ __webpack_require__.r(__webpack_exports__);
     function et_header_menu_split() {
       var $logo_container = $('#main-header > .container > .logo_container'),
           $logo_container_splitted = $('.centered-inline-logo-wrap > .logo_container'),
-          et_top_navigation_li_size = $et_top_navigation.children('nav').children('ul').children('li').size(),
+          et_top_navigation_li_size = $et_top_navigation.children('nav').children('ul').children('li').length,
           et_top_navigation_li_break_index = Math.round(et_top_navigation_li_size / 2) - 1,
           window_width = window.innerWidth || $et_window.width();
 
@@ -2232,14 +3700,14 @@ __webpack_require__.r(__webpack_exports__);
         header_offset = 0 > header_offset ? 0 : header_offset;
         $('#main-header').addClass('et_vertical_menu_set').css({
           'left': '',
-          'right': header_offset
+          'right': header_offset + 'px'
         });
       }
     }
 
     if ($et_header_style_split.length && !window.et_is_vertical_nav || is_customize_preview) {
       et_header_menu_split();
-      $(window).resize(function () {
+      $(window).on('resize', function () {
         et_header_menu_split();
       });
     }
@@ -2258,7 +3726,7 @@ __webpack_require__.r(__webpack_exports__);
           admin_bar_height = $('#wpadminbar').length ? parseInt($('#wpadminbar').innerHeight()) : 0,
           $slide_menu_container = $('.et_header_style_slide .et_slide_in_menu_container'),
           is_rtl = $('body').hasClass('rtl');
-      et_header_height = parseInt($('#main-header').innerHeight()) + secondary_nav_height;
+      et_header_height = parseInt($('#main-header').length ? $('#main-header').innerHeight() : 0) + secondary_nav_height;
       et_header_modifier = et_header_height <= 90 ? et_header_height - 29 : et_header_height - 56;
       et_header_offset = et_header_modifier + admin_bar_height;
       et_primary_header_top = secondary_nav_height + admin_bar_height;
@@ -2294,7 +3762,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var $comment_form = $('#commentform');
     et_pb_form_placeholders_init($comment_form);
-    $comment_form.submit(function () {
+    $comment_form.on('submit', function () {
       et_pb_remove_placeholder_text($comment_form);
     });
     et_duplicate_menu($('#et-top-navigation ul.nav'), $('#et-top-navigation .mobile_nav'), 'mobile_menu', 'et_mobile_menu');
@@ -2329,30 +3797,31 @@ __webpack_require__.r(__webpack_exports__);
 
     function et_change_primary_nav_position(delay) {
       setTimeout(function () {
-        var $body = $('body'),
-            $wpadminbar = builder_scripts_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isBuilder"] ? top_window.jQuery('#wpadminbar') : $('#wpadminbar'),
-            $top_header = $('#top-header'),
-            et_primary_header_top = 0;
+        var etPrimaryHeaderTop = 0;
+        var $body = $('body');
+        var $wpadminbar = builder_scripts_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isBuilder"] ? top_window.jQuery('#wpadminbar') : $('#wpadminbar');
+        var $topHTML = top_window.jQuery('html');
+        var $topHeader = $('#top-header');
+        var isPreviewMode = $topHTML.is('.et-fb-preview--zoom:not(.et-fb-preview--desktop)');
+        isPreviewMode = isPreviewMode || $topHTML.is('.et-fb-preview--tablet');
+        isPreviewMode = isPreviewMode || $topHTML.is('.et-fb-preview--phone');
 
-        if ($wpadminbar.length) {
-          var adminbarHeight = $wpadminbar.innerHeight(); // Adjust admin bar height for builder's preview mode zoom since admin bar is rendered on top window
+        if ($wpadminbar.length && !Number.isNaN($wpadminbar.innerHeight())) {
+          var adminbarHeight = parseFloat($wpadminbar.innerHeight()); // Adjust admin bar height for builder's preview mode
+          // since admin bar is rendered on top window in these modes.
 
-          if (builder_scripts_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isBuilder"] && top_window.jQuery('html').is('.et-fb-preview--zoom:not(.et-fb-preview--desktop)')) {
-            adminbarHeight = adminbarHeight * 2;
-          }
-
-          et_primary_header_top += adminbarHeight;
+          etPrimaryHeaderTop += builder_scripts_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isBuilder"] && isPreviewMode ? 0 : adminbarHeight;
         }
 
-        if ($top_header.length && $top_header.is(':visible')) {
-          et_primary_header_top += $top_header.innerHeight();
+        if ($topHeader.length && $topHeader.is(':visible')) {
+          etPrimaryHeaderTop += $topHeader.innerHeight();
         }
 
         var isFixedNav = $body.hasClass('et_fixed_nav');
         var isAbsolutePrimaryNav = !isFixedNav && $body.hasClass('et_transparent_nav') && $body.hasClass('et_secondary_nav_enabled');
 
         if (!window.et_is_vertical_nav && (isFixedNav || isAbsolutePrimaryNav)) {
-          $('#main-header').css('top', et_primary_header_top);
+          $('#main-header').css('top', etPrimaryHeaderTop + 'px');
         }
       }, delay);
     }
@@ -2427,6 +3896,13 @@ __webpack_require__.r(__webpack_exports__);
 
       if ($map_container.length) {
         google.maps.event.trigger($map[0], 'resize');
+      } // Workaround for reviews tab in woo tabs.
+
+
+      if ($target.parents().hasClass('commentlist')) {
+        $('.reviews_tab').trigger('click').animate({
+          scrollTop: $target.offset().top
+        }, 700);
       } // Allow the header sizing functions enough time to finish before scrolling the page
 
 
@@ -2459,12 +3935,12 @@ __webpack_require__.r(__webpack_exports__);
           header_height,
           et_pb_first_row_padding_top;
       var $mainHeaderClone = $main_header.clone().addClass('et-disabled-animations main-header-clone').css({
-        opacity: 0,
+        opacity: '0px',
         position: 'fixed',
         top: 'auto',
-        right: 0,
-        bottom: 0,
-        left: 0
+        right: '0px',
+        bottom: '0px',
+        left: '0px'
       }).appendTo($('body')); // Replace previous resize cycle's adjustment
 
       if (!$('body').hasClass('et-bfb')) {
@@ -2502,7 +3978,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
       if (et_window_width <= 980) {
-        header_height = parseInt($main_header.innerHeight()) + secondary_nav_height - ($('body').hasClass('et-fb') ? 0 : 1); // If transparent is detected, #main-content .container's padding-top needs to be added to header_height
+        header_height = parseInt($main_header.length ? $main_header.innerHeight() : 0) + secondary_nav_height - ($('body').hasClass('et-fb') ? 0 : 1); // If transparent is detected, #main-content .container's padding-top needs to be added to header_height
         // And NOT a pagebuilder page
 
         if (window.et_is_transparent_nav && !$et_pb_first_row.length) {
@@ -2538,7 +4014,7 @@ __webpack_require__.r(__webpack_exports__);
           wooNoticeMargin = $main_header.attr('data-height-onload');
         }
 
-        $wooCommerceNotice.css('marginTop', parseFloat(wooNoticeMargin));
+        $wooCommerceNotice.css('marginTop', parseFloat(wooNoticeMargin) + 'px');
         $wooCommerceNotice.animate({
           'opacity': '1'
         });
@@ -2600,14 +4076,14 @@ __webpack_require__.r(__webpack_exports__);
           if (is_pb_fullwidth_section_first) {
             // If the first section is fullwidth, restore the padding-top modified area at first section
             $et_pb_first_row.css({
-              'paddingTop': '0'
+              'paddingTop': '0px'
             });
           }
 
           if (is_post_pb_full_layout_has_title) {
             // Add header height to post meta wrapper as padding top
             $et_main_content_first_row_meta_wrapper.css({
-              'paddingTop': header_height
+              'paddingTop': header_height + 'px'
             });
           } else if (is_post_pb_full_layout_no_title) {
             // Save current styling for the next resize cycle
@@ -2625,12 +4101,12 @@ __webpack_require__.r(__webpack_exports__);
             et_save_initial_page_container_style($et_main_content_first_row, 'paddingTop'); // Add header height to first row content as padding top
 
             $et_main_content_first_row.css({
-              'paddingTop': header_height
+              'paddingTop': header_height + 'px'
             });
           }
         } else if (is_pb_fullwidth_section_first) {
           /* Desktop / Mobile + Pagebuilder + Fullwidth Section */
-          var $et_pb_first_row_first_module = $et_pb_first_row.children('.et_pb_module:visible:first'); // Quirks: If this is post with fullwidth layout + no title + fullwidth section at first row,
+          var $et_pb_first_row_first_module = $et_pb_first_row.children('.et_pb_module:visible').first(); // Quirks: If this is post with fullwidth layout + no title + fullwidth section at first row,
           // Remove the added height at line 2656
 
           if (is_post_pb_full_layout_no_title && is_pb_fullwidth_section_first && et_window_width > 980) {
@@ -2650,7 +4126,7 @@ __webpack_require__.r(__webpack_exports__);
             et_save_initial_page_container_style($et_pb_first_row_first_module_slide, 'paddingTop'); // Adding padding top to each slide so the transparency become useful
 
             $et_pb_first_row_first_module_slide.css({
-              'paddingTop': header_height
+              'paddingTop': header_height + 'px'
             }); // delete container's min-height
 
             $et_pb_first_row_first_module_slide_container.css({
@@ -2660,13 +4136,13 @@ __webpack_require__.r(__webpack_exports__);
             et_save_initial_page_container_style($et_pb_first_row_first_module_slide_image, 'marginTop'); // Adjusting slider's image, considering additional top padding of slideshow
 
             $et_pb_first_row_first_module_slide_image.css({
-              'marginTop': et_pb_slide_image_margin_top
+              'marginTop': et_pb_slide_image_margin_top + 'px'
             }); // Save current styling for the next resize cycle
 
             et_save_initial_page_container_style($et_pb_first_row_first_module_slider_arrow, 'marginTop'); // Adjusting slider's arrow, considering additional top padding of slideshow
 
             $et_pb_first_row_first_module_slider_arrow.css({
-              'marginTop': header_height / 2 - et_pb_first_row_slider_arrow_height / 2
+              'marginTop': header_height / 2 - et_pb_first_row_slider_arrow_height / 2 + 'px'
             }); // Looping the slide and get the highest height of slide
 
             var et_pb_first_row_slide_container_height_new = 0;
@@ -2694,7 +4170,7 @@ __webpack_require__.r(__webpack_exports__);
             et_save_initial_page_container_style($et_pb_first_row_first_module_slide_container, 'min-height'); // Setting appropriate min-height, considering additional top padding of slideshow
 
             $et_pb_first_row_first_module_slide_container.css({
-              'min-height': et_pb_first_row_slide_container_height_new
+              'min-height': et_pb_first_row_slide_container_height_new + 'px'
             });
           } else if ($et_pb_first_row_first_module.is('.et_pb_fullwidth_header')) {
             /* Desktop / Mobile + Pagebuilder + Fullwidth header */
@@ -2706,14 +4182,14 @@ __webpack_require__.r(__webpack_exports__);
             et_save_initial_page_container_style($et_pb_first_row_first_module, 'paddingTop'); // Implement stylesheet's padding-top + header_height
 
             $et_pb_first_row_first_module.css({
-              'paddingTop': header_height + et_pb_first_row_first_module_fullwidth_header_padding_top
+              'paddingTop': header_height + et_pb_first_row_first_module_fullwidth_header_padding_top + 'px'
             });
           } else if ($et_pb_first_row_first_module.is('.et_pb_fullwidth_portfolio')) {
             /* Desktop / Mobile + Pagebuilder + Fullwidth Portfolio */
             // Save current styling for the next resize cycle
             et_save_initial_page_container_style($et_pb_first_row_first_module, 'paddingTop');
             $et_pb_first_row_first_module.css({
-              'paddingTop': header_height
+              'paddingTop': header_height + 'px'
             });
           } else if ($et_pb_first_row_first_module.is('.et_pb_map_container')) {
             /* Desktop / Mobile + Pagebuilder + Fullwidth Map */
@@ -2724,7 +4200,7 @@ __webpack_require__.r(__webpack_exports__);
             }); // Implement map height + header height
 
             $et_pb_first_row_first_module.find('.et_pb_map').css({
-              'height': header_height + parseInt($et_pb_first_row_map.css('height'))
+              'height': header_height + parseInt($et_pb_first_row_map.css('height')) + 'px'
             }); // Adding specific class to mark the map as first row section element
 
             $et_pb_first_row_first_module.addClass('et_beneath_transparent_nav');
@@ -2733,7 +4209,7 @@ __webpack_require__.r(__webpack_exports__);
             // Save current styling for the next resize cycle
             et_save_initial_page_container_style($et_pb_first_row_first_module, 'marginTop');
             $et_pb_first_row_first_module.css({
-              'marginTop': header_height
+              'marginTop': header_height + 'px'
             });
           } else if ($et_pb_first_row_first_module.is('.et_pb_fullwidth_code')) {
             /* Desktop / Mobile + Pagebuilder + Fullwidth code */
@@ -2745,7 +4221,7 @@ __webpack_require__.r(__webpack_exports__);
 
             et_save_initial_page_container_style($et_pb_first_row_first_module_code, 'paddingTop');
             $et_pb_first_row_first_module_code.css({
-              'paddingTop': header_height + et_pb_first_row_first_module_code_padding_top
+              'paddingTop': header_height + et_pb_first_row_first_module_code_padding_top + 'px'
             });
           } else if ($et_pb_first_row_first_module.is('.et_pb_post_title')) {
             /* Desktop / Mobile + Pagebuilder + Fullwidth Post Title */
@@ -2753,7 +4229,7 @@ __webpack_require__.r(__webpack_exports__);
 
             et_save_initial_page_container_style($et_pb_first_row_first_module_title, 'paddingTop');
             $et_pb_first_row_first_module.css({
-              'paddingTop': header_height + 50
+              'paddingTop': header_height + 50 + 'px'
             });
           } else if (!$et_pb_first_row_first_module.length) {
             // Get current padding top
@@ -2765,7 +4241,7 @@ __webpack_require__.r(__webpack_exports__);
 
             if (!$et_pb_first_row.data('is_hide_nav')) {
               $et_pb_first_row.css({
-                'paddingTop': et_pb_first_row_padding_top + header_height
+                'paddingTop': et_pb_first_row_padding_top + header_height + 'px'
               });
             } // Use timeout to avoid flickering padding top when window is resized vertically
             // and hidden nav is transitioned to visible nav, vice versa.
@@ -2784,7 +4260,7 @@ __webpack_require__.r(__webpack_exports__);
                 });
               } else {
                 $et_pb_first_row.css({
-                  'paddingTop': et_pb_first_row_padding_top + header_height
+                  'paddingTop': et_pb_first_row_padding_top + header_height + 'px'
                 });
               } // Save current nav state for next cycle assessment
 
@@ -2812,15 +4288,15 @@ __webpack_require__.r(__webpack_exports__);
             // Applies padding top to first section to automatically convert saved unit into px
             if (et_window_width > 980 && saved_custom_padding_top) {
               $et_pb_first_row.css({
-                paddingTop: saved_custom_padding_top
+                paddingTop: 'number' === typeof saved_custom_padding_top ? saved_custom_padding_top + 'px' : saved_custom_padding_top
               });
             } else if (et_window_width > 767 && saved_custom_padding_tablet_top) {
               $et_pb_first_row.css({
-                paddingTop: saved_custom_padding_tablet_top
+                paddingTop: 'number' === typeof saved_custom_padding_tablet_top ? saved_custom_padding_tablet_top + 'px' : saved_custom_padding_tablet_top
               });
             } else if (saved_custom_padding_phone_top) {
               $et_pb_first_row.css({
-                paddingTop: saved_custom_padding_phone_top
+                paddingTop: 'number' === typeof saved_custom_padding_phone_top ? saved_custom_padding_phone_top + 'px' : saved_custom_padding_phone_top
               });
             } // Get converted custom padding top value
 
@@ -2828,7 +4304,7 @@ __webpack_require__.r(__webpack_exports__);
             applied_saved_custom_padding = parseInt($et_pb_first_row.css('paddingTop')); // Implemented saved & converted padding top + header height
 
             $et_pb_first_row.css({
-              paddingTop: header_height + applied_saved_custom_padding
+              paddingTop: header_height + applied_saved_custom_padding + 'px'
             });
           } else {
             // Pagebuilder ignores #main-content .container's fixed height and uses its row's padding
@@ -2838,17 +4314,17 @@ __webpack_require__.r(__webpack_exports__);
             et_save_initial_page_container_style($et_pb_first_row, 'paddingTop'); // Implementing padding-top + header_height
 
             $et_pb_first_row.css({
-              'paddingTop': et_pb_first_row_padding_top
+              'paddingTop': et_pb_first_row_padding_top + 'px'
             });
           }
         } else if (is_no_pb_mobile) {
           // Mobile + not pagebuilder
           $et_main_content_first_row.css({
-            'paddingTop': header_height
+            'paddingTop': header_height + 'px'
           });
         } else {
           $('#main-content .container:first-child').css({
-            'paddingTop': header_height
+            'paddingTop': header_height + 'px'
           });
         } // Set #page-container's padding-top to zero after inline styling first row's content has been added
 
@@ -2864,9 +4340,9 @@ __webpack_require__.r(__webpack_exports__);
         // primary nav
 
 
-        var $firstSection = $('.et_pb_section:visible:first');
-        var $firstRow = $firstSection.find('.et_pb_row:visible:first');
-        var $firstModule = $firstSection.find('.et_pb_module:visible:first');
+        var $firstSection = $('.et_pb_section:visible').first();
+        var $firstRow = $firstSection.find('.et_pb_row:visible').first();
+        var $firstModule = $firstSection.find('.et_pb_module:visible').first();
         var firstSectionHasParallax = $firstSection.hasClass('et_pb_section_parallax');
         var firstRowHasParallax = $firstRow.hasClass('et_pb_section_parallax');
         var firstModuleHasParallax = $firstModule.hasClass('et_pb_section_parallax');
@@ -2875,7 +4351,7 @@ __webpack_require__.r(__webpack_exports__);
           $(window).trigger('resize.etTrueParallaxBackground');
         }
       } else if (et_is_fixed_nav) {
-        $main_container_wrapper.css('paddingTop', header_height);
+        $main_container_wrapper.css('paddingTop', header_height + 'px');
       }
 
       $mainHeaderClone.remove();
@@ -2893,7 +4369,7 @@ __webpack_require__.r(__webpack_exports__);
         et_fix_fullscreen_section();
       }
     }, 200);
-    $(window).resize(function () {
+    $(window).on('resize', function () {
       var window_width = parseInt($et_window.width()),
           has_container = $et_container.length > 0,
           et_container_previous_width = !has_container ? 0 : parseInt($et_container.data('previous-width')) || 0,
@@ -2986,7 +4462,7 @@ __webpack_require__.r(__webpack_exports__);
       if ($slide_menu_container.length && $('body').hasClass('et_header_style_fullscreen')) {
         var top_bar_height = parseInt($slide_menu_container.find('.et_slide_menu_top').innerHeight());
         $slide_menu_container.css({
-          'padding-top': top_bar_height + 20
+          'padding-top': top_bar_height + 20 + 'px'
         });
       }
 
@@ -2994,10 +4470,10 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     if (builder_scripts_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isBuilder"] && jQuery('.et_header_style_fullscreen .et_slide_in_menu_container').length > 0) {
-      jQuery(window).resize(et_pb_resize_fullscreen_menu);
+      jQuery(window).on('resize', et_pb_resize_fullscreen_menu);
     }
 
-    $(window).ready(function () {
+    $(function () {
       if ($.fn.fitVids) {
         $('#main-content').fitVids({
           customSelector: "iframe[src^='http://www.hulu.com'], iframe[src^='http://www.dailymotion.com'], iframe[src^='http://www.funnyordie.com'], iframe[src^='https://embed-ssl.ted.com'], iframe[src^='http://embed.revision3.com'], iframe[src^='https://flickr.com'], iframe[src^='http://blip.tv'], iframe[src^='http://www.collegehumor.com']"
@@ -3030,15 +4506,15 @@ __webpack_require__.r(__webpack_exports__);
         var $logo_width = parseInt($('#logo').width());
 
         if (et_is_rtl) {
-          $et_top_navigation.css('padding-right', $logo_width + 30);
+          $et_top_navigation.css('padding-right', $logo_width + 30 + 'px');
         } else {
-          $et_top_navigation.css('padding-left', $logo_width + 30);
+          $et_top_navigation.css('padding-left', $logo_width + 30 + 'px');
         }
       }
 
       if ($('p.demo_store').length && $('p.demo_store').is(':visible')) {
-        $('#footer-bottom').css('margin-bottom', $('p.demo_store').innerHeight());
-        $('.woocommerce-store-notice__dismiss-link').click(function () {
+        $('#footer-bottom').css('margin-bottom', $('p.demo_store').innerHeight() + 'px');
+        $('.woocommerce-store-notice__dismiss-link').on('click', function () {
           $('#footer-bottom').css('margin-bottom', '');
         });
       }
@@ -3073,9 +4549,9 @@ __webpack_require__.r(__webpack_exports__);
           if (isFirstRowOnTop && window.et_is_transparent_nav && !window.et_is_vertical_nav && $et_pb_first_row.length) {
             // Fullscreen section at the first row requires specific adjustment
             if ($et_pb_first_row.is('.et_pb_fullwidth_section')) {
-              $waypoint_selector = $et_pb_first_row.children('.et_pb_module:visible:first');
+              $waypoint_selector = $et_pb_first_row.children('.et_pb_module:visible').first();
             } else {
-              $waypoint_selector = $et_pb_first_row.find('.et_pb_row:visible:first');
+              $waypoint_selector = $et_pb_first_row.find('.et_pb_row:visible').first();
             } // Fallback for a less likely but possible scenario: a) fullwidth section
             // has no module OR b) other section has no row. When this happened,
             // the safest option is look for the first visible module and use it
@@ -3146,7 +4622,7 @@ __webpack_require__.r(__webpack_exports__);
 
                   if (!window.et_is_vertical_nav) {
                     fix_padding = parseInt($main_container_wrapper.css('padding-top')) - clone_header_height - secondary_nav_height + 1;
-                    $main_container_wrapper.css('margin-top', -fix_padding);
+                    $main_container_wrapper.css('margin-top', -fix_padding + 'px');
                   }
 
                   $('.et_header_clone').remove();
@@ -3155,7 +4631,7 @@ __webpack_require__.r(__webpack_exports__);
                 fix_padding = 1;
                 $main_header.removeClass('et-fixed-header');
                 $top_header.removeClass('et-fixed-header');
-                $main_container_wrapper.css('margin-top', -fix_padding);
+                $main_container_wrapper.css('margin-top', -fix_padding + 'px');
               } // Dispatch event when fixed header height transition starts
 
 
@@ -3183,7 +4659,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
 
-    $('a[href*="#"]:not([href="#"])').click(function () {
+    $('a[href*="#"]:not([href="#"]), .mobile_nav').on('click', function (e) {
       var $this_link = $(this),
           has_closest_smooth_scroll_disabled = $this_link.closest('.et_smooth_scroll_disabled').length,
           has_closest_woocommerce_tabs = $this_link.closest('.woocommerce-tabs').length && $this_link.closest('.tabs').length,
@@ -3194,12 +4670,43 @@ __webpack_require__.r(__webpack_exports__);
           is_woocommerce_review_link = $this_link.hasClass('woocommerce-review-link'),
           disable_scroll = has_closest_smooth_scroll_disabled || has_closest_ee_cart_link || has_closest_woocommerce_tabs || has_closest_eab_cal_link || has_acomment_reply || is_woocommerce_review_link || has_closest_timetable_tab;
 
-      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname && !disable_scroll) {
-        var target = $(this.hash);
-        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (($this_link.hasClass('mobile_nav') || location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) && !disable_scroll) {
+        var target = $(this.hash); // Workaround for empty target in mobile menu.
+
+        if ($this_link.hasClass('mobile_nav')) {
+          target = $('#' + e.target.hash.slice(1)); // Workaround for Popup Maker plugin not working in mobile.
+
+          if ($(e.target).parent().hasClass('pum-trigger')) {
+            e.preventDefault();
+            var temp_classes = $(e.target).parent().attr('class').split(' ');
+            var pop_make_classes = temp_classes.filter(function (pop_make_class) {
+              return pop_make_class.includes('popmake');
+            });
+            var id_slug = pop_make_classes[0].split('-')[1];
+            $("#pum-".concat(id_slug)).css({
+              'opacity': '1',
+              'display': 'block'
+            });
+            $("#popmake-".concat(id_slug)).css({
+              'opacity': '1',
+              'display': 'block'
+            });
+          }
+        }
+
+        if (!target.length && this.hash) {
+          target = $('[name=' + this.hash.slice(1) + ']');
+        }
 
         if (target.length) {
-          // automatically close fullscreen menu if clicked from there
+          // Workaround for reviews tab in woo tabs.
+          if ($(this).parents().hasClass('widget_recent_reviews')) {
+            $('.reviews_tab').trigger('click').animate({
+              scrollTop: target.offset().top
+            }, 700);
+          } // automatically close fullscreen menu if clicked from there
+
+
           if ($this_link.closest('.et_pb_fullscreen_menu_opened').length > 0) {
             et_pb_toggle_fullscreen_menu();
           }
@@ -3217,10 +4724,6 @@ __webpack_require__.r(__webpack_exports__);
           return false;
         }
       }
-    }); // Marking elements which has attached event already
-
-    $('a[href*="#"]:not([href="#"])').each(function (index, element) {
-      $(element).attr('data-et-has-event-already', 'true');
     });
 
     var et_pb_window_side_nav_get_sections = function et_pb_window_side_nav_get_sections() {
@@ -3314,7 +4817,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         $('ul.et_pb_side_nav').css('marginTop', '-' + side_nav_offset + 'px');
         $('.et_pb_side_nav').addClass('et-visible');
-        $('.et_pb_side_nav a').click(function () {
+        $('.et_pb_side_nav a').on('click', function () {
           // We use the index position of the sections to locate them instead of custom classes so
           // that we have the same implementation for the frontend website and the Visual Builder.
           var index = parseInt($(this).text());
@@ -3342,7 +4845,7 @@ __webpack_require__.r(__webpack_exports__);
     et_pb_side_nav_page_init();
 
     if ($('.et_pb_scroll_top').length) {
-      $(window).scroll(function () {
+      $(window).on('scroll', function () {
         if ($(this).scrollTop() > 800) {
           $('.et_pb_scroll_top').show().removeClass('et-hidden').addClass('et-visible');
         } else {
@@ -3350,7 +4853,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }); //Click event to scroll to top
 
-      $('.et_pb_scroll_top').click(function () {
+      $('.et_pb_scroll_top').on('click', function () {
         $('html, body').animate({
           scrollTop: 0
         }, 800);
@@ -3361,7 +4864,7 @@ __webpack_require__.r(__webpack_exports__);
       $('.comment-reply-link').addClass('et_pb_button');
     }
 
-    $('#et_top_search').click(function () {
+    $('#et_top_search').on('click', function () {
       var $search_container = $('.et_search_form_container');
 
       if ($search_container.hasClass('et_pb_is_animating')) {
@@ -3374,7 +4877,7 @@ __webpack_require__.r(__webpack_exports__);
         $('.et_menu_container').addClass('et_pb_no_animation');
         $search_container.addClass('et_pb_no_animation').removeClass('et_pb_is_animating');
       }, 1000);
-      $search_container.find('input').focus();
+      $search_container.find('input').trigger('focus');
       et_set_search_form_css();
     });
 
@@ -3405,17 +4908,17 @@ __webpack_require__.r(__webpack_exports__);
         $search_container.find('input').css('font-size', font_size);
 
         if (!$body.hasClass('et_header_style_left')) {
-          $search_container.css('max-width', menu_width + 60);
+          $search_container.css('max-width', menu_width + 60 + 'px');
         } else {
-          $search_container.find('form').css('max-width', menu_width + 60);
+          $search_container.find('form').css('max-width', menu_width + 60 + 'px');
         }
       }
     }
 
-    $('.et_close_search_field').click(function () {
+    $('.et_close_search_field').on('click', function () {
       et_hide_search();
     });
-    $(document).mouseup(function (e) {
+    $(document).on('mouseup', function (e) {
       var $header = $('#main-header');
 
       if ($('.et_menu_container').hasClass('et_pb_menu_hidden')) {
@@ -3426,8 +4929,7 @@ __webpack_require__.r(__webpack_exports__);
     }); // Detect actual logo dimension, used for tricky fixed navigation transition
 
     function et_define_logo_dimension() {
-      var $logo = $('#logo'),
-          logo_src = $logo.attr('src'),
+      var logo_src = $logo.is('img') ? $logo.attr('src') : $logo.find('img').attr('src'),
           is_svg = logo_src.substr(-3, 3) === 'svg' ? true : false,
           $logo_wrap,
           logo_width,
@@ -3462,10 +4964,11 @@ __webpack_require__.r(__webpack_exports__);
       et_fix_logo_transition(true);
     }
 
-    if ($('#logo').length) {
-      // Wait until logo is loaded before performing logo dimension fix
+    if ($logo.length) {
+      var logo_src = $logo.is('img') ? $logo.attr('src') : $logo.find('img').attr('src'); // Wait until logo is loaded before performing logo dimension fix
       // This comes handy when the page is heavy due to the use of images or other assets
-      et_preload_image($('#logo').attr('src'), et_define_logo_dimension);
+
+      et_preload_image(logo_src, et_define_logo_dimension);
     } // Set width for adsense in footer widget
 
 
@@ -3496,7 +4999,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       $(window).on('et_fb_section_content_change', et_fb_side_nav_page_init);
     } else {
-      $(window).load(et_all_elements_loaded);
+      window.addEventListener('load', et_all_elements_loaded);
     }
   }); // Fixing logo size transition in tricky header style
 
@@ -3540,7 +5043,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
       $('.et_header_style_split .centered-inline-logo-wrap').css({
-        'width': logo_wrapper_width
+        'width': logo_wrapper_width + 'px'
       });
     }
   }
@@ -3566,14 +5069,14 @@ __webpack_require__.r(__webpack_exports__);
           left: '-' + slide_container_width + 'px'
         });
         $page_container.css({
-          right: '0'
+          right: '0px'
         });
       } else {
         $slide_menu_container.css({
           right: '-' + slide_container_width + 'px'
         });
         $page_container.css({
-          left: '0'
+          left: '0px'
         });
       }
 
@@ -3603,14 +5106,14 @@ __webpack_require__.r(__webpack_exports__);
       setTimeout(function () {
         if (is_rtl) {
           $slide_menu_container.css({
-            left: '0'
+            left: '0px'
           });
           $page_container.css({
             right: '-' + (slide_container_width - page_container_margin) + 'px'
           });
         } else {
           $slide_menu_container.css({
-            right: '0'
+            right: '0px'
           });
           $page_container.css({
             left: '-' + (slide_container_width - page_container_margin) + 'px'
@@ -3651,7 +5154,7 @@ __webpack_require__.r(__webpack_exports__);
       return;
     }
 
-    var headerHeight = parseInt($('#main-header').innerHeight()); // scroll to the top of checkout form taking into account fixed header height
+    var headerHeight = parseInt($('#main-header').length ? $('#main-header').innerHeight() : 0); // scroll to the top of checkout form taking into account fixed header height
 
     $('html, body').animate({
       scrollTop: $('form.checkout').offset().top - 100 - headerHeight
@@ -3696,7 +5199,7 @@ __webpack_require__.r(__webpack_exports__);
       $menu_container.addClass('et_pb_fullscreen_menu_animated'); // adjust the padding in fullscreen menu
 
       $menu_container.css({
-        'padding-top': top_bar_height + 20
+        'padding-top': top_bar_height + 20 + 'px'
       });
     } else {
       setTimeout(function () {
@@ -3718,12 +5221,12 @@ __webpack_require__.r(__webpack_exports__);
           height -= 32;
         }
 
-        $menu.find('.et_pb_fullscreen_nav_container').css('max-height', height);
+        $menu.find('.et_pb_fullscreen_nav_container').css('max-height', height + 'px');
       }
     }
   }
 
-  $(window).unload(function () {
+  $(window).on('visibilitychange', function () {
     /**
      * Fix the issue with Fullscreen menu, that remains open,
      * when back button is clicked in Firefox
@@ -3757,7 +5260,7 @@ __webpack_require__.r(__webpack_exports__);
     if ($menu_container.length) {
       var top_bar_height = $menu_container.find('.et_slide_menu_top').innerHeight();
       $menu_container.css({
-        'padding-top': top_bar_height + 20
+        'padding-top': top_bar_height + 20 + 'px'
       });
     }
   } // adjust the scrolling position on Woocommerce checkout page in case of error
@@ -3864,5 +5367,4 @@ module.exports = jQuery;
 /***/ })
 
 /******/ });
-//# sourceMappingURL=custom.js.map
 //# sourceMappingURL=custom.js.map

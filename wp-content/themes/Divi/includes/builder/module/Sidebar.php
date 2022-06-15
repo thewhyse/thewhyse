@@ -181,7 +181,16 @@ class ET_Builder_Module_Sidebar extends ET_Builder_Module {
 		return $widgets;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$orientation = $this->props['orientation'];
 		$area        = '' === $this->props['area'] ? self::get_default_area() : $this->props['area'];
 		$show_border = $this->props['show_border'];
@@ -233,18 +242,24 @@ class ET_Builder_Module_Sidebar extends ET_Builder_Module {
 			'<div%3$s class="%2$s"%6$s>
 				%5$s
 				%4$s
+				%7$s
+				%8$s
 				%1$s
-			</div> <!-- .et_pb_widget_area -->',
+			</div>',
 			$widgets,
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
 			$video_background,
 			$parallax_image_background, // #5
-			et_core_esc_previously( $data_background_layout )
+			et_core_esc_previously( $data_background_layout ),
+			et_core_esc_previously( $this->background_pattern() ), // #7
+			et_core_esc_previously( $this->background_mask() ) // #8
 		);
 
 		return $output;
 	}
 }
 
-new ET_Builder_Module_Sidebar();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Sidebar();
+}

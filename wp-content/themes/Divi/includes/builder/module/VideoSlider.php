@@ -140,6 +140,17 @@ class ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 				'mobile_options' => true,
 				'sticky'         => true,
 			),
+			'font_icon'      => array(
+				'label'          => esc_html__( 'Icon', 'et_builder' ),
+				'toggle_slug'    => 'colors',
+				'type'           => 'select_icon',
+				'class'          => array( 'et-pb-font-icon' ),
+				'description'    => esc_html__( 'Choose an icon to display with your blurb.', 'et_builder' ),
+				'mobile_options' => true,
+				'hover'          => 'tabs',
+				'sticky'         => true,
+				'tab_slug'       => 'advanced',
+			),
 			'use_icon_font_size'      => array(
 				'label'            => esc_html__( 'Use Play Icon Font Size', 'et_builder' ),
 				'description'      => esc_html__( 'If you would like to control the size of the icon, you must first enable this option.', 'et_builder' ),
@@ -229,7 +240,16 @@ class ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 		$et_pb_video_slider_sticky = et_pb_sticky_options()->is_sticky_module( $this->props );
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view         = et_pb_multi_view_options( $this );
 		$show_arrows        = $this->props['show_arrows'];
 		$show_thumbnails    = $this->props['show_thumbnails'];
@@ -252,6 +272,21 @@ class ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 				'important'                       => true,
 				'render_slug'                     => $render_slug,
 				'type'                            => 'color',
+			)
+		);
+
+		// Play Icon Styles.
+		$this->generate_styles(
+			array(
+				'utility_arg'    => 'icon_font_family_and_content',
+				'render_slug'    => $render_slug,
+				'base_attr_name' => 'font_icon',
+				'important'      => true,
+				'selector'       => '%%order_class%% .et_pb_video_play:before, %%order_class%% .et_pb_carousel .et_pb_video_play:before',
+				'processor'      => array(
+					'ET_Builder_Module_Helper_Style_Processor',
+					'process_extended_icon',
+				),
 			)
 		);
 
@@ -326,12 +361,14 @@ class ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 			'<div%3$s class="%4$s">
 				%6$s
 				%5$s
+				%8$s
+				%9$s
 				<div class="et_pb_slider et_pb_preload%1$s"%7$s>
 					<div class="et_pb_slides">
 						%2$s
-					</div> <!-- .et_pb_slides -->
-				</div> <!-- .et_pb_slider -->
-			</div> <!-- .et_pb_video_slider -->
+					</div>
+				</div>
+			</div>
 			',
 			esc_attr( $slider_classname ),
 			$content,
@@ -339,11 +376,15 @@ class ET_Builder_Module_Video_Slider extends ET_Builder_Module {
 			$this->module_classname( $render_slug ),
 			$video_background,
 			$parallax_image_background,
-			$multi_view_data_attr
+			$multi_view_data_attr,
+			et_core_esc_previously( $this->background_pattern() ), // #8
+			et_core_esc_previously( $this->background_mask() ) // #9
 		);
 
 		return $output;
 	}
 }
 
-new ET_Builder_Module_Video_Slider();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Video_Slider();
+}

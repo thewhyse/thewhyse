@@ -596,7 +596,16 @@ class ET_Builder_Module_Fullwidth_Header extends ET_Builder_Module {
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$multi_view = et_pb_multi_view_options( $this );
 		// Allowing full html for backwards compatibility.
 		$title = $this->_esc_attr( 'title', 'full' );
@@ -926,6 +935,8 @@ class ET_Builder_Module_Fullwidth_Header extends ET_Builder_Module {
 			'<section%7$s class="%1$s"%9$s%10$s>
 				%6$s
 				%8$s
+				%11$s
+				%12$s
 				<div class="et_pb_fullwidth_header_container%5$s">
 					%2$s
 					%3$s
@@ -942,7 +953,9 @@ class ET_Builder_Module_Fullwidth_Header extends ET_Builder_Module {
 			$this->module_id(),
 			$video_background,
 			et_core_esc_previously( $data_background_layout ),
-			et_core_esc_previously( $muti_view_data_attr ) // #10
+			et_core_esc_previously( $muti_view_data_attr ), // #10
+			et_core_esc_previously( $this->background_pattern() ), // #11
+			et_core_esc_previously( $this->background_mask() ) // #12
 		);
 
 		return $output;
@@ -996,4 +1009,6 @@ class ET_Builder_Module_Fullwidth_Header extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Fullwidth_Header();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Fullwidth_Header();
+}

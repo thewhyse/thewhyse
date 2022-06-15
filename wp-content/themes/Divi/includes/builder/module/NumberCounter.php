@@ -160,8 +160,16 @@ class ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
-		wp_enqueue_script( 'easypiechart' );
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 
 		$multi_view    = et_pb_multi_view_options( $this );
 		$number        = $this->props['number'];
@@ -223,9 +231,11 @@ class ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 			'<div%1$s class="%2$s" data-number-value="%3$s" data-number-separator="%7$s"%10$s>
 				%9$s
 				%8$s
+				%12$s
+				%13$s
 				<div class="percent" %4$s%11$s><p><span class="percent-value"></span><span class="percent-sign">%5$s</span></p></div>
 				%6$s
-			</div><!-- .et_pb_number_counter -->',
+			</div>',
 			$this->module_id(),
 			$this->module_classname( $render_slug ),
 			esc_attr( $number ),
@@ -236,7 +246,9 @@ class ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 			$video_background,
 			$parallax_image_background,
 			et_core_esc_previously( $data_background_layout ), // #10
-			$multi_view_data_attr
+			$multi_view_data_attr,
+			et_core_esc_previously( $this->background_pattern() ), // #12
+			et_core_esc_previously( $this->background_mask() ) // #13
 		);
 
 		return $output;
@@ -290,4 +302,6 @@ class ET_Builder_Module_Number_Counter extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Number_Counter();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Number_Counter();
+}

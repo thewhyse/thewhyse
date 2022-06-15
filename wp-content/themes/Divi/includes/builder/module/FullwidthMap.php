@@ -198,7 +198,16 @@ class ET_Builder_Module_Fullwidth_Map extends ET_Builder_Module {
 		return $fields;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$address_lat             = $this->props['address_lat'];
 		$address_lng             = $this->props['address_lng'];
 		$zoom_level              = $this->props['zoom_level'];
@@ -246,11 +255,13 @@ class ET_Builder_Module_Fullwidth_Map extends ET_Builder_Module {
 			'<div%5$s class="%6$s"%11$s>
 				%10$s
 				%9$s
+				%12$s
+				%13$s
 				<div class="et_pb_map" data-center-lat="%1$s" data-center-lng="%2$s" data-zoom="%3$d" data-mouse-wheel="%7$s" data-mobile-dragging="%8$s"></div>
 				%4$s
 			</div>',
-			esc_attr( $address_lat ),
-			esc_attr( $address_lng ),
+			esc_attr( et_()->to_css_decimal( $address_lat ) ),
+			esc_attr( et_()->to_css_decimal( $address_lng ) ),
 			esc_attr( $zoom_level ),
 			$all_pins_content,
 			$this->module_id(),
@@ -259,11 +270,15 @@ class ET_Builder_Module_Fullwidth_Map extends ET_Builder_Module {
 			esc_attr( $mobile_dragging ),
 			$video_background,
 			$parallax_image_background,
-			$grayscale_filter_data
+			$grayscale_filter_data,
+			et_core_esc_previously( $this->background_pattern() ), // #12
+			et_core_esc_previously( $this->background_mask() ) // #13
 		);
 
 		return $output;
 	}
 }
 
-new ET_Builder_Module_Fullwidth_Map();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Fullwidth_Map();
+}

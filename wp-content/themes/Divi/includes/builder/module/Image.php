@@ -290,7 +290,16 @@ class ET_Builder_Module_Image extends ET_Builder_Module {
 		return et_pb_get_alignment( $alignment );
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$sticky            = et_pb_sticky_options();
 		$multi_view        = et_pb_multi_view_options( $this );
 		$src               = $this->props['src'];
@@ -310,6 +319,9 @@ class ET_Builder_Module_Image extends ET_Builder_Module {
 		$use_overlay       = $this->props['use_overlay'];
 		$animation_style   = $this->props['animation_style'];
 		$box_shadow_style  = self::$_->array_get( $this->props, 'box_shadow_style', '' );
+		$width             = $this->props['width'];
+		$height            = $this->props['height'];
+		$max_height        = $this->props['max_height'];
 
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
@@ -350,19 +362,25 @@ class ET_Builder_Module_Image extends ET_Builder_Module {
 				'text-align'      => esc_html( $align ),
 				"margin-{$align}" => ! empty( $align ) && 'center' !== $align ? '0' : '',
 			),
-			'tablet'  => array(
+		);
+
+		if ( ! empty( $align_tablet ) ) {
+			$align_values['tablet'] = array(
 				'text-align'             => esc_html( $align_tablet ),
 				'margin-left'            => 'left' !== $align_tablet ? 'auto' : '',
 				'margin-right'           => 'left' !== $align_tablet ? 'auto' : '',
 				"margin-{$align_tablet}" => ! empty( $align_tablet ) && 'center' !== $align_tablet ? '0' : '',
-			),
-			'phone'   => array(
+			);
+		}
+
+		if ( ! empty( $align_phone ) ) {
+			$align_values['phone'] = array(
 				'text-align'            => esc_html( $align_phone ),
 				'margin-left'           => 'left' !== $align_phone ? 'auto' : '',
 				'margin-right'          => 'left' !== $align_phone ? 'auto' : '',
 				"margin-{$align_phone}" => ! empty( $align_phone ) && 'center' !== $align_phone ? '0' : '',
-			),
-		);
+			);
+		}
 
 		et_pb_responsive_options()->generate_responsive_css( $align_values, '%%order_class%%', '', $render_slug, '', 'alignment' );
 
@@ -421,6 +439,22 @@ class ET_Builder_Module_Image extends ET_Builder_Module {
 					'icon_sticky' => $hover_icon_sticky,
 				)
 			);
+
+			// Overlay Icon Styles.
+			$this->generate_styles(
+				array(
+					'hover'          => false,
+					'utility_arg'    => 'icon_font_family',
+					'render_slug'    => $render_slug,
+					'base_attr_name' => 'hover_icon',
+					'important'      => true,
+					'selector'       => '%%order_class%% .et_overlay:before',
+					'processor'      => array(
+						'ET_Builder_Module_Helper_Style_Processor',
+						'process_extended_icon',
+					),
+				)
+			);
 		}
 
 		// Set display block for svg image to avoid disappearing svg image
@@ -441,12 +475,31 @@ class ET_Builder_Module_Image extends ET_Builder_Module {
 			: '';
 
 		$image_attrs = array(
-			'src'    => '{{src}}',
-			'alt'    => esc_attr( $alt ),
-			'title'  => esc_attr( $title_text ),
-			'height' => 'auto',
-			'width'  => 'auto',
+			'src'   => '{{src}}',
+			'alt'   => esc_attr( $alt ),
+			'title' => esc_attr( $title_text ),
 		);
+
+		// Only if force fullwidth is not set.
+		if ( 'on' !== $force_fullwidth ) {
+			$responsive_width     = et_pb_responsive_options()->get_property_values( $this->props, 'width' );
+			$responsive_height    = et_pb_responsive_options()->get_property_values( $this->props, 'height' );
+			$responsive_max_width = et_pb_responsive_options()->get_property_values( $this->props, 'max_height' );
+			$image_style_width    = [];
+			$modes                = [ 'desktop', 'tablet', 'phone' ];
+
+			foreach ( $modes as $mode ) {
+				// Only height or max-height is set, no width set.
+				if ( 'auto' === $responsive_width[ $mode ] && 'auto' !== $responsive_height[ $mode ] || 'none' !== $responsive_max_width[ $mode ] ) {
+					$image_style_width[ $mode ] = [
+						'width' => 'auto',
+					];
+				}
+			}
+
+			et_pb_responsive_options()->generate_responsive_css( $image_style_width, '%%order_class%% .et_pb_image_wrap img', '', $render_slug, '', '' );
+
+		}
 
 		$image_attachment_class = et_pb_media_options()->get_image_attachment_class( $this->props, 'src' );
 
@@ -519,13 +572,17 @@ class ET_Builder_Module_Image extends ET_Builder_Module {
 			'<div%3$s class="%2$s">
 				%5$s
 				%4$s
+				%6$s
+				%7$s
 				%1$s
 			</div>',
 			$output,
 			$this->module_classname( $render_slug ),
 			$this->module_id(),
 			$video_background,
-			$parallax_image_background
+			$parallax_image_background,
+			et_core_esc_previously( $this->background_pattern() ), // #6
+			et_core_esc_previously( $this->background_mask() ) // #7
 		);
 
 		return $output;
@@ -544,4 +601,6 @@ function _et_bb_module_image_add_src_label( $filed ) {
 
 add_filter( 'et_builder_module_fields_et_pb_image_field_src', '_et_bb_module_image_add_src_label' );
 
-new ET_Builder_Module_Image();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Image();
+}

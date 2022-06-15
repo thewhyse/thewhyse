@@ -58,7 +58,9 @@ class ET_Builder_Module_Tabs extends ET_Builder_Module {
 			),
 			'background'     => array(
 				'css'      => array(
-					'main' => "{$this->main_css_element} .et_pb_all_tabs",
+					'main'    => "{$this->main_css_element} .et_pb_all_tabs",
+					'mask'    => "{$this->main_css_element} > .et_pb_background_mask",
+					'pattern' => "{$this->main_css_element} > .et_pb_background_pattern",
 				),
 				'settings' => array(
 					'color' => 'alpha',
@@ -203,7 +205,16 @@ class ET_Builder_Module_Tabs extends ET_Builder_Module {
 		return $this->content;
 	}
 
-	function render( $attrs, $content = null, $render_slug ) {
+	/**
+	 * Renders the module output.
+	 *
+	 * @param  array  $attrs       List of attributes.
+	 * @param  string $content     Content being processed.
+	 * @param  string $render_slug Slug of module that is used for rendering output.
+	 *
+	 * @return string
+	 */
+	public function render( $attrs, $content, $render_slug ) {
 		$all_tabs_content = $this->get_tabs_content();
 
 		global $et_pb_tab_titles;
@@ -267,20 +278,24 @@ class ET_Builder_Module_Tabs extends ET_Builder_Module {
 			'<div%3$s class="%4$s" %7$s>
 				%6$s
 				%5$s
+				%8$s
+				%9$s
 				<ul class="et_pb_tabs_controls clearfix">
 					%1$s
 				</ul>
 				<div class="et_pb_all_tabs">
 					%2$s
-				</div> <!-- .et_pb_all_tabs -->
-			</div> <!-- .et_pb_tabs -->',
+				</div>
+			</div>',
 			$tabs,
 			$all_tabs_content,
 			$this->module_id(),
 			$this->module_classname( $render_slug ),
 			$video_background,
 			$parallax_image_background,
-			/* 7$s */ 'et_pb_wc_tabs' === $render_slug ? $this->get_multi_view_attrs() : ''
+			/* 7$s */ 'et_pb_wc_tabs' === $render_slug ? $this->get_multi_view_attrs() : '',
+			et_core_esc_previously( $this->background_pattern() ), // #8
+			et_core_esc_previously( $this->background_mask() ) // #9
 		);
 
 		return $output;
@@ -305,4 +320,6 @@ class ET_Builder_Module_Tabs extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Tabs();
+if ( et_builder_should_load_all_module_data() ) {
+	new ET_Builder_Module_Tabs();
+}

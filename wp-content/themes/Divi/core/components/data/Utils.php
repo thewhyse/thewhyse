@@ -239,7 +239,7 @@ class ET_Core_Data_Utils {
 		$value  = $array;
 
 		foreach ( $keys as $key ) {
-			if ( '[' === $key[0] ) {
+			if ( ! empty( $key ) && isset( $key[0] ) && '[' === $key[0] ) {
 				$index = substr( $key, 1, -1 );
 
 				if ( is_numeric( $index ) ) {
@@ -480,12 +480,16 @@ class ET_Core_Data_Utils {
 	/**
 	 * Disable XML entity loader.
 	 *
+	 * @since 4.7.5 Don't execute deprecated `libxml_disable_entity_loader()` on PHP 8.0.
+	 *
 	 * @param bool $disable
 	 *
 	 * @return void
 	 */
 	public function libxml_disable_entity_loader( $disable ) {
-		if ( function_exists( 'libxml_disable_entity_loader' ) ) {
+		// The `libxml_disable_entity_loader()` method is deprecated since PHP 8.0 because
+		// PHP 8.0 and later uses libxml versions from 2.9.0, which disabled XXE by default.
+		if ( PHP_VERSION_ID < 80000 && function_exists( 'libxml_disable_entity_loader' ) ) {
 			libxml_disable_entity_loader( $disable );
 		}
 	}
@@ -893,7 +897,7 @@ class ET_Core_Data_Utils {
 
 	/**
 	 * Returns a string with a valid CSS property value.
-	 * 
+	 *
 	 * With some locales (ex: ro_RO) the decimal point can be ',' (comma) and
 	 * we need to convert that to a '.' (period) decimal point to ensure that
 	 * the value is a valid CSS property value.
@@ -904,7 +908,7 @@ class ET_Core_Data_Utils {
 	 *
 	 * @return string
 	 */
-	public function to_css_decimal( $float ) {	
+	public function to_css_decimal( $float ) {
 		return strtr( $float, ',', '.' );
 	}
 
@@ -1036,6 +1040,69 @@ class ET_Core_Data_Utils {
 			$buffer[14],
 			$buffer[15]
 		);
+	}
+
+	/**
+	 * Append/Prepend to comma separated selectors.
+	 *
+	 * Example:
+	 *
+	 * @see UtilsTest::testAppendPrependCommaSeparatedSelectors()
+	 *
+	 * @param string $css_selector      Comma separated CSS selectors.
+	 * @param string $value             Value to append/prepend.
+	 * @param string $prefix_suffix     Values can be `prefix` or `suffix`.
+	 * @param bool   $is_space_required Is space required? // phpcs:ignore Squiz.Commenting.FunctionComment.ParamCommentFullStop -- Respecting punctuation.
+	 *
+	 * @return string
+	 */
+	public function append_prepend_comma_separated_selectors(
+		$css_selector,
+		$value,
+		$prefix_suffix,
+		$is_space_required = true
+	) {
+		$css_selectors           = explode( ',', $css_selector );
+		$css_selectors_processed = array();
+		$is_prefix               = 'prefix' === $prefix_suffix;
+
+		foreach ( $css_selectors as $selector ) {
+			$selector = rtrim( ltrim( $selector ) );
+			if ( $is_prefix && $is_space_required ) {
+				$css_selectors_processed[] = sprintf( '%2$s %1$s', $selector, $value );
+			} elseif ( $is_prefix && ! $is_space_required ) {
+				$css_selectors_processed[] = sprintf( '%2$s%1$s', $selector, $value );
+			} elseif ( ! $is_prefix && $is_space_required ) {
+				$css_selectors_processed[] = sprintf( '%1$s %2$s', $selector, $value );
+			} elseif ( ! $is_prefix && ! $is_space_required ) {
+				$css_selectors_processed[] = sprintf( '%1$s%2$s', $selector, $value );
+			}
+		}
+
+		return implode( ',', $css_selectors_processed );
+	}
+
+	/**
+	 * Helper function to prepare attributes for SVG.
+	 *
+	 * @param array $props Props.
+	 *
+	 * @return string
+	 */
+	public function get_svg_attrs( $props ) {
+		$result = '';
+		$attrs  = array_merge(
+			$props,
+			array(
+				'xmlns' => 'http://www.w3.org/2000/svg',
+			)
+		);
+
+		foreach ( $attrs as $key => $value ) {
+			$result .= " {$key}=\"{$value}\"";
+		}
+
+		return $result;
 	}
 }
 
