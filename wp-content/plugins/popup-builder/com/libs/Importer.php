@@ -63,7 +63,7 @@ class WP_Import extends WP_Importer
 			case 2:
 				check_admin_referer('import-wordpress');
 				$this->fetch_attachments = (!empty($_POST['fetch_attachments']) && $this->allow_fetch_attachments());
-				$this->id = (int) $_POST['import_id'];
+				$this->id = (int) sanitize_text_field($_POST['import_id']);
 				$file = get_attached_file($this->id);
 				set_time_limit(0);
 				$this->import($file);
@@ -244,7 +244,7 @@ class WP_Import extends WP_Importer
 		?>
 		<form action="<?php echo admin_url('admin.php?import='.SG_POPUP_POST_TYPE.'&amp;step=2'); ?>" method="post">
 			<?php wp_nonce_field('import-wordpress'); ?>
-			<input type="hidden" name="import_id" value="<?php echo $this->id; ?>" />
+			<input type="hidden" name="import_id" value="<?php echo esc_html($this->id); ?>" />
 
 			<?php if (!empty($this->authors)) : ?>
 				<h3><?php _e('Assign Authors', SG_POPUP_TEXT_DOMAIN); ?></h3>
@@ -291,7 +291,7 @@ class WP_Import extends WP_Importer
 				$value = esc_attr(sanitize_user($author['author_login'], true));
 			}
 
-			echo ' <input type="text" name="user_new['.$n.']" value="'. $value .'" /><br />';
+			echo ' <input type="text" name="user_new['.esc_attr($n).']" value="'. $value .'" /><br />';
 		}
 
 		if (!$create_users && $this->version == '1.0')
@@ -299,7 +299,7 @@ class WP_Import extends WP_Importer
 		else
 			_e('or assign posts to an existing user:', SG_POPUP_TEXT_DOMAIN);
 		wp_dropdown_users(array('name' => "user_map[$n]", 'multi' => true, 'show_option_all' => __('- Select -', SG_POPUP_TEXT_DOMAIN)));
-		echo '<input type="hidden" name="imported_authors['.$n.']" value="' . esc_attr($author['author_login']) . '" />';
+		echo '<input type="hidden" name="imported_authors['.esc_attr($n).']" value="' . esc_attr($author['author_login']) . '" />';
 
 		if ($this->version != '1.0')
 			echo '</div>';

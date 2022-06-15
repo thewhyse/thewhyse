@@ -97,8 +97,6 @@ class SgpbPopupExtension implements SgpbIPopupExtension
 			$jsFiles[] = array('folderUrl'=> SG_POPUP_JS_URL, 'filename' => 'sgpbSelect2.js');
 
 
-			$jsFiles[] = array('folderUrl'=> SG_POPUP_JS_URL, 'filename' => 'bootstrap.min.js');
-			$jsFiles[] = array('folderUrl'=> SG_POPUP_JS_URL, 'filename' => 'sgPopupRangeSlider.js');
 			$jsFiles[] = array('folderUrl'=> SG_POPUP_JS_URL, 'filename' => 'Backend.js');
 			$jsFiles[] = array('folderUrl'=> SG_POPUP_JS_URL, 'filename' => 'FloatingButton.js', 'dep' => array('Backend.js'),);
 			$jsFiles[] = array('folderUrl'=> SG_POPUP_JS_URL, 'filename' => 'NotificationCenter.js');
@@ -244,16 +242,13 @@ class SgpbPopupExtension implements SgpbIPopupExtension
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'sgbp-bootstrap.css', 'dep' => array(), 'ver' => rand(1, 1000), 'inFooter' => false);
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'popupAdminStyles.css', 'dep' => array(), 'ver' => rand(1, 1000), 'inFooter' => false);
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'select2.min.css', 'dep' => array(), 'ver' => rand(1, 1000), 'inFooter' => false);
-			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'sgPopupRangeSlider.css', 'dep' => array(), 'ver' => rand(1, 1000), 'inFooter' => false);
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'theme.css', 'dep' => array(), 'ver' => rand(1, 1000), 'inFooter' => false);
-			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'newDesignFromBuild.css', 'dep' => array(), 'ver' => rand(1, 10000), 'inFooter' => false);
 			$cssFiles[] = array('folderUrl' => '', 'filename' => 'wp-color-picker');
 		}
 		else if ($pageName == SG_POPUP_SUBSCRIBERS_PAGE) {
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'sgbp-bootstrap.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'popupAdminStyles.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
 			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'select2.min.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
-			$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'newDesignFromBuild.css', 'dep' => array(), 'ver' => rand(1, 10000), 'inFooter' => false);
 
 		}
 		$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'sgpb-modal.css', 'dep' => array(), 'ver' => rand(1, 10000), 'inFooter' => false);
@@ -357,4 +352,5 @@ class SgpbPopupExtension implements SgpbIPopupExtension
 
 		return $cssData;
 	}
+
 }

@@ -7,6 +7,6 @@ $builder = ConditionBuilder::createBehaviorAfterSpecialEventsConditionBuilder($d
 <div class="popup-conditions-wrapper popup-special-conditions-wrapper behavior-after-special-events-wrapper" data-condition-type="behavior-after-special-events">
 	<?php
 		$creator = new ConditionCreator($builder);
-		echo $creator->render();
+		echo wp_kses($creator->render(), AdminHelper::allowed_html_tags());
 	?>
 </div>

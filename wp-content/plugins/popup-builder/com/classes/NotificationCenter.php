@@ -30,12 +30,13 @@ class SGPBNotificationCenter
 		if (empty($count)) {
 			$hidden = ' sgpb-hide-add-button';
 		}
-		echo "<script>
+		$script = "<script>
 				jQuery(document).ready(function() {
 					jQuery('.sgpb-menu-item-notification').remove();
-					jQuery('.dashicons-menu-icon-sgpb').next().append('<span class=\"sgpb-menu-item-notification".$hidden."\">".$count."</span>');
+					jQuery('.dashicons-menu-icon-sgpb').next().append('<span class=\"sgpb-menu-item-notification".esc_attr($hidden)."\">".esc_html($count)."</span>');
 				});
 			</script>";
+		echo wp_kses($script, AdminHelper::allowed_html_tags());
 	}
 
 	public function setCronTimeout($cronTimeout)
@@ -115,7 +116,7 @@ class SGPBNotificationCenter
 		$extensions = AdminHelper::getAllExtensions();
 		$extensionsKeys = wp_list_pluck($extensions['active'], 'key');
 		foreach ($notifications as $notification) {
-			$id = @$notification['id'];
+			$id = isset($notification['id']) ? $notification['id'] : '';
 
 			if (isset($notification['hideFor'])) {
 				$hideForExtensions = explode(',', $notification['hideFor']);
@@ -233,7 +234,7 @@ class SGPBNotificationCenter
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 
-		$notificationId = sanitize_text_field($_POST['id']);
+		$notificationId = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : '';
 		$allDismissedNotifications = self::getAllDismissedNotifications();
 		$allDismissedNotifications[$notificationId] = $notificationId;
 		$allDismissedNotifications = json_encode($allDismissedNotifications);
@@ -243,14 +244,15 @@ class SGPBNotificationCenter
 		$result['content'] = self::displayNotifications(true);
 		$result['count'] = count(self::getAllActiveNotifications(true));
 
-		echo json_encode($result);
-		wp_die();
+		wp_send_json($result);
 	}
 
 	public function removeNotification()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-
+		if (!isset($_POST['id'])){
+			wp_die(0);
+		}
 		$notificationId = sanitize_text_field($_POST['id']);
 		$allRemovedNotifications = self::getAllRemovedNotifications();
 		$allRemovedNotifications[$notificationId] = $notificationId;
@@ -264,7 +266,9 @@ class SGPBNotificationCenter
 	public function reactivateNotification()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-
+		if (!isset($_POST['id'])){
+			wp_die(0);
+		}
 		$notificationId = sanitize_text_field($_POST['id']);
 		$allDismissedNotifications = self::getAllDismissedNotifications();
 		if (isset($allDismissedNotifications[$notificationId])) {
@@ -277,8 +281,7 @@ class SGPBNotificationCenter
 		$result['content'] = self::displayNotifications(true);
 		$result['count'] = count(self::getAllActiveNotifications(true));
 
-		echo json_encode($result);
-		wp_die();
+		wp_send_json($result);
 	}
 
 	public function activateCron()

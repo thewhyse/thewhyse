@@ -41,7 +41,11 @@ class Links {
 				'settings' => "/live-messages-settings/$portal_id",
 			),
 			MenuConstants::CONTACTS   => "/contacts/$portal_id",
-			MenuConstants::LISTS      => "/contacts/$portal_id/lists",
+			MenuConstants::LISTS      => array(
+				''        => "/contacts/$portal_id/objectLists/all",
+				'default' => "/contacts/$portal_id/objectLists",
+				'lists'   => "/contacts/$portal_id/lists",
+			),
 			MenuConstants::FORMS      => "/forms/$portal_id",
 			MenuConstants::EMAIL      => array(
 				''    => "/email/$portal_id",
@@ -68,8 +72,7 @@ class Links {
 	 * Get the parsed `leadin_route` from the query string.
 	 */
 	private static function get_iframe_route() {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$iframe_route = isset( $_GET['leadin_route'] ) ? wp_unslash( $_GET['leadin_route'] ) : array();
+		$iframe_route = QueryParameters::get_param_array( 'leadin_route', 'hubspot-route' );
 		return is_array( $iframe_route ) ? $iframe_route : array();
 	}
 
@@ -77,8 +80,7 @@ class Links {
 	 * Get the parsed `leadin_search` from the query string.
 	 */
 	private static function get_iframe_search_string() {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		return isset( $_GET['leadin_search'] ) ? esc_url_raw( wp_unslash( '&' . $_GET['leadin_search'] ) ) : '';
+		return QueryParameters::get_param( 'leadin_search', 'hubspot-route' );
 	}
 
 	/**
@@ -141,8 +143,8 @@ class Links {
 	 * Returns the url for the connection page
 	 */
 	private static function get_connection_src() {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$portal_id = filter_var( wp_unslash( $_GET['leadin_connect'] ), FILTER_VALIDATE_INT );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$portal_id = Connection::is_connected() ? AccountOptions::get_portal_id() : ( isset( $_GET['leadin_connect'] ) ? filter_var( wp_unslash( $_GET['leadin_connect'] ), FILTER_VALIDATE_INT ) : 0 );
 		return LeadinFilters::get_leadin_base_url() . "/wordpress-plugin-ui/onboarding/connect?portalId=$portal_id&" . self::get_query_params();
 	}
 

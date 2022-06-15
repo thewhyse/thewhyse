@@ -12,7 +12,7 @@
 <div class="sgpb sgpb-wrapper">
 	<div class="sgpb-import-popups">
 		<h3 class="sgpb-header-h3">
-			<span><?php _e('Import popups', SG_POPUP_TEXT_DOMAIN); ?></span>
+			<span><?php esc_html_e('Import popups', SG_POPUP_TEXT_DOMAIN); ?></span>
 		</h3>
 		<div class="sgpb-import-popups-form">
 			<?php

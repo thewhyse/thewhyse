@@ -10,9 +10,9 @@
  * @package AMP
  */
 
-use AmpProject\Attribute;
-use AmpProject\Dom\Document;
-use AmpProject\Tag;
+use AmpProject\Encoding;
+use AmpProject\Html\Attribute;
+use AmpProject\Html\Tag;
 
 /**
  * Class AMP_Meta_Sanitizer.
@@ -23,6 +23,15 @@ use AmpProject\Tag;
  * @internal
  */
 class AMP_Meta_Sanitizer extends AMP_Base_Sanitizer {
+
+	/**
+	 * Default args.
+	 *
+	 * @var array
+	 */
+	protected $DEFAULT_ARGS = [ // phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+		'remove_initial_scale_viewport_property' => true,
+	];
 
 	/**
 	 * Tag.
@@ -106,15 +115,6 @@ class AMP_Meta_Sanitizer extends AMP_Base_Sanitizer {
 		$meta_elements = iterator_to_array( $this->dom->getElementsByTagName( static::$tag ), false );
 
 		foreach ( $meta_elements as $meta_element ) {
-
-			// Strip whitespace around equal signs. Won't be needed after <https://github.com/ampproject/amphtml/issues/26496> is resolved.
-			if ( $meta_element->hasAttribute( Attribute::CONTENT ) ) {
-				$meta_element->setAttribute(
-					Attribute::CONTENT,
-					preg_replace( '/\s*=\s*/', '=', $meta_element->getAttribute( Attribute::CONTENT ) )
-				);
-			}
-
 			/**
 			 * Meta tag to process.
 			 *
@@ -189,6 +189,17 @@ class AMP_Meta_Sanitizer extends AMP_Base_Sanitizer {
 						$parsed_rules[ trim( $exploded_pair[0] ) ] = trim( $exploded_pair[1] );
 					}
 				}
+			}
+
+			// Remove initial-scale=1 to leave just width=device-width in order to avoid a tap delay hurts FID.
+			if (
+				! empty( $this->args['remove_initial_scale_viewport_property'] )
+				&&
+				isset( $parsed_rules['initial-scale'] )
+				&&
+				abs( (float) $parsed_rules['initial-scale'] - 1.0 ) < 0.0001
+			) {
+				unset( $parsed_rules['initial-scale'] );
 			}
 
 			$viewport_value = implode(
@@ -275,7 +286,7 @@ class AMP_Meta_Sanitizer extends AMP_Base_Sanitizer {
 			$this->dom,
 			Tag::META,
 			[
-				Attribute::CHARSET => Document::AMP_ENCODING,
+				Attribute::CHARSET => Encoding::AMP,
 			]
 		);
 	}
@@ -311,7 +322,7 @@ class AMP_Meta_Sanitizer extends AMP_Base_Sanitizer {
 		/**
 		 * Previous meta tag to append to.
 		 *
-		 * @var DOMElement $previous_meta_tag
+		 * @var DOMElement|null $previous_meta_tag
 		 */
 		$previous_meta_tag = null;
 		foreach ( $this->meta_tags as $meta_tag_group ) {

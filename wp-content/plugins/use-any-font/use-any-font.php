@@ -1,31 +1,29 @@
 <?php
-/* 
+if ( ! defined( 'ABSPATH' ) ) exit; 
+/*
 Plugin Name: Use Any Font
-Plugin URI: http://dineshkarki.com.np/use-any-font
+Plugin URI: https://dineshkarki.com.np/use-any-font
 Description: Embed any font in your website
 Author: Dnesscarkey
-Version: 5.11.5
-Author URI: https://www.dineshkarki.com.np
+Version: 6.2.92
+Author URI: https://dineshkarki.com.np/use-any-font
 */
 
-/*  Copyright 2012  Dinesh Karki  (email : dnesskarki@gmail.com)
+define ( 'UAF_FILE_PATH', plugin_dir_path( __FILE__ ) );
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
-    published by the Free Software Foundation.
+include UAF_FILE_PATH.'includes/uaf_config.php';
+include UAF_FILE_PATH.'includes/functions/uaf_admin_functions.php';
+include UAF_FILE_PATH.'includes/functions/uaf_client_functions.php';
+include UAF_FILE_PATH.'includes/functions/uaf_font_functions.php';
+include UAF_FILE_PATH.'includes/functions/uaf_cache_functions.php';
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+add_action('init', 'uaf_plugin_initialize');
+add_action('admin_menu', 'uaf_create_menu');
+add_action('admin_enqueue_scripts', 'uaf_admin_assets');
+add_action('wp_enqueue_scripts', 'uaf_client_assets');
+add_action('admin_notices', 'uaf_admin_notices');
 
-include('uaf_config.php');
-include('includes/uaf_functions.php');
-include('plugin_interface.php');
-register_activation_hook( __FILE__, 'uaf_activate' );
-?>
+add_action( 'wp_ajax_uaf_predefined_font_interface', 'uaf_predefined_font_interface' );
+
+register_activation_hook( __FILE__, 'uaf_plugin_activated' );

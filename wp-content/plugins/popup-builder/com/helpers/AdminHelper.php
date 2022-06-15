@@ -171,8 +171,7 @@ class AdminHelper
 	{
 		$attrString = '';
 		$savedData = $data;
-
-		if (isset($selectedValue)) {
+		if (isset($selectedValue) && $selectedValue !== '') {
 			$savedData = $selectedValue;
 		}
 		if (empty($savedData)) {
@@ -217,6 +216,7 @@ class AdminHelper
 	public static function createRadioButtons($elements, $name, $selectedInput, $lineMode = false, $extraHtmlAfterInput = '')
 	{
 		$str = '';
+		$allowed_html = self::allowed_html_tags();
 
 		foreach ($elements as $key => $element) {
 			$value = '';
@@ -270,7 +270,7 @@ class AdminHelper
 			}
 		}
 
-		echo $str;
+		echo wp_kses($str, $allowed_html);
 	}
 
 	public static function getDateObjFromDate($dueDate, $timezone = 'America/Los_Angeles', $format = 'Y-m-d H:i:s')
@@ -345,29 +345,30 @@ class AdminHelper
 		$query .= ' LEFT JOIN '.$postsTablename.' ON '.$postsTablename.'.ID='.$subscribersTablename.'.subscriptionType';
 
 		if (isset($_GET['sgpb-subscription-popup-id']) && !empty($_GET['sgpb-subscription-popup-id'])) {
-			$filterCriteria = esc_sql($_GET['sgpb-subscription-popup-id']);
+			$filterCriteria = sanitize_text_field($_GET['sgpb-subscription-popup-id']);
 			if ($filterCriteria != 'all') {
-				$searchQuery .= " AND (subscriptionType = $filterCriteria)";
+				$searchQuery .= " AND (subscriptionType = '".esc_sql((int)$filterCriteria)."')";
 			}
 		}
 		if ($filterCriteria != '' && $filterCriteria != 'all' && isset($_GET['s']) && !empty($_GET['s'])) {
 			$searchQuery .= ' AND ';
 		}
 		if (isset($_GET['s']) && !empty($_GET['s'])) {
-			$searchCriteria = esc_sql($_GET['s']);
+			$searchCriteria = sanitize_text_field($_GET['s']);
 			$lastPartOfTheQuery = substr($searchQuery, -5);
 			if (strpos($lastPartOfTheQuery, 'AND') <= 0) {
 				$searchQuery .= ' AND ';
 			}
-			$searchQuery .= "(firstName LIKE '%$searchCriteria%' or lastName LIKE '%$searchCriteria%' or email LIKE '%$searchCriteria%' or $postsTablename.post_title LIKE '%$searchCriteria%')";
+			$searchCriteria = "%" . esc_sql($wpdb->esc_like( $searchCriteria )) . "%";
+			$searchQuery .= "(firstName LIKE '$searchCriteria' or lastName LIKE '$searchCriteria' or email LIKE '$searchCriteria' or $postsTablename.post_title LIKE '$searchCriteria')";
 		}
 		if (isset($_GET['sgpb-subscribers-date']) && !empty($_GET['sgpb-subscribers-date'])) {
-			$filterCriteria = esc_sql($_GET['sgpb-subscribers-date']);
-			if ($filterCriteria != 'all') {
+			$filterCriteriaDate = sanitize_text_field($_GET['sgpb-subscribers-date']);
+			if ($filterCriteriaDate != 'all') {
 				if ($searchQuery != '') {
 					$searchQuery .= ' AND ';
 				}
-				$searchQuery .= " cDate LIKE '$filterCriteria%'";
+				$searchQuery .= " cDate LIKE '".esc_sql( $wpdb->esc_like($filterCriteriaDate))."%'";
 			}
 		}
 		if ($searchQuery != '') {
@@ -574,13 +575,15 @@ class AdminHelper
 		$role = array('administrator');
 
 		if (is_multisite()) {
-
-			$getUsersObj = get_users(
-				array(
-					'blog_id' => get_current_blog_id(),
-					'search' => get_current_user_id()
-				)
-			);
+			$getUsersObj = array();
+			if (get_current_user_id() !== 0){
+				$getUsersObj = get_users(
+					array(
+						'blog_id' => get_current_blog_id(),
+						'search' => get_current_user_id()
+					)
+				);
+			}
 
 			if (!empty($getUsersObj[0])) {
 				$roles = $getUsersObj[0]->roles;
@@ -666,16 +669,16 @@ class AdminHelper
 		<p class="sgpb-extension-notice-close">x</p>
 		<div class="sgpb-extensions-list-wrapper">
 			<div class="sgpb-notice-header">
-				<h3><?php _e('Popup Builder plugin has been successfully updated', SG_POPUP_TEXT_DOMAIN); ?></h3>
-				<h4><?php _e('The following extensions need to be updated manually', SG_POPUP_TEXT_DOMAIN); ?></h4>
+				<h3><?php esc_html_e('Popup Builder plugin has been successfully updated', SG_POPUP_TEXT_DOMAIN); ?></h3>
+				<h4><?php esc_html_e('The following extensions need to be updated manually', SG_POPUP_TEXT_DOMAIN); ?></h4>
 			</div>
 			<ul class="sgpb-extensions-list">
 				<?php foreach ($extensions as $extensionName): ?>
-					<a target="_blank" href="https://popup-builder.com/forms/control-panel/"><li><?php echo $extensionName; ?></li></a>
+					<a target="_blank" href="https://popup-builder.com/forms/control-panel/"><li><?php echo esc_html($extensionName); ?></li></a>
 				<?php endforeach; ?>
 			</ul>
 		</div>
-		<p class="sgpb-extension-notice-dont-show"><?php _e('Don\'t show again', SG_POPUP_TEXT_DOMAIN)?></p>
+		<p class="sgpb-extension-notice-dont-show"><?php esc_html_e('Don\'t show again', SG_POPUP_TEXT_DOMAIN)?></p>
 		<?php
 		$content = ob_get_contents();
 		ob_get_clean();
@@ -751,11 +754,11 @@ class AdminHelper
 			<div class="welcome-panel-content">
 				<p class="sgpb-problem-notice-close">x</p>
 				<div class="sgpb-alert-problem-text-wrapper">
-					<h3><?php _e('Popup Builder plugin has been updated to the new version 3.', SG_POPUP_TEXT_DOMAIN); ?></h3>
-					<h5><?php _e('A lot of changes and improvements have been made.', SG_POPUP_TEXT_DOMAIN); ?></h5>
+					<h3><?php esc_html_e('Popup Builder plugin has been updated to the new version 3.', SG_POPUP_TEXT_DOMAIN); ?></h3>
+					<h5><?php esc_html_e('A lot of changes and improvements have been made.', SG_POPUP_TEXT_DOMAIN); ?></h5>
 					<h5><?php _e('In case of any issues, please contact us <a href="<?php echo SG_POPUP_TICKET_URL; ?>" target="_blank">here</a>.', SG_POPUP_TEXT_DOMAIN); ?></h5>
 				</div>
-				<p class="sgpb-problem-notice-dont-show"><?php _e('Don\'t show again', SG_POPUP_TEXT_DOMAIN); ?></p>
+				<p class="sgpb-problem-notice-dont-show"><?php esc_html_e('Don\'t show again', SG_POPUP_TEXT_DOMAIN); ?></p>
 			</div>
 		</div>
 		<?php
@@ -786,13 +789,13 @@ class AdminHelper
 	{
 		$type = '';
 		if (!empty($_GET['sgpb_type'])) {
-			$type  = $_GET['sgpb_type'];
+			$type  = sanitize_text_field($_GET['sgpb_type']);
 		}
 
 		$currentPostType = self::getCurrentPostType();
 
 		if ($currentPostType == SG_POPUP_POST_TYPE && !empty($_GET['post'])) {
-			$popupObj = SGPopup::find($_GET['post']);
+			$popupObj = SGPopup::find(sanitize_text_field($_GET['post']));
 			if (is_object($popupObj)) {
 				$type = $popupObj->getType();
 			}
@@ -817,7 +820,7 @@ class AdminHelper
 		}
 
 		if (empty($currentPostType) && !empty($_GET['post'])) {
-			$currentPostType = get_post_type($_GET['post']);
+			$currentPostType = get_post_type(sanitize_text_field($_GET['post']));
 		}
 
 		return $currentPostType;
@@ -1048,14 +1051,14 @@ class AdminHelper
 		</style>
 		<div class="sgpb-review-wrapper">
 			<div class="sgpb-review-description">
-				<?php echo $firstHeader; ?>
-				<h2 class="sgrb-review-h2"><?php _e('This is really great for your website score.', SG_POPUP_TEXT_DOMAIN); ?></h2>
+				<?php echo wp_kses($firstHeader, 'post'); ?>
+				<h2 class="sgrb-review-h2"><?php esc_html_e('This is really great for your website score.', SG_POPUP_TEXT_DOMAIN); ?></h2>
 				<p class="sgrb-review-mt20"><?php _e('Have your input in the development of our plugin, and we’ll provide better conversions for your site!<br /> Leave your 5-star positive review and help us go further to the perfection!', SG_POPUP_TEXT_DOMAIN); ?></p>
 			</div>
 			<div class="sgpb-buttons-wrapper">
-				<button class="press press-grey sgpb-button-1 sgpb-close-promo-notification" data-action="sg-already-did-review"><?php _e('I already did', SG_POPUP_TEXT_DOMAIN); ?></button>
-				<button class="press press-lightblue sgpb-button-3 sgpb-close-promo-notification" data-action="sg-you-worth-it"><?php _e('You worth it!', SG_POPUP_TEXT_DOMAIN); ?></button>
-				<button class="press press-grey sgpb-button-2 sgpb-close-promo-notification" data-action="sg-show-popup-period" data-message-type="<?php echo $type; ?>"><?php _e('Maybe later', SG_POPUP_TEXT_DOMAIN); ?></button></div>
+				<button class="press press-grey sgpb-button-1 sgpb-close-promo-notification" data-action="sg-already-did-review"><?php esc_html_e('I already did', SG_POPUP_TEXT_DOMAIN); ?></button>
+				<button class="press press-lightblue sgpb-button-3 sgpb-close-promo-notification" data-action="sg-you-worth-it"><?php esc_html_e('You worth it!', SG_POPUP_TEXT_DOMAIN); ?></button>
+				<button class="press press-grey sgpb-button-2 sgpb-close-promo-notification" data-action="sg-show-popup-period" data-message-type="<?php echo esc_attr($type); ?>"><?php esc_html_e('Maybe later', SG_POPUP_TEXT_DOMAIN); ?></button></div>
 			<div> </div>
 		</div>
 		<?php
@@ -1194,7 +1197,7 @@ class AdminHelper
 	{
 		$contentType = 'text/html';
 		$charset = 'UTF-8';
-		$blogInfo = get_bloginfo();
+		$blogInfo = wp_specialchars_decode( get_bloginfo() );
 
 		if (!empty($args['contentType'])) {
 			$contentType = $args['contentType'];
@@ -1243,6 +1246,7 @@ class AdminHelper
 	{
 		$allPopups = SGPopup::getAllPopups();
 		$popupIdTitles = array();
+		$excludesPopups = apply_filters('sgpb_exclude_from_popups_list', $excludesPopups);
 
 		if (empty($allPopups)) {
 			return $popupIdTitles;
@@ -1327,8 +1331,9 @@ class AdminHelper
 		}
 
 		$dateObj = self::getDateObjFromDate('now', $timezone);
-		$timeNow = @strtotime($dateObj);
-		$seconds = @strtotime($dueDate)-$timeNow;
+		$timeNow = gettype($dateObj) == 'string' ? strtotime($dateObj) : 0;
+		$dueDateTime = gettype($dueDate) == 'string' ? strtotime($dueDate) : 0;
+		$seconds = $dueDateTime-$timeNow;
 		if ($seconds < 0) {
 			$seconds = 0;
 		}
@@ -1442,7 +1447,7 @@ class AdminHelper
 	{
 		$hasInactiveExtensions = false;
 		$allRegiseredPBPlugins = AdminHelper::getOption(SGPB_POPUP_BUILDER_REGISTERED_PLUGINS);
-		$allRegiseredPBPlugins = @json_decode($allRegiseredPBPlugins, true);
+		$allRegiseredPBPlugins = !empty($allRegiseredPBPlugins) ? json_decode($allRegiseredPBPlugins, true) : array();
 		if (empty($allRegiseredPBPlugins)) {
 			return $hasInactiveExtensions;
 		}
@@ -1543,7 +1548,7 @@ class AdminHelper
 				if ((!isset($jsPostMeta['sgpb-'.$key]) || empty($jsPostMeta['sgpb-'.$key])) || $key == 'ShouldOpen' || $key == 'ShouldClose') {
 					continue;
 				}
-				$content = @$jsPostMeta['sgpb-'.$key];
+				$content = isset($jsPostMeta['sgpb-'.$key]) ? $jsPostMeta['sgpb-'.$key] : '';
 				$content = str_replace('popupId', $popupId, $content);
 				$content = str_replace("<", "&lt;", $content);
 				$content = str_replace(">", "&gt;", $content);
@@ -1770,7 +1775,7 @@ class AdminHelper
 		$systemInfoContent .= "\n".'-- Webserver Configuration'."\n\n";
 		$systemInfoContent .= 'PHP Version:              '.PHP_VERSION."\n";
 		$systemInfoContent .= 'MySQL Version:            '.$wpdb->db_version()."\n";
-		$systemInfoContent .= 'Webserver Info:           '.$_SERVER['SERVER_SOFTWARE']."\n";
+		$systemInfoContent .= 'Webserver Info:           '.isset($_SERVER['SERVER_SOFTWARE'])?$_SERVER['SERVER_SOFTWARE']:''."\n";
 
 		// PHP configs... now we're getting to the important stuff
 		$systemInfoContent .= "\n".'-- PHP Configuration'."\n\n";
@@ -1841,12 +1846,12 @@ class AdminHelper
 		else if (strpos(DB_HOST, '.sysfix.eu') !== false) {
 			return 'SysFix.eu Power Hosting';
 		}
-		else if (strpos($_SERVER['SERVER_NAME'], 'Flywheel') !== false) {
+		else if (isset($_SERVER['SERVER_NAME']) && strpos($_SERVER['SERVER_NAME'], 'Flywheel') !== false) {
 			return 'Flywheel';
 		}
 		else {
 			// Adding a general fallback for data gathering
-			return 'DBH: '.DB_HOST.', SRV: '.$_SERVER['SERVER_NAME'];
+			return 'DBH: '.DB_HOST.', SRV: '.(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '');
 		}
 	}
 
@@ -2051,7 +2056,7 @@ class AdminHelper
 		$mailSubject = $newsletterData['newsletterSubject'];
 		$fromEmail = $newsletterData['fromEmail'];
 		$emailMessage = $newsletterData['messageBody'];
-		$blogInfo = get_bloginfo();
+		$blogInfo = wp_specialchars_decode( get_option( 'blogname' ) );
 		$headers = array(
 			'From: "'.$blogInfo.'" <'.$fromEmail.'>' ,
 			'MIME-Version: 1.0' ,
@@ -2073,9 +2078,35 @@ class AdminHelper
 			$emails = $receiverEmailsArray;
 		}
 
-		$mailStatus = wp_mail($emails, $mailSubject, $emailMessage, $headers);
+		$newsletterOptions = get_option('SGPB_NEWSLETTER_DATA');
+		$allAvailableShortcodes = array();
+		$allAvailableShortcodes['patternBlogName'] = '/\[Blog name]/';
+		$allAvailableShortcodes['patternUserName'] = '/\[User name]/';
+		$allAvailableShortcodes['patternUnsubscribe'] = '';
 
-		wp_die($newsletterData['testSendingStatus']);
+		$pattern = "/\[(\[?)(Unsubscribe)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]\*+(?:\[(?!\/\2\])[^\[]\*+)\*+)\[\/\2\])?)(\]?)/";
+		preg_match($pattern, $emailMessage, $matches);
+		$title = __('Unsubscribe', SG_POPUP_TEXT_DOMAIN);
+		if ($matches) {
+			$patternUnsubscribe = $matches[0];
+			// If user didn't change anything inside the [unsubscribe] shortcode $matches[2] will be equal to 'Unsubscribe'
+			if ($matches[2] == 'Unsubscribe') {
+				$pattern = '/\s(\w+?)="(.+?)"]/';
+				preg_match($pattern, $matches[0], $matchesTitle);
+				if (!empty($matchesTitle[2])) {
+					$title = AdminHelper::removeAllNonPrintableCharacters($matchesTitle[2], 'Unsubscribe');
+				}
+			}
+			$allAvailableShortcodes['patternUnsubscribe'] = $patternUnsubscribe;
+		}
+
+		$emailMessageCustom = preg_replace($allAvailableShortcodes['patternBlogName'], $newsletterOptions['blogname'], $emailMessage);
+		$emailMessageCustom = preg_replace($allAvailableShortcodes['patternUserName'], $newsletterOptions['username'], $emailMessageCustom);
+		$emailMessageCustom = str_replace($allAvailableShortcodes['patternUnsubscribe'], '', $emailMessageCustom);
+
+		$mailStatus = wp_mail($emails, $mailSubject, $emailMessageCustom, $headers);
+
+		wp_die(esc_html($newsletterData['testSendingStatus']));
 	}
 
 	// wp uploaded images
@@ -2122,5 +2153,213 @@ class AdminHelper
 		}
 
 		return wp_nonce_url(apply_filters('popupGetClonePostLink', admin_url("admin.php".$action), $post->ID, $context), 'duplicate-post_' . $post->ID);
+	}
+	private static function checkIfLicenseIsActive($license, $itemId, $key) {
+		$transient = 'sgpb-license-key-'.$key.'-requested';
+		if ( false !== ( $value = get_transient( $transient ) ) ) {
+			return;
+		}
+		$params = array(
+			'woo_sl_action'     => 'status-check',
+			'licence_key'       => $license,
+			'product_unique_id' => $itemId,
+			'domain'            => home_url()
+		);
+		$requestUri = SGPB_REQUEST_URL.'?'.http_build_query($params);
+		$response = wp_remote_get($requestUri);
+		if (!is_wp_error($response) || 200 == wp_remote_retrieve_response_code($response)) {
+			$licenseData = json_decode(wp_remote_retrieve_body($response));
+			$status = (isset($licenseData[0]->licence_status) && $licenseData[0]->licence_status === 'active') ? 'valid' : $licenseData[0]->licence_status;
+			update_option('sgpb-license-status-'.$key, $status);
+			set_transient($transient, $licenseData[0]->status_code, WEEK_IN_SECONDS);
+		}
+	}
+
+	public static function updatesInit()
+	{
+		if (!class_exists('sgpb\WOOSL_CodeAutoUpdate')) {
+			// load our custom updater if it doesn't already exist
+			require_once(SG_POPUP_LIBS_PATH .'WOOSL_CodeAutoUpdate.php');
+		}
+		$licenses = (new License())->getLicenses();
+
+		foreach ($licenses as $license) {
+			$key = isset($license['key']) ?$license['key'] : '';
+			$itemId = isset($license['itemId']) ? $license['itemId'] : '';
+			$filePath = isset($license['file']) ? $license['file'] : '';
+			$pluginMainFilePath = strpos($filePath, SG_POPUP_PLUGIN_PATH) !== 0 ? SG_POPUP_PLUGIN_PATH.$filePath : $filePath;
+
+			$licenseKey = trim(get_option('sgpb-license-key-'.$key));
+			$status = get_option('sgpb-license-status-'.$key);
+
+			if ($status == false || $status != 'valid') {
+				continue;
+			}
+			self::checkIfLicenseIsActive($licenseKey, $itemId, $key);
+			switch($key) {
+				case 'POPUP_SOCIAL':
+					if (defined('SGPB_SOCIAL_POPUP_VERSION')) {
+						$version = defined('SGPB_SOCIAL_POPUP_VERSION') ? constant('SGPB_SOCIAL_POPUP_VERSION') : '';
+					} else {
+						$version = defined('SG_VERSION_'.$key) ? constant('SG_VERSION_'.$key) : '';
+					}
+					break;
+				case 'POPUP_AGE_VERIFICATION':
+					if (defined('SGPB_AGE_VERIFICATION_POPUP_VERSION')) {
+						$version = defined('SGPB_AGE_VERIFICATION_POPUP_VERSION') ? constant('SGPB_AGE_VERIFICATION_POPUP_VERSION') : '';
+					} else{
+						$version = defined('SG_VERSION_'.$key) ? constant('SG_VERSION_'.$key) : '';
+					}
+					break;
+				case 'POPUP_GAMIFICATION':
+					if (defined('POPUP_GAMIFICATION')) {
+						$version = defined('POPUP_GAMIFICATION') ? constant('POPUP_GAMIFICATION') : '';
+					} else {
+						$version = defined('SG_VERSION_'.$key) ? constant('SG_VERSION_'.$key) : '';
+					}
+					break;
+				default :
+					$version = defined('SG_VERSION_'.$key) ? constant('SG_VERSION_'.$key) : '';
+					break;
+			}
+			// If the version of the extension is not found, update will not possibly be shown
+			if(empty($version)) {
+				continue;
+			}
+			$sgpbUpdater = new WOOSL_CodeAutoUpdate(
+				SGPB_REQUEST_URL,
+				$pluginMainFilePath,
+				$itemId,
+				$licenseKey,
+				$version
+			);
+		}
+	}
+
+	public static function allowed_html_tags($allowScript = true)
+	{
+		$allowedPostTags = array();
+		$allowedPostTags = wp_kses_allowed_html('post');
+		$allowed_atts = array(
+			'role'             => array(),
+			'onclick'          => array(),
+			'checked'          => array(),
+			'align'            => array(),
+			'preload'          => array(),
+			'aria-live'        => array(),
+			'aria-label'       => array(),
+			'aria-disabled'    => array(),
+			'aria-atomic'      => array(),
+			'aria-required'    => array(),
+			'aria-invalid'     => array(),
+			'aria-hidden'      => array(),
+			'aria-valuenow'    => array(),
+			'aria-valuemin'    => array(),
+			'aria-haspopup'    => array(),
+			'aria-expanded'    => array(),
+			'aria-valuemax'    => array(),
+			'aria-labelledby'  => array(),
+			'aria-checked'     => array(),
+			'aria-describedby' => array(),
+			'aria-valuetext'   => array(),
+			'placeholder'      => array(),
+			'controls'         => array(),
+			'allowfullscreen'  => array(),
+			'class'            => array(),
+			'type'             => array(),
+			'id'               => array(),
+			'dir'              => array(),
+			'size'             => array(),
+			'cols'             => array(),
+			'rows'             => array(),
+			'lang'             => array(),
+			'muted'            => array(),
+			'style'            => array(),
+			'xml:lang'         => array(),
+			'src'              => array(),
+			'autocomplete'     => array(),
+			'maxlength'        => array(),
+			'pattern'          => array(),
+			'alt'              => array(),
+			'href'             => array(),
+			'rel'              => array(),
+			'rev'              => array(),
+			'target'           => array(),
+			'novalidate'       => array(),
+			'value'            => array(),
+			'name'             => array(),
+			'tabindex'         => array(),
+			'action'           => array(),
+			'method'           => array(),
+			'for'              => array(),
+			'width'            => array(),
+			'height'           => array(),
+			'data-*'           => true,
+			'title'            => array(),
+			'enctype'          => array(),
+			'attr'             => array(),
+			'label'            => array(),
+			'selected'         => array(),
+			'multiple'         => array()
+		);
+		$allowedPostTags['select'] = $allowed_atts;
+		$allowedPostTags['optgroup'] = $allowed_atts;
+		$allowedPostTags['option'] = $allowed_atts;
+		$allowedPostTags['form'] = $allowed_atts;
+		$allowedPostTags['fieldset'] = $allowed_atts;
+		$allowedPostTags['legend'] = $allowed_atts;
+		$allowedPostTags['label'] = $allowed_atts;
+		$allowedPostTags['input'] = $allowed_atts;
+		$allowedPostTags['video'] = $allowed_atts;
+		$allowedPostTags['source'] = $allowed_atts;
+		$allowedPostTags['textarea'] = $allowed_atts;
+		$allowedPostTags['iframe'] = $allowed_atts;
+		if ($allowScript){
+			$allowedPostTags['script'] = $allowed_atts;
+		}
+		$allowedPostTags['style'] = $allowed_atts;
+		$allowedPostTags['strong'] = $allowed_atts;
+		$allowedPostTags['small'] = $allowed_atts;
+		$allowedPostTags['table'] = $allowed_atts;
+		$allowedPostTags['span'] = $allowed_atts;
+		$allowedPostTags['abbr'] = $allowed_atts;
+		$allowedPostTags['code'] = $allowed_atts;
+		$allowedPostTags['pre'] = $allowed_atts;
+		$allowedPostTags['div'] = $allowed_atts;
+		$allowedPostTags['img'] = $allowed_atts;
+		$allowedPostTags['h1'] = $allowed_atts;
+		$allowedPostTags['h2'] = $allowed_atts;
+		$allowedPostTags['h3'] = $allowed_atts;
+		$allowedPostTags['h4'] = $allowed_atts;
+		$allowedPostTags['h5'] = $allowed_atts;
+		$allowedPostTags['h6'] = $allowed_atts;
+		$allowedPostTags['ol'] = $allowed_atts;
+		$allowedPostTags['ul'] = $allowed_atts;
+		$allowedPostTags['li'] = $allowed_atts;
+		$allowedPostTags['em'] = $allowed_atts;
+		$allowedPostTags['hr'] = $allowed_atts;
+		$allowedPostTags['br'] = $allowed_atts;
+		$allowedPostTags['tr'] = $allowed_atts;
+		$allowedPostTags['td'] = $allowed_atts;
+		$allowedPostTags['p'] = $allowed_atts;
+		$allowedPostTags['a'] = $allowed_atts;
+		$allowedPostTags['b'] = $allowed_atts;
+		$allowedPostTags['i'] = $allowed_atts;
+		add_filter('safe_style_css', function($styles){
+			$styles[] = 'position';
+			$styles[] = 'opacity';
+			$styles[] = 'inset';
+			$styles[] = 'margin';
+			$styles[] = 'display';
+			$styles[] = 'z-index';
+			$styles[] = 'top';
+			$styles[] = 'left';
+			$styles[] = 'bottom';
+			$styles[] = 'right';
+
+			return $styles;
+		}, 10, 1);
+
+		return $allowedPostTags;
 	}
 }

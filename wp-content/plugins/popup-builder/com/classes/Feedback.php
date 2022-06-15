@@ -32,8 +32,12 @@ class SGPBFeedback
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		if (!empty($_POST['formData'])) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			parse_str($_POST['formData'],$submissionData);
 		}
+		array_walk_recursive($submissionData, function(&$item){
+			$item = sanitize_text_field($item);
+		});
 		$feedbackKey = $feedbackText = 'Skipped';
 		if (!empty($submissionData['reasonKey'])) {
 			$feedbackKey = $submissionData['reasonKey'];
@@ -88,20 +92,20 @@ class SGPBFeedback
 					<div class="row sgpb-feedback-popup-header sgpb-position-relative">
 						<div class="col-sm-3 sgpb-add-subscriber-header-column">
 							<h4>
-								<?php _e('Quick Feedback', SG_POPUP_TEXT_DOMAIN)?>
+								<?php esc_html_e('Quick Feedback', SG_POPUP_TEXT_DOMAIN)?>
 							</h4>
 						</div>
 						<div class="col-sm-1 sgpb-add-subscriber-header-spinner-column">
-							<img src="<?php echo SG_POPUP_IMG_URL.'ajaxSpinner.gif'; ?>" alt="gif" class="sgpb-subscribers-add-spinner js-sg-spinner js-sgpb-add-spinner sg-hide-element js-sg-import-gif" width="20px">
+							<img src="<?php echo esc_attr(SG_POPUP_IMG_URL.'ajaxSpinner.gif'); ?>" alt="gif" class="sgpb-subscribers-add-spinner js-sg-spinner js-sgpb-add-spinner sg-hide-element js-sg-import-gif" width="20px">
 						</div>
-						<img src="<?php echo SG_POPUP_IMG_URL.'subscribers_close.png'; ?>" alt="gif" class="sgpb-add-subscriber-popup-close-btn sgpb-subscriber-data-popup-close-btn-js" width="20px">
+						<img src="<?php echo esc_attr(SG_POPUP_IMG_URL.'subscribers_close.png'); ?>" alt="gif" class="sgpb-add-subscriber-popup-close-btn sgpb-subscriber-data-popup-close-btn-js" width="20px">
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<h4 class="sgpb-feedback-descritpion">
 								<?php _e('If you have a moment, please share why you are deactivating <b>Popup Builder</b>', SG_POPUP_TEXT_DOMAIN)?>:
 							</h4>
-							<p class="sgpb-feedback-error-message sg-hide-element"><?php _e('Please, select an option.', SG_POPUP_TEXT_DOMAIN)?></p>
+							<p class="sgpb-feedback-error-message sg-hide-element"><?php esc_html_e('Please, select an option.', SG_POPUP_TEXT_DOMAIN)?></p>
 						</div>
 					</div>
 					<div class="row">
@@ -118,17 +122,17 @@ class SGPBFeedback
 											<input class="sgpb-feedback-text sgpb-feedback-text-input" style="display: none;" type="text" name="reason_<?php echo esc_attr( $reasonKey ); ?>" placeholder="<?php echo esc_attr($reason['input_placeholder']); ?>" />
 										<?php endif; ?>
 										<?php if (!empty($reason['extra_help'])) : ?>
-											<p class="sgpb-feedback-text-input" style="display: none;"><?php echo $reason['extra_help']; ?></p>
+											<p class="sgpb-feedback-text-input" style="display: none;"><?php echo wp_kses($reason['extra_help'], 'post'); ?></p>
 										<?php endif; ?>
 									</div>
 								</div>
 								<?php endforeach; ?>
 								<div class="row sgpb-feedback-btns-wrapper">
 									<div class="col-md-6">
-										<input type="button" class="btn btn-sm btn-success sgpb-feedback-submit" name="sgpb-feedback-submit" value="<?php _e('Submit & Deactivate', SG_POPUP_TEXT_DOMAIN); ?>">
+										<input type="button" class="btn btn-sm btn-success sgpb-feedback-submit" name="sgpb-feedback-submit" value="<?php esc_html_e('Submit & Deactivate', SG_POPUP_TEXT_DOMAIN); ?>">
 									</div>
 									<div class="col-md-6">
-										<input type="button" class="btn btn-sm sgpb-feedback-submit-skip" name="sgpb-feedback-submit-skip" value="<?php _e('Skip & Deactivate', SG_POPUP_TEXT_DOMAIN); ?>">
+										<input type="button" class="btn btn-sm sgpb-feedback-submit-skip" name="sgpb-feedback-submit-skip" value="<?php esc_html_e('Skip & Deactivate', SG_POPUP_TEXT_DOMAIN); ?>">
 									</div>
 								</div>
 							</form>

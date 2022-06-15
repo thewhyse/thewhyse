@@ -65,12 +65,12 @@ class Notification
 				break;
 		}
 
-		$style = 'style="border-color:'.$color.';"';
+		$style = 'style="border-color: '.$color.';"';
 		$priority = $this->getPriority();
 		$message = $this->getMessage();
 		$btnHtml = $this->getCloseBtnById($id);
 		$content = '<div class="sgpb-single-notification-wrapper">
-						<div class="sgpb-single-notification"'.$style.'>
+						<div class="sgpb-single-notification" '.$style.'>
 						<span class="dashicons dashicons-no-alt sgpb-hide-notification-at-all" data-id="'.$id.'"></span>
 						'.$message.'
 						</div>

@@ -6,6 +6,7 @@ class Functions
 	public static function renderForm($formFields)
 	{
 		$form = '';
+		$allowed_html = AdminHelper::allowed_html_tags();
 
 		if (empty($formFields) || !is_array($formFields)) {
 			return $form;
@@ -45,7 +46,7 @@ class Functions
 			if (!isset($formField['attrs']['name']) || $formField['attrs']['name'] == '') {
 				continue;
 			}
-			$errorWrapperClassName = @$formField['attrs']['name'].'-error-message';
+			$errorWrapperClassName = (isset($formField['attrs']['name']) ? $formField['attrs']['name'] : '').'-error-message';
 			if (isset($formField['errorMessageBoxStyles'])) {
 				$errorMessageBoxStyles = 'style="width:'.$formField['errorMessageBoxStyles'].'"';
 			}
@@ -67,7 +68,7 @@ class Functions
 			}
 			if (!empty($formField['style'])) {
 				$styles = 'style="';
-				if (strpos(@$formField['attrs']['name'], 'gdpr') !== false) {
+				if (isset($formField['attrs']['name']) && strpos($formField['attrs']['name'], 'gdpr') !== false) {
 					unset($formField['style']['height']);
 				}
 				foreach ($formField['style'] as $styleKey => $styleValue) {
@@ -86,7 +87,7 @@ class Functions
 			}
 
 			if (isset($formField['isShow']) && !$formField['isShow']) {
-				$hideClassName = 'sg-js-hide';
+				$hideClassName = 'sgpb-js-hide';
 			}
 
 			if (in_array($type, $simpleElements)) {
@@ -104,7 +105,10 @@ class Functions
 				if (isset($formField['text'])) {
 					$gdprText = $formField['text'];
 				}
-				$formField['style'] = array('color' => $color, 'width' => @$formField['style']['width']);
+				$formField['style'] = array(
+						'color' => $color,
+						'width' => isset($formField['style']['width']) ? $formField['style']['width'] : ''
+				);
 				$gdprWrapperStyles = 'style="color:'.$color.'"';
 				$htmlElement = self::createGdprCheckbox($attrs, $styles, $label, $gdprWrapperStyles, $gdprText);
 			}
@@ -114,8 +118,8 @@ class Functions
 
 			ob_start();
 			?>
-			<div class="sgpb-inputs-wrapper js-<?php echo $fieldKey; ?>-wrapper js-sgpb-form-field-<?php echo $fieldKey; ?>-wrapper <?php echo $hideClassName; ?>">
-				<?php echo $htmlElement; ?>
+			<div class="sgpb-inputs-wrapper js-<?php echo esc_attr($fieldKey); ?>-wrapper js-sgpb-form-field-<?php echo esc_attr($fieldKey); ?>-wrapper <?php echo esc_attr($hideClassName); ?>">
+				<?php echo wp_kses($htmlElement, $allowed_html); ?>
 			</div>
 			<?php
 			$fields .= ob_get_contents();
@@ -137,7 +141,9 @@ class Functions
 			if (isset($labelArgs['attrs']['sgpb-login-username'])) {
 				$loginUsername = $labelArgs['attrs']['sgpb-login-username'];
 			}
-			$inputElement = '<label for="'.$loginUsername.'"><p class="sgpb-login-input-label '.@$labelArgs['attrs']['labelClass'].'">'.@$labelArgs['attrs']['hasLabel'].'</p>'.$inputElement.'</label>';
+			$labelClass = isset($labelArgs['attrs']['labelClass']) ? $labelArgs['attrs']['labelClass'] : '';
+			$hasLabel = isset($labelArgs['attrs']['hasLabel']) ? $labelArgs['attrs']['hasLabel'] : '';
+			$inputElement = '<label for="'.$loginUsername.'"><p class="sgpb-login-input-label '.$labelClass.'">'.$hasLabel.'</p>'.$inputElement.'</label>';
 		}
 		if (!empty($errorWrapperClassName)) {
 			$inputElement .= "<div class='$errorWrapperClassName'></div>";
@@ -161,7 +167,7 @@ class Functions
 			return $inputElement;
 		}
 		$text = html_entity_decode($text);
-		$inputElement .= '<div class="sgpb-alert-info sgpb-alert sgpb-gdpr-info js-subs-text-checkbox sgpb-gdpr-text-js" '.$styles.'>'.$text.'</div>';
+		$inputElement .= '<div class="sgpb-alert-info sgpb-alert sgpb-gdpr-info js-subs-text-checkbox sgpb-gdpr-text-js" '.$styles.'>'.wp_kses($text, AdminHelper::allowed_html_tags(false)).'</div>';
 
 		return $inputElement;
 	}

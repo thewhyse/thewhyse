@@ -13,6 +13,21 @@ use AmpProject\Dom\Document;
  * @internal
  */
 class AMP_Facebook_Embed_Handler extends AMP_Base_Embed_Handler {
+
+	/**
+	 * URL pattern.
+	 *
+	 * @var string
+	 */
+	const URL_PATTERN = '#https?://(www\.)?facebook\.com/.*#i';
+
+	/**
+	 * Default width.
+	 *
+	 * @var int
+	 */
+	protected $DEFAULT_WIDTH = 600;
+
 	/**
 	 * Default height.
 	 *
@@ -38,14 +53,58 @@ class AMP_Facebook_Embed_Handler extends AMP_Base_Embed_Handler {
 	 * Registers embed.
 	 */
 	public function register_embed() {
-		// Not implemented.
+		wp_embed_register_handler( $this->amp_tag, self::URL_PATTERN, [ $this, 'oembed' ], -1 );
 	}
 
 	/**
 	 * Unregisters embed.
 	 */
 	public function unregister_embed() {
-		// Not implemented.
+		wp_embed_unregister_handler( $this->amp_tag, -1 );
+	}
+
+	/**
+	 * WordPress oEmbed rendering callback.
+	 *
+	 * @param array  $matches URL pattern matches.
+	 * @param array  $attr    Matched attributes.
+	 * @param string $url     Matched URL.
+	 * @return string HTML markup for rendered embed.
+	 */
+	public function oembed( $matches, $attr, $url ) {
+		return $this->render( [ 'url' => $url ] );
+	}
+
+	/**
+	 * Gets the rendered embed markup.
+	 *
+	 * @param array $args Embed rendering arguments.
+	 * @return string HTML markup for rendered embed.
+	 */
+	public function render( $args ) {
+		$args = wp_parse_args(
+			$args,
+			[
+				'url' => false,
+			]
+		);
+
+		if ( empty( $args['url'] ) ) {
+			return '';
+		}
+
+		$this->did_convert_elements = true;
+
+		return AMP_HTML_Utils::build_tag(
+			$this->amp_tag,
+			[
+				'data-href' => $args['url'],
+				'layout'    => 'responsive',
+				'width'     => $this->args['width'],
+				'height'    => $this->args['height'],
+			],
+			$this->create_overflow_button_markup()
+		);
 	}
 
 	/**
@@ -54,6 +113,14 @@ class AMP_Facebook_Embed_Handler extends AMP_Base_Embed_Handler {
 	 * @param Document $dom DOM.
 	 */
 	public function sanitize_raw_embeds( Document $dom ) {
+		// If there were any previous embeds in the DOM that were wrapped by `wpautop()`, unwrap them.
+		$embed_nodes = $dom->xpath->query( "//p/{$this->amp_tag}" );
+		if ( $embed_nodes->length ) {
+			foreach ( $embed_nodes as $embed_node ) {
+				$this->unwrap_p_element( $embed_node );
+			}
+		}
+
 		$nodes     = $dom->getElementsByTagName( $this->sanitize_tag );
 		$num_nodes = $nodes->length;
 
@@ -108,7 +175,7 @@ class AMP_Facebook_Embed_Handler extends AMP_Base_Embed_Handler {
 	 */
 	private function get_embed_type( DOMElement $node ) {
 		$class_attr = $node->getAttribute( 'class' );
-		if ( null === $class_attr || ! $node->hasAttribute( 'data-href' ) ) {
+		if ( empty( $class_attr ) || ! $node->hasAttribute( 'data-href' ) ) {
 			return null;
 		}
 
@@ -182,6 +249,8 @@ class AMP_Facebook_Embed_Handler extends AMP_Base_Embed_Handler {
 			$amp_tag,
 			$attributes
 		);
+
+		$amp_facebook_node->appendChild( $this->create_overflow_button_element( $dom ) );
 
 		$fallback = null;
 		foreach ( $node->childNodes as $child_node ) {

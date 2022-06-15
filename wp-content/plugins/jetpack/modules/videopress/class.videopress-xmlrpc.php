@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * VideoPress playback module markup generator.
  *
@@ -7,6 +7,8 @@
 class VideoPress_XMLRPC {
 
 	/**
+	 * Singleton VideoPress_XMLRPC instance.
+	 *
 	 * @var VideoPress_XMLRPC
 	 **/
 	private static $instance = null;
@@ -33,7 +35,7 @@ class VideoPress_XMLRPC {
 	 * @return VideoPress_XMLRPC
 	 */
 	public static function init() {
-		if ( is_null( self::$instance ) ) {
+		if ( self::$instance === null ) {
 			self::$instance = new VideoPress_XMLRPC();
 		}
 
@@ -69,7 +71,7 @@ class VideoPress_XMLRPC {
 	 * Note: This method technically handles the creation of multiple media objects, though
 	 * in practice this is never done.
 	 *
-	 * @param array $media
+	 * @param array $media Media items being uploaded.
 	 * @return array
 	 */
 	public function create_media_item( $media ) {
@@ -97,7 +99,9 @@ class VideoPress_XMLRPC {
 	}
 
 	/**
-	 * @param array $request
+	 * Update VideoPress metadata for a media item.
+	 *
+	 * @param array $request Media item to update.
 	 *
 	 * @return bool
 	 */
@@ -109,11 +113,13 @@ class VideoPress_XMLRPC {
 		$format = $request['format'];
 		$info   = $request['info'];
 
-		if ( ! $attachment = get_post( $id ) ) {
+		$attachment = get_post( $id );
+		if ( ! $attachment ) {
 			return false;
 		}
 
-		$attachment->guid = $info['original'];
+		$attachment->guid           = $info['original'];
+		$attachment->post_mime_type = 'video/videopress';
 
 		wp_update_post( $attachment );
 
@@ -129,8 +135,7 @@ class VideoPress_XMLRPC {
 		$meta['videopress']['url'] = 'https://videopress.com/v/' . $info['guid'];
 
 		// Update file statuses
-		$valid_formats = array( 'hd', 'ogg', 'mp4', 'dvd' );
-		if ( in_array( $format, $valid_formats ) ) {
+		if ( ! empty( $format ) ) {
 			$meta['file_statuses'][ $format ] = $status;
 		}
 
@@ -154,7 +159,9 @@ class VideoPress_XMLRPC {
 	}
 
 	/**
-	 * @param array $request
+	 * Update poster image for a VideoPress media item.
+	 *
+	 * @param array $request The media item to update.
 	 * @return bool
 	 */
 	public function update_poster_image( $request ) {
@@ -163,12 +170,12 @@ class VideoPress_XMLRPC {
 		$post_id = $request['post_id'];
 		$poster  = $request['poster'];
 
-		if ( ! $attachment = get_post( $post_id ) ) {
+		$attachment = get_post( $post_id );
+		if ( ! $attachment ) {
 			return false;
 		}
 
-		// We add ssl => 1 to make sure that the videos.files.wordpress.com domain is parsed as photon.
-		$poster = apply_filters( 'jetpack_photon_url', $poster, array( 'ssl' => 1 ), 'https' );
+		$poster = apply_filters( 'jetpack_photon_url', $poster );
 
 		$meta                         = wp_get_attachment_metadata( $post_id );
 		$meta['videopress']['poster'] = $poster;

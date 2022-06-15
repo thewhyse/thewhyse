@@ -8,6 +8,7 @@ use Leadin\wp\User;
 use Leadin\auth\OAuth;
 use Leadin\admin\Connection;
 use Leadin\options\AccountOptions;
+use Leadin\options\LeadinOptions;
 
 /**
  * Class responsible of adding the script loader to the website, as well as rendering forms, live chat, etc.
@@ -18,13 +19,14 @@ class PageHooks {
 	 */
 	public function __construct() {
 		add_action( 'wp_head', array( $this, 'add_page_analytics' ) );
-		add_action( 'wp_head', array( $this, 'add_form_management_script' ) );
 		if ( Connection::is_connected() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_frontend_scripts' ) );
 		}
 		add_filter( 'script_loader_tag', array( $this, 'add_id_to_tracking_code' ), 10, 2 );
+		add_filter( 'script_loader_tag', array( $this, 'add_defer_to_forms_script' ), 10, 2 );
 		add_shortcode( 'hubspot', array( $this, 'leadin_add_hubspot_shortcode' ) );
 	}
+
 
 	/**
 	 * Generates 10 characters long string with random values
@@ -32,7 +34,7 @@ class PageHooks {
 	private function get_random_number_string() {
 		$result = '';
 		for ( $i = 0; $i < 10; $i++ ) {
-			$result .= rand( 0, 9 );
+			$result .= wp_rand( 0, 9 );
 		}
 		return $result;
 	}
@@ -45,9 +47,25 @@ class PageHooks {
 	}
 
 	/**
+	 * Checks if input is a valid uuid.
+	 *
+	 * @param String $uuid input to validate.
+	 */
+	private static function is_valid_uuid( $uuid ) {
+		if ( ! is_string( $uuid ) || ( preg_match( '/^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$/i', $uuid ) !== 1 ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Adds the script loader to the page.
 	 */
 	public function add_frontend_scripts() {
+		if ( LeadinOptions::get( 'disable_internal_tracking' ) && ( is_user_logged_in() || current_user_can( 'install_plugins' ) ) ) {
+			return;
+		}
+
 		if ( is_single() ) {
 			$page_type = 'post';
 		} elseif ( is_front_page() ) {
@@ -81,16 +99,7 @@ class PageHooks {
 			<!-- DO NOT COPY THIS SNIPPET! Start of Page Analytics Tracking for HubSpot WordPress plugin v<?php echo esc_html( LEADIN_PLUGIN_VERSION ); ?>-->
 			<script type="text/javascript">
 				var _hsq = _hsq || [];
-				<?php
-				// Pass along the correct content-type.
-				if ( is_single() ) {
-					echo '_hsq.push(["setContentType", "blog-post"]);' . "\n";
-				} elseif ( is_archive() || is_search() ) {
-					echo '_hsq.push(["setContentType", "listing-page"]);' . "\n";
-				} else {
-					echo '_hsq.push(["setContentType", "standard-page"]);' . "\n";
-				}
-				?>
+				_hsq.push(["setContentId", "<?php echo esc_html( LeadinFilters::get_page_content_type() ); ?>"]);
 			</script>
 			<!-- DO NOT COPY THIS SNIPPET! End of Page Analytics Tracking for HubSpot WordPress plugin -->
 			<?php
@@ -111,6 +120,19 @@ class PageHooks {
 	}
 
 	/**
+	 * Add defer to leadin forms plugin
+	 *
+	 * @param String $tag tag name.
+	 * @param String $handle handle.
+	 */
+	public function add_defer_to_forms_script( $tag, $handle ) {
+		if ( AssetsManager::FORMS_SCRIPT === $handle ) {
+			$tag = str_replace( 'src', 'defer src', $tag );
+		}
+		return $tag;
+	}
+
+	/**
 	 * Parse leadin shortcodes
 	 *
 	 * @param array $attributes Shortcode attributes.
@@ -125,32 +147,43 @@ class PageHooks {
 			$attributes
 		);
 
+		$type      = $parsed_attributes['type'];
+		$portal_id = $parsed_attributes['portal'];
+		$id        = $parsed_attributes['id'];
+
 		if (
-			! isset( $parsed_attributes['type'] ) ||
-			! isset( $parsed_attributes['portal'] ) ||
-			! isset( $parsed_attributes['id'] )
+			! isset( $type ) ||
+			! isset( $portal_id ) ||
+			! isset( $id )
 		) {
 			return;
 		}
 
-		$portal_id = $parsed_attributes['portal'];
-		$id        = $parsed_attributes['id'];
+		$is_valid_id = self::is_valid_uuid( $id ) || is_numeric( $id );
 
-		switch ( $parsed_attributes['type'] ) {
+		if (
+			! is_numeric( $portal_id ) ||
+			! $is_valid_id
+			) {
+				return;
+		}
+
+		switch ( $type ) {
 			case 'form':
 				$form_div_uuid = $this->generate_div_uuid();
 				$hublet        = LeadinFilters::get_leadin_hublet();
 				AssetsManager::enqueue_forms_script();
 				return '
 					<script>
-						hbspt.enqueueForm({
-							portalId: ' . $portal_id . ',
-							formId: "' . $id . '",
-							target: "#hbspt-form-' . $form_div_uuid . '",
-							shortcode: "wp",
-							region: "' . $hublet . '",
-							' . LeadinFilters::get_leadin_forms_payload() . '
-						});
+						window.hsFormsOnReady = window.hsFormsOnReady || [];
+						window.hsFormsOnReady.push(()=>{
+							hbspt.forms.create({
+								portalId: ' . $portal_id . ',
+								formId: "' . $id . '",
+								target: "#hbspt-form-' . $form_div_uuid . '",
+								region: "' . $hublet . '",
+								' . LeadinFilters::get_leadin_forms_payload() . '
+						})});
 					</script>
 					<div class="hbspt-form" id="hbspt-form-' . $form_div_uuid . '"></div>';
 			case 'cta':
@@ -175,44 +208,4 @@ class PageHooks {
 		}
 	}
 
-	/**
-	 * Adds script to manage HubSpot forms on the page
-	 */
-	public function add_form_management_script() {
-		?>
-			<script>
-				(function() {
-					var hbspt = window.hbspt = window.hbspt || {};
-					hbspt.forms = hbspt.forms || {};
-					hbspt._wpFormsQueue = [];
-					hbspt.enqueueForm = function(formDef) {
-						if (hbspt.forms && hbspt.forms.create) {
-							hbspt.forms.create(formDef);
-						} else {
-							hbspt._wpFormsQueue.push(formDef);
-						}
-					}
-					if (!window.hbspt.forms.create) {
-						Object.defineProperty(window.hbspt.forms, 'create', {
-							configurable: true,
-							get: function() {
-								return hbspt._wpCreateForm;
-							},
-							set: function(value) {
-								hbspt._wpCreateForm = value;
-								while (hbspt._wpFormsQueue.length) {
-									var formDef = hbspt._wpFormsQueue.shift();
-									if (!document.currentScript) {
-										var formScriptId = '<?php echo esc_html( AssetsManager::FORMS_SCRIPT ); ?>-js';
-										hubspot.utils.currentScript = document.getElementById(formScriptId);
-									}
-									hbspt._wpCreateForm.call(hbspt.forms, formDef);
-								}
-							},
-						});
-					}
-				})();
-			</script>
-		<?php
-	}
 }

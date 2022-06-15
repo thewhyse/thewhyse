@@ -14,7 +14,9 @@ class PopupChecker
 {
 	private static $instance;
 	private $popup;
+	private $isGeoAjaxModeEnabled;
 	private $post;
+	private $isAjaxCall;
 
 	public static function instance()
 	{
@@ -45,6 +47,26 @@ class PopupChecker
 		return $this->post;
 	}
 
+	public function setPopupGeoAjaxModeActive($ajaxMode)
+	{
+		$this->isGeoAjaxModeEnabled = $ajaxMode;
+	}
+
+	public function getPopupGeoAjaxMode()
+	{
+		return $this->isGeoAjaxModeEnabled;
+	}
+
+	public function setIsAjaxCall($isAjax)
+	{
+		$this->isAjaxCall = $isAjax;
+	}
+
+	public function getIsAjaxCall()
+	{
+		return $this->isAjaxCall;
+	}
+
 	/**
 	 * It checks whether popup should be loaded on the current page.
 	 *
@@ -52,14 +74,18 @@ class PopupChecker
 	 *
 	 * @param int $popupId popup id
 	 * @param  object $post page post data
+	 * @param  boolean $isAjax
 	 *
 	 * @return bool
 	 *
 	 */
-	public function isLoadable($popup, $post)
+	public function isLoadable($popup, $post, $isAjax = false)
 	{
 		$this->setPopup($popup);
 		$this->setPost($post);
+
+		$this->setPopupGeoAjaxModeActive($popup->getOptionValue('sgpb-enable-geo-ajax-mode'));
+		$this->setIsAjaxCall($isAjax);
 
 		$popupOptions = $popup->getOptions();
 		$isActive = $popup->getOptionValue('sgpb-is-active', true);
@@ -160,30 +186,36 @@ class PopupChecker
 	private function isSatisfyForConditions($conditions)
 	{
 		// proStartSilver
+		// this case when selected IS NOT operator
 		$forbiddenConditions = $conditions['forbidden'];
 		if (!empty($forbiddenConditions)) {
+			if (!$this->getIsAjaxCall() && $this->getPopupGeoAjaxMode()) {
+				return false;
+			}
 			foreach ($forbiddenConditions as $forbiddenCondition) {
 				$isForbiddenConditions = $this->isSatisfyForConditionsOptions($forbiddenCondition);
-				//If $isForbiddenConditions popup does not open
 				if ($isForbiddenConditions) {
 					return false;
+				} else {
+					return true;
 				}
 			}
 		}
 
+		// this case when selected IS operator
 		$permissiveOptions = $conditions['permissive'];
 		if (!empty($permissiveOptions)) {
+			if (!$this->getIsAjaxCall() && $this->getPopupGeoAjaxMode()) {
+				return false;
+			}
 			foreach ($permissiveOptions as $permissiveOption) {
 				$isPermissiveConditions = $this->isSatisfyForConditionsOptions($permissiveOption);
-				if (!$isPermissiveConditions) {
-					return $isPermissiveConditions;
-				}
-
+				return $isPermissiveConditions;
 			}
 		}
-
-
-
+		if ($this->getIsAjaxCall() && $this->getPopupGeoAjaxMode()) {
+			return false;
+		}
 		return true;
 	}
 
@@ -199,8 +231,8 @@ class PopupChecker
 		if (!$defaultStatus && do_action('isAllowedForConditions', $option, $post)) {
 			$defaultStatus = true;
 		}
-
 		$isAllowedConditionFilters = apply_filters('isAllowedConditionFilters', array($option));
+
 		if (isset($isAllowedConditionFilters['status']) && $isAllowedConditionFilters['status'] === true) {
 			$defaultStatus = true;
 		}
@@ -301,7 +333,12 @@ class PopupChecker
 	private function isSatisfyForParam($targetData)
 	{
 		$isSatisfy = false;
-		$postId = get_queried_object_id();
+		if ($this->getIsAjaxCall()){
+			$popup = $this->getPopup();
+			$postId = $popup->getCurrentPageIdForAjax();
+		} else {
+			$postId = get_queried_object_id();
+		}
 
 		if (empty($targetData['param'])) {
 			return $isSatisfy;
@@ -387,7 +424,7 @@ class PopupChecker
 			}
 
 			foreach ($currentPostCategories as $categoryName) {
-				if (in_array($categoryName->term_id, $values)) {
+				if (in_array($categoryName->term_id, $values) || in_array($categoryName->term_id, array_keys($values))) {
 					$isSatisfy = true;
 					break;
 				}
@@ -428,11 +465,11 @@ class PopupChecker
 		}
 		else if ($targetData['param'] == 'post_tags_ids') {
 			$tagsObj = wp_get_post_tags($postId);
-			$postTagsValues = (array)@$targetData['value'];
+			$postTagsValues = isset($targetData['value']) ? (array)$targetData['value'] : array();
 			$selectedTags = array_values($postTagsValues);
 
 			foreach ($tagsObj as $tagObj) {
-				if (in_array($tagObj->slug, $selectedTags)) {
+				if (in_array($tagObj->slug, $selectedTags) || in_array($tagObj->slug, array_keys($postTagsValues))) {
 					$isSatisfy = true;
 					break;
 				}
@@ -583,7 +620,7 @@ class PopupChecker
 		if (is_wp_error($postLanguage)) {
 			return true;
 		}
-		if (!empty($_GET['lang']) && ($_GET['lang'] == $popupLanguage)) {
+		if (!empty($_GET['lang']) && (sanitize_text_field($_GET['lang']) == $popupLanguage)) {
             return true;
         }
 		if ($postLanguage['language_code'] != $popupLanguage) {

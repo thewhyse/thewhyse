@@ -1,21 +1,19 @@
-import { serializeQueryObject } from '../utils/queryParams';
 import { makeProxyRequest } from './wordpressApiClient';
 
+const FORMS_PATH = `/forms/v2/forms`;
+
 export function fetchForms(searchQuery = '', offset = 0, limit = 10) {
-  const payload = {
+  const queryParams = {
     offset,
     limit,
     formTypes: ['HUBSPOT'],
   };
 
   if (searchQuery) {
-    payload.name__contains = searchQuery;
+    queryParams.name__contains = searchQuery;
   }
 
-  const queryParams = serializeQueryObject(payload);
-  const formsPath = `/forms/v2/forms?${queryParams}`;
-
-  return makeProxyRequest('get', formsPath).then(forms => {
+  return makeProxyRequest('get', FORMS_PATH, {}, queryParams).then(forms => {
     const filteredForms = [];
 
     forms.forEach(currentForm => {
@@ -25,4 +23,8 @@ export function fetchForms(searchQuery = '', offset = 0, limit = 10) {
 
     return filteredForms;
   });
+}
+
+export function createForm(payload) {
+  return makeProxyRequest('post', FORMS_PATH, payload);
 }

@@ -48,6 +48,9 @@ class SGPBMenu
 	 */
 	public function addPopupTriggeringClass($classes, $menuItem)
     {
+	    if (!isset($menuItem->sgpbPopupId)) {
+		    return $classes;
+	    }
         $popupId = $menuItem->sgpbPopupId;
         if ($popupId && !in_array('sg-popup-id-'.$popupId, $classes)) {
 	        array_push($classes, 'sg-popup-id-'.$popupId);
@@ -198,18 +201,18 @@ class SGPBMenu
     public function fields($itemId, $item, $depth, $args)
     { ?>
         <div class="description  description-wide">
-            <label for="edit-menu-item-pb-<?php echo $item->ID; ?>">
-                <?php _e('Select a Popup', SG_POPUP_TEXT_DOMAIN); ?><br/>
-                <select class="widefat" name="menu-item-pb[<?php echo $item->ID; ?>][popup]"
-                        id="edit-menu-item-pb-<?php echo $item->ID; ?>">
+            <label for="edit-menu-item-pb-<?php echo esc_attr($item->ID); ?>">
+                <?php esc_html_e('Select a Popup', SG_POPUP_TEXT_DOMAIN); ?><br/>
+                <select class="widefat" name="menu-item-pb[<?php echo esc_attr($item->ID); ?>][popup]"
+                        id="edit-menu-item-pb-<?php echo esc_attr($item->ID); ?>">
                     <option value=""></option>
                     <?php foreach (self::getPopups() as $popup) : ?>
-                        <option value="<?php echo $popup->getId(); ?>" <?php selected($popup->getId(), (int)get_post_meta($itemId, '_menu_sgpb_popup_id', true)); ?>>
+                        <option value="<?php echo esc_attr($popup->getId()); ?>" <?php selected($popup->getId(), (int)get_post_meta($itemId, '_menu_sgpb_popup_id', true)); ?>>
                             <?php echo esc_html($popup->getTitle()); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="description"><?php _e('Open a popup once this item is clicked.', SG_POPUP_TEXT_DOMAIN); ?></span>
+                <span class="description"><?php esc_html_e('Open a popup once this item is clicked.', SG_POPUP_TEXT_DOMAIN); ?></span>
             </label>
         </div>
         <?php
@@ -225,7 +228,7 @@ class SGPBMenu
     {
         delete_post_meta($item_id, '_menu_sgpb_popup_id');
         if (isset($_POST['menu-item-pb'][$item_id]['popup'])) {
-            $popupId = (int)$_POST['menu-item-pb'][$item_id]['popup'];
+            $popupId = (int)sanitize_text_field($_POST['menu-item-pb'][$item_id]['popup']);
             update_post_meta($item_id, '_menu_sgpb_popup_id', $popupId);
         }
     }

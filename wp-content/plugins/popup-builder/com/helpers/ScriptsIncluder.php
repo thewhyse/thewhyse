@@ -127,9 +127,35 @@ class ScriptsIncluder
 
 		wp_enqueue_script($fileName);
 	}
-
+	/**
+	 * Popup localize scripts data
+	 *
+	 * since wp 4.5 use this method
+	 *
+	 * @param string $handle
+	 * @param string $name
+	 * @param array $data
+	 *
+	 * @return void
+	 */
 	public static function localizeScript($handle, $name, $data)
 	{
 		wp_localize_script($handle, $name, $data);
+	}
+
+	/**
+	 * Popup add line scripts
+	 *
+	 * after wp 4.5 use this method
+	 *
+	 * @param string $handle
+	 * @param string $data
+	 * @param string $before
+	 *
+	 * @return void
+	 */
+	public static function addInlineScripts($handle, $data, $before = 'before')
+	{
+		wp_add_inline_script($handle, $data, $before);
 	}
 }

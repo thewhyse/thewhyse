@@ -8,6 +8,9 @@ class ScriptsLoader
 	// all loadable popups objects
 	private $loadablePopups = array();
 	private $isAdmin = false;
+	private $isAjax = false;
+	private $scriptsAndStylesForAjax;
+	private $footerContentAjax;
 	private static $alreadyLoadedPopups = array();
 
 	public function setLoadablePopups($loadablePopups)
@@ -30,6 +33,27 @@ class ScriptsLoader
 		return $this->isAdmin;
 	}
 
+	/* for ajax calls */
+	public function setIsAjax($isAjax)
+	{
+		$this->isAjax = $isAjax;
+	}
+
+	public function getIsAjax()
+	{
+		return $this->isAjax;
+	}
+
+	public function setFooterContentAjax($footerContentAjax)
+	{
+		$this->footerContentAjax = $footerContentAjax;
+	}
+
+	public function getFooterContentAjax()
+	{
+		return $this->footerContentAjax;
+	}
+
 	/**
 	 * Get encoded popup options
 	 *
@@ -37,7 +61,7 @@ class ScriptsLoader
 	 *
 	 * @param object $popup
 	 *
-	 * @return array|mixed|string|void $popupOptions
+	 * @return array|mixed|string $popupOptions
 	 */
 	private function getEncodedOptionsFromPopup($popup)
 	{
@@ -48,15 +72,17 @@ class ScriptsLoader
 
 		$popupOptions = array_merge($popupOptions, $extraOptions);
 		$popupOptions['sgpbConditions'] = apply_filters('sgpbRenderCondtions',  $popupCondition);
-		// These two lines have been added in order to not use the json_econde and to support PHP 5.3 version.
-		$popupOptions = AdminHelper::serializeData($popupOptions);
-		$popupOptions = base64_encode($popupOptions);
-
+		// JSON_UNESCAPED_UNICODE does not exist since 5.4.0
+		if (PHP_VERSION < '5.4.0'){
+			$popupOptions = json_encode($popupOptions);
+		} else {
+			$popupOptions = json_encode($popupOptions,JSON_UNESCAPED_UNICODE);
+		}
 		return $popupOptions;
 	}
 
 	// load popup scripts and styles and add popup data to the footer
-	public function loadToFooter()
+	public function loadToFooter($isFromAjax = false)
 	{
 		$popups = $this->getLoadablePopups();
 		$currentPostType = AdminHelper::getCurrentPostType();
@@ -88,13 +114,14 @@ class ScriptsLoader
 			$this->loadToAdmin();
 			return true;
 		}
+		$footerContentAjax = '';
 
 		foreach ($popups as $popup) {
 			$isActive = $popup->isActive();
 			if (!$isActive) {
 				continue;
 			}
-			
+
 			$popupId = $popup->getId();
 
 			$popupContent = apply_filters('sgpbPopupContentLoadToPage', $popup->getPopupTypeContent(), $popupId);
@@ -107,16 +134,25 @@ class ScriptsLoader
 					continue;
 				}
 			}
+			$canContinue = false;
 			foreach ($events as $event) {
 				if (isset($event['param'])) {
 					if (isset(self::$alreadyLoadedPopups[$popupId])) {
 						if (self::$alreadyLoadedPopups[$popupId] == $event['param']) {
-							continue;
+							$canContinue = true;
+						}
+					}
+				} else {
+					if (isset(self::$alreadyLoadedPopups[$popupId])) {
+						if (false !== array_search($event, array_column(self::$alreadyLoadedPopups[$popupId], 'param'))) {
+							$canContinue = true;
 						}
 					}
 				}
 			}
-
+			if ($canContinue) {
+				continue;
+			}
 			self::$alreadyLoadedPopups[$popupId] = $events;
 			$events = json_encode($events);
 			$currentUseOptions = $popup->getOptions();
@@ -124,19 +160,32 @@ class ScriptsLoader
 
 			$popupOptions = $this->getEncodedOptionsFromPopup($popup);
 			$popupOptions = apply_filters('sgpbLoadToFooterOptions', $popupOptions);
-			add_action('wp_footer', function() use ($popupId, $events, $popupOptions, $popupContent, $extraContent) {
-				$footerPopupContent = '<div class="sgpb-main-popup-data-container-'.$popupId.'" style="position:fixed;opacity: 0;filter: opacity(0%);transform: scale(0);">
-							<div class="sg-popup-builder-content" id="sg-popup-content-wrapper-'.$popupId.'" data-id="'.esc_attr($popupId).'" data-events="'.esc_attr($events).'" data-options="'.esc_attr($popupOptions).'">
+			if ($isFromAjax) {
+				$footerPopupContent = '<div class="sgpb-main-popup-data-container-'.esc_attr($popupId).'" style="position:fixed;opacity: 0;filter: opacity(0%);transform: scale(0);">
+							<div class="sg-popup-builder-content" id="sg-popup-content-wrapper-'.esc_attr($popupId).'" data-id="'.esc_attr($popupId).'" data-events="'.esc_attr($events).'" data-options="'.esc_attr($popupOptions).'">
 								<div class="sgpb-popup-builder-content-'.esc_attr($popupId).' sgpb-popup-builder-content-html">'.$popupContent.'</div>
 							</div>
 						  </div>';
 				$footerPopupContent .= $extraContent;
-				echo $footerPopupContent;
-			});
+				$footerContentAjax .= $footerPopupContent;
+			} else {
+				add_action('wp_footer', function() use ($popupId, $events, $popupOptions, $popupContent, $extraContent) {
+					$footerPopupContent = '<div class="sgpb-main-popup-data-container-'.esc_attr($popupId).'" style="position:fixed;opacity: 0;filter: opacity(0%);transform: scale(0);">
+							<div class="sg-popup-builder-content" id="sg-popup-content-wrapper-'.esc_attr($popupId).'" data-id="'.esc_attr($popupId).'" data-events="'.esc_attr($events).'" data-options="'.esc_attr($popupOptions).'">
+								<div class="sgpb-popup-builder-content-'.esc_attr($popupId).' sgpb-popup-builder-content-html">'.$popupContent.'</div>
+							</div>
+						  </div>';
+					$footerPopupContent .= $extraContent;
+					echo $footerPopupContent;
+				});
+			}
 		}
 
 		$this->includeScripts();
 		$this->includeStyles();
+		if ($isFromAjax){
+			$this->setFooterContentAjax($footerContentAjax);
+		}
 	}
 
 	public function loadToAdmin()
@@ -161,7 +210,7 @@ class ScriptsLoader
 							</div>
 						  </div>';
 
-				echo $footerPopupContent;
+				echo wp_kses($footerPopupContent, AdminHelper::allowed_html_tags());
 			});
 		}
 		$this->includeScripts();
@@ -172,6 +221,7 @@ class ScriptsLoader
 	private function includeScripts()
 	{
 		global $post;
+		global $wp_version;
 		$popups = $this->getLoadablePopups();
 		$registeredPlugins = AdminHelper::getOption(SGPB_POPUP_BUILDER_REGISTERED_PLUGINS);
 
@@ -220,7 +270,9 @@ class ScriptsLoader
 		if (empty($scripts)) {
 			return;
 		}
-
+		if ($this->getIsAjax()){
+			$this->scriptsAndStylesForAjax['scripts'] = $scripts;
+		}
 		foreach ($scripts as $script) {
 			if (empty($script['jsFiles'])) {
 				continue;
@@ -229,7 +281,9 @@ class ScriptsLoader
 			foreach ($script['jsFiles'] as $jsFile) {
 
 				if (empty($jsFile['folderUrl'])) {
-					wp_enqueue_script(@$jsFile['filename']);
+					if(isset($jsFile['filename'])){
+						wp_enqueue_script($jsFile['filename']);
+					}
 					continue;
 				}
 
@@ -260,8 +314,14 @@ class ScriptsLoader
 						continue;
 
 					}
+					if (version_compare($wp_version, '4.5', '>')){
+						/* after wp 4.5 version */
+						ScriptsIncluder::addInlineScripts($valueData['handle'], 'var '.$valueData['name'].' = ' .json_encode($valueData['data']).';');
+					} else {
+						/* since wp 4.5 version */
+						ScriptsIncluder::localizeScript($valueData['handle'], $valueData['name'], $valueData['data']);
+					}
 
-					ScriptsIncluder::localizeScript($valueData['handle'], $valueData['name'], $valueData['data']);
 				}
 			}
 		}
@@ -320,7 +380,9 @@ class ScriptsLoader
 		if (empty($styles)) {
 			return;
 		}
-
+		if ($this->getIsAjax()){
+			$this->scriptsAndStylesForAjax['styles'] = $styles;
+		}
 		foreach ($styles as $style) {
 
 			if (empty($style['cssFiles'])) {
@@ -349,5 +411,9 @@ class ScriptsLoader
 				ScriptsIncluder::enqueueStyle($cssFile['filename']);
 			}
 		}
+	}
+
+	public function getScriptsAndStylesForAjax() {
+		return $this->scriptsAndStylesForAjax;
 	}
 }

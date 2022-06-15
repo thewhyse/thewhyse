@@ -33,6 +33,15 @@ class Connection {
 	}
 
 	/**
+	 * Returns true if existing portal is the same into a connect attempt
+	 */
+	public static function is_same_portal() {
+		$connect_params = QueryParameters::get_parameters( self::CONNECT_KEYS, 'hubspot-nonce', self::CONNECT_NONCE_ARG );
+		$portal_id      = $connect_params['portal_id'];
+		return AccountOptions::get_portal_id() === $portal_id;
+	}
+
+	/**
 	 * Returns true if the current request is for the plugin to connect to a portal
 	 */
 	public static function is_connection_requested() {
@@ -123,6 +132,10 @@ class Connection {
 		$users = get_users( array( 'fields' => array( 'ID' ) ) );
 		foreach ( $users as $user ) {
 			delete_user_meta( $user->ID, 'leadin_email' );
+			delete_user_meta( $user->ID, 'leadin_skip_review' );
+			delete_user_meta( $user->ID, 'leadin_review_banner_last_call' );
+			delete_user_meta( $user->ID, 'leadin_has_min_contacts' );
+			delete_user_meta( $user->ID, 'leadin_track_consent' );
 		}
 
 		OAuth::deauthorize();
@@ -141,6 +154,7 @@ class Connection {
 		AccountOptions::add_account_name( $portal_name );
 		AccountOptions::add_portal_domain( $portal_domain );
 		AccountOptions::add_hublet( $hublet );
+		AccountOptions::add_disable_internal_tracking();
 	}
 
 	/**
@@ -151,5 +165,6 @@ class Connection {
 		AccountOptions::delete_account_name();
 		AccountOptions::delete_portal_domain();
 		AccountOptions::delete_hublet();
+		AccountOptions::delete_disable_internal_tracking();
 	}
 }

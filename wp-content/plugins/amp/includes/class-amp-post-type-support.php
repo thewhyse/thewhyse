@@ -42,14 +42,9 @@ class AMP_Post_Type_Support {
 	 * @return string[] Post types eligible for AMP.
 	 */
 	public static function get_eligible_post_types() {
-		$post_types = array_values(
-			get_post_types(
-				[
-					'public' => true,
-				],
-				'names'
-			)
-		);
+		$post_types = get_post_types( [], 'names' );
+		$post_types = array_filter( $post_types, 'is_post_type_viewable' );
+		$post_types = array_values( $post_types );
 
 		/**
 		 * Filters the list of post types which may be supported for AMP.
@@ -119,9 +114,15 @@ class AMP_Post_Type_Support {
 	 * @return array Error codes for why a given post does not have AMP support.
 	 */
 	public static function get_support_errors( $post ) {
-		if ( ! ( $post instanceof WP_Post ) ) {
+		if ( ! $post instanceof WP_Post ) {
 			$post = get_post( $post );
 		}
+
+		// If there's still not a valid post, then we have to abort.
+		if ( ! $post instanceof WP_Post ) {
+			return [ 'invalid-post' ];
+		}
+
 		$errors = [];
 
 		if ( ! in_array( $post->post_type, self::get_supported_post_types(), true ) ) {
@@ -137,7 +138,7 @@ class AMP_Post_Type_Support {
 		 * @param int     $post_id Post ID.
 		 * @param WP_Post $post    Post.
 		 */
-		if ( isset( $post->ID ) && true === apply_filters( 'amp_skip_post', false, $post->ID, $post ) ) {
+		if ( ! empty( $post->ID ) && true === apply_filters( 'amp_skip_post', false, $post->ID, $post ) ) {
 			$errors[] = 'skip-post';
 		}
 

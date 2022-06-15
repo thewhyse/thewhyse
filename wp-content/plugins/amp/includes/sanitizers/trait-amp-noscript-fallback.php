@@ -6,6 +6,8 @@
  */
 
 use AmpProject\Dom\Document;
+use AmpProject\Html\Attribute;
+use AmpProject\Html\Tag;
 
 /**
  * Trait AMP_Noscript_Fallback
@@ -42,6 +44,15 @@ trait AMP_Noscript_Fallback {
 		);
 
 		foreach ( AMP_Allowed_Tags_Generated::get_allowed_tag( $tag ) as $tag_spec ) { // Normally 1 iteration.
+			if (
+				! (
+					( isset( $tag_spec['tag_spec']['mandatory_ancestor'] ) && Tag::NOSCRIPT === $tag_spec['tag_spec']['mandatory_ancestor'] )
+					||
+					( isset( $tag_spec['tag_spec']['mandatory_parent'] ) && Tag::NOSCRIPT === $tag_spec['tag_spec']['mandatory_parent'] )
+				)
+			) {
+				continue;
+			}
 			foreach ( $tag_spec['attr_spec_list'] as $attr_name => $attr_spec ) {
 				$this->noscript_fallback_allowed_attributes[ $attr_name ] = true;
 				if ( isset( $attr_spec['alternative_names'] ) ) {
@@ -52,6 +63,13 @@ trait AMP_Noscript_Fallback {
 				}
 			}
 		}
+
+		// Remove attributes which are likely to cause styling conflicts, as the noscript fallback should get treated like it has fill layout.
+		unset(
+			$this->noscript_fallback_allowed_attributes[ Attribute::ID ],
+			$this->noscript_fallback_allowed_attributes[ Attribute::CLASS_ ],
+			$this->noscript_fallback_allowed_attributes[ Attribute::STYLE ]
+		);
 	}
 
 	/**
@@ -81,13 +99,12 @@ trait AMP_Noscript_Fallback {
 		$noscript->appendChild( $old_element );
 		$new_element->appendChild( $noscript );
 
-		// Remove all non-allowed attributes preemptively to prevent doubled validation errors.
+		// Remove all non-allowed attributes preemptively to prevent doubled validation errors, only leaving the attributes required.
 		for ( $i = $old_element->attributes->length - 1; $i >= 0; $i-- ) {
 			$attribute = $old_element->attributes->item( $i );
-			if ( isset( $this->noscript_fallback_allowed_attributes[ $attribute->nodeName ] ) ) {
-				continue;
+			if ( ! isset( $this->noscript_fallback_allowed_attributes[ $attribute->nodeName ] ) ) {
+				$old_element->removeAttribute( $attribute->nodeName );
 			}
-			$old_element->removeAttribute( $attribute->nodeName );
 		}
 	}
 }

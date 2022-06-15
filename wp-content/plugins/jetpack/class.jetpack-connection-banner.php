@@ -1,19 +1,33 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+/**
+ * Jetpack connection banner.
+ *
+ * @package automattic/jetpack
+ */
 
 use Automattic\Jetpack\Assets;
 use Automattic\Jetpack\Assets\Logo;
-use Automattic\Jetpack\Constants;
 use Automattic\Jetpack\Licensing;
 use Automattic\Jetpack\Redirect;
 
+/**
+ * Jetpack connection banner.
+ */
 class Jetpack_Connection_Banner {
 	/**
+	 * Static instance.
+	 *
 	 * @var Jetpack_Connection_Banner
-	 **/
+	 */
 	private static $instance = null;
 
-	static function init() {
-		if ( is_null( self::$instance ) ) {
+	/**
+	 * Initialize and fetch the static instance.
+	 *
+	 * @return self
+	 */
+	public static function init() {
+		if ( self::$instance === null ) {
 			self::$instance = new Jetpack_Connection_Banner();
 		}
 
@@ -47,6 +61,50 @@ class Jetpack_Connection_Banner {
 	}
 
 	/**
+	 * Can the banner be displayed for the given screen?
+	 *
+	 * @param \WP_Screen $current_screen Current WordPress screen.
+	 *
+	 * @return bool
+	 */
+	public static function can_be_displayed( $current_screen ) {
+		$has_connected_owner = Jetpack::connection()->has_connected_owner();
+		$is_connected        = Jetpack::is_connection_ready();
+		$has_licenses        = ! empty( Licensing::instance()->stored_licenses() );
+
+		// Don't show the connect notice if the site has a connected owner.
+		if ( $has_connected_owner ) {
+			return false;
+		}
+
+		// Don't show the connect notice if a site connection is established and there are no stored licenses.
+		// Stored licenses indicate that a purchased product may not be provisioned yet hence we need to keep
+		// showing the notice to nudge the user to connect in order to have their product(s) provisioned.
+		if ( $is_connected && ! $has_licenses ) {
+			return false;
+		}
+
+		// Kill if banner has been dismissed and the pre-connection helpers filter is not set.
+		if (
+			Jetpack_Options::get_option( 'dismissed_connection_banner' ) &&
+			! self::force_display()
+		) {
+			return false;
+		}
+
+		// Don't show the connect notice anywhere but the plugins.php after activating.
+		if ( 'plugins' !== $current_screen->base && 'dashboard' !== $current_screen->base ) {
+			return false;
+		}
+
+		if ( ! current_user_can( 'jetpack_connect' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Given a string for the the banner was added, and an int that represents the slide to
 	 * a URL for, this function returns a connection URL with a from parameter that will
 	 * support split testing.
@@ -55,11 +113,10 @@ class Jetpack_Connection_Banner {
 	 *              The param $slide_num was removed since we removed all slides but the first one.
 	 * @since 4.4.0
 	 *
-	 * @param string $jp_version_banner_added A short version of when the banner was added. Ex. 44
-	 *
+	 * @param string $jp_version_banner_added A short version of when the banner was added. Ex. 44.
 	 * @return string
 	 */
-	function build_connect_url_for_slide( $jp_version_banner_added ) {
+	public function build_connect_url_for_slide( $jp_version_banner_added ) {
 		global $current_screen;
 		$url = Jetpack::init()->build_connect_url(
 			true,
@@ -73,31 +130,16 @@ class Jetpack_Connection_Banner {
 	 * Will initialize hooks to display the new (as of 4.4) connection banner if the current user can
 	 * connect Jetpack, if Jetpack has not been deactivated, and if the current page is the plugins page.
 	 *
-	 * This method should not be called if the site is connected to WordPress.com or if the site is in offline mode.
-	 *
 	 * @since 4.4.0
 	 * @since 4.5.0 Made the new (as of 4.4) connection banner display to everyone by default.
 	 * @since 5.3.0 Running another split test between 4.4 banner and a new one in 5.3.
 	 * @since 7.2   B test was removed.
+	 * @since 9.7   Moved the connection condition checking to this method to fulfill Licensing requirements.
 	 *
-	 * @param $current_screen
+	 * @param \WP_Screen $current_screen Current WordPress screen.
 	 */
-	function maybe_initialize_hooks( $current_screen ) {
-
-		// Kill if banner has been dismissed and the pre-connection helpers filter is not set.
-		if (
-			Jetpack_Options::get_option( 'dismissed_connection_banner' ) &&
-			! $this->force_display()
-		) {
-			return;
-		}
-
-		// Don't show the connect notice anywhere but the plugins.php after activating
-		if ( 'plugins' !== $current_screen->base && 'dashboard' !== $current_screen->base ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'jetpack_connect' ) ) {
+	public function maybe_initialize_hooks( $current_screen ) {
+		if ( ! self::can_be_displayed( $current_screen ) ) {
 			return;
 		}
 
@@ -114,9 +156,16 @@ class Jetpack_Connection_Banner {
 			add_action( 'network_admin_notices', array( $this, 'network_connect_notice' ) );
 		}
 
-		// Only fires immediately after plugin activation
+		// Only fires immediately after plugin activation.
 		if ( get_transient( 'activated_jetpack' ) ) {
-			add_action( 'admin_notices', array( $this, 'render_connect_prompt_full_screen' ) );
+			if (
+				! \Jetpack_Options::get_option( 'has_seen_wc_connection_modal', false )
+				&& in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', Jetpack::get_active_plugins() ), true )
+			) {
+				wp_safe_redirect( Jetpack::admin_url( 'page=jetpack#/woo-setup' ) );
+			} else {
+				add_action( 'admin_notices', array( $this, 'render_connect_prompt_full_screen' ) );
+			}
 			delete_transient( 'activated_jetpack' );
 		}
 	}
@@ -149,13 +198,11 @@ class Jetpack_Connection_Banner {
 	}
 
 	/**
-	 * Enqueues JavaScript and CSS for new connect-in-place flow.
+	 * Enqueues JavaScript and CSS for the connection button.
 	 *
 	 * @since 7.7
 	 */
 	public static function enqueue_connect_button_scripts() {
-		global $is_safari;
-
 		wp_enqueue_script(
 			'jetpack-connect-button',
 			Assets::get_file_url_for_environment(
@@ -172,18 +219,12 @@ class Jetpack_Connection_Banner {
 			Assets::get_file_url_for_environment(
 				'css/jetpack-connect.min.css',
 				'css/jetpack-connect.css'
-			)
+			),
+			array(),
+			JETPACK__VERSION
 		);
 
-		$jetpackApiUrl = wp_parse_url( Jetpack::connection()->api_url( '' ) );
-
-		// Due to the limitation in how 3rd party cookies are handled in Safari,
-		// we're falling back to the original flow on Safari desktop and mobile.
-		if ( $is_safari || Constants::is_true( 'JETPACK_SHOULD_NOT_USE_CONNECTION_IFRAME' ) ) {
-			$force_variation = 'original';
-		} else {
-			$force_variation = 'in_place';
-		}
+		$jetpack_api_url = wp_parse_url( Jetpack::connection()->api_url( '' ) );
 
 		$tracking = new Automattic\Jetpack\Tracking();
 		$identity = $tracking->tracks_get_identity( get_current_user_id() );
@@ -197,8 +238,7 @@ class Jetpack_Connection_Banner {
 				'apiNonce'              => wp_create_nonce( 'wp_rest' ),
 				'apiSiteDataNonce'      => wp_create_nonce( 'wp_rest' ),
 				'buttonTextRegistering' => __( 'Loading...', 'jetpack' ),
-				'jetpackApiDomain'      => $jetpackApiUrl['scheme'] . '://' . $jetpackApiUrl['host'],
-				'forceVariation'        => $force_variation,
+				'jetpackApiDomain'      => $jetpack_api_url['scheme'] . '://' . $jetpack_api_url['host'],
 				'connectInPlaceUrl'     => Jetpack::admin_url( 'page=jetpack#/setup' ),
 				'dashboardUrl'          => Jetpack::admin_url( 'page=jetpack#/dashboard' ),
 				'plansPromptUrl'        => Redirect::get_url( 'jetpack-connect-plans' ),
@@ -246,16 +286,15 @@ class Jetpack_Connection_Banner {
 						<div class="jp-wpcom-connect__content-icon jp-connect-illo">
 							<?php
 							$logo = new Logo();
-							echo $logo->render();
+							echo $logo->render(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Returns SVG.
 							?>
 							<img
-								src="<?php echo plugins_url( 'images/jetpack-powering-up.svg', JETPACK__PLUGIN_FILE ); ?>"
+								src="<?php echo esc_url( plugins_url( 'images/jetpack-powering-up.svg', JETPACK__PLUGIN_FILE ) ); ?>"
 								class="jp-wpcom-connect__hide-phone-and-smaller"
 								alt="
 								<?php
 								esc_attr_e(
-									'Jetpack premium services offer even more powerful performance, security, ' .
-									'and revenue tools to help you keep your site safe, fast, and help generate income.',
+									'Jetpack premium services offer even more powerful performance, security, and revenue tools to help you keep your site safe, fast, and help generate income.',
 									'jetpack'
 								);
 								?>
@@ -271,9 +310,7 @@ class Jetpack_Connection_Banner {
 							<p>
 								<?php
 								esc_html_e(
-									'Jetpack protects you against brute force attacks and unauthorized logins. Basic protection ' .
-									'is always free, while premium plans add unlimited backups of your whole site, spam protection, ' .
-									'malware scanning, and automated fixes.',
+									'Jetpack protects you against brute force attacks and unauthorized logins. Basic protection is always free, while premium plans add unlimited backups of your whole site, spam protection, malware scanning, and automated fixes.',
 									'jetpack'
 								);
 								?>
@@ -282,9 +319,7 @@ class Jetpack_Connection_Banner {
 							<p>
 								<?php
 								esc_html_e(
-									'Activate site accelerator tools and watch your page load times decrease—we’ll ' .
-									'optimize your images and serve them from our own powerful global network of servers, ' .
-									'and speed up your mobile site to reduce bandwidth usage.',
+									'Activate site accelerator tools and watch your page load times decrease—we’ll optimize your images and serve them from our own powerful global network of servers, and speed up your mobile site to reduce bandwidth usage.',
 									'jetpack'
 								);
 								?>
@@ -321,7 +356,7 @@ class Jetpack_Connection_Banner {
 					<div class="jp-wpcom-connect__slide jp-wpcom-connect__slide-one jp__slide-is-active">
 
 						<div class="jp-wpcom-connect__content-icon jp-connect-illo">
-							<?php echo ( new Logo() )->render(); ?>
+							<?php echo ( new Logo() )->render(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Returns SVG. ?>
 							<img
 								src="<?php echo esc_url( plugins_url( 'images/jetpack-powering-up.svg', JETPACK__PLUGIN_FILE ) ); ?>"
 								class="jp-wpcom-connect__hide-phone-and-smaller"
@@ -352,7 +387,7 @@ class Jetpack_Connection_Banner {
 							<p>
 								<?php
 								esc_html_e(
-									'Jetpack offers security, performance, and marketing tools made for WordPress sites by the WordPress experts. Set up Jetpack to enable new features for this site; don\'t let your subscription go to waste!',
+									'Jetpack offers security, performance, and marketing tools made for WordPress sites by WordPress experts. Set up Jetpack to enable new features for this site; don\'t let your subscription go to waste!',
 									'jetpack'
 								);
 								?>
@@ -385,13 +420,15 @@ class Jetpack_Connection_Banner {
 		} else {
 			$bottom_connect_url_from = 'landing-page-bottom';
 		}
+
+		$has_no_owner = ! Jetpack::connection()->has_connected_owner();
 		?>
-		<div class="jp-connect-full__container"><div class="jp-connect-full__container-card">
+		<div class="jp-connect-full__container <?php echo $has_no_owner ? 'jp-jetpack-connect__site_connection' : ''; ?>"><div class="jp-connect-full__container-card">
 
 				<?php if ( 'plugins' === $current_screen->base ) : ?>
 					<?php
 					$logo = new Logo();
-					echo $logo->render();
+					echo $logo->render(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Returns SVG.
 					?>
 
 					<?php
@@ -408,8 +445,12 @@ class Jetpack_Connection_Banner {
 
 				<?php endif; ?>
 
-				<div class="jp-connect-full__step-header">
+				<div id="jp-connect-full__step1-header" class="jp-connect-full__step-header">
 					<h2 class="jp-connect-full__step-header-title"><?php esc_html_e( 'Activate essential WordPress security and performance tools by setting up Jetpack', 'jetpack' ); ?></h2>
+				</div>
+
+				<div id="jp-connect-full__step2-header" class="jp-connect-full__step-header">
+					<h2 class="jp-connect-full__step-header-title"><?php esc_html_e( 'Jetpack is activated!', 'jetpack' ); ?><br /><?php esc_html_e( 'Unlock more amazing features by connecting a user account', 'jetpack' ); ?></h2>
 				</div>
 
 				<p class="jp-connect-full__tos-blurb">
@@ -418,7 +459,7 @@ class Jetpack_Connection_Banner {
 
 				<p class="jp-connect-full__button-container">
 					<a href="<?php echo esc_url( Jetpack::init()->build_connect_url( true, false, $bottom_connect_url_from ) ); ?>"
-					   class="dops-button is-primary jp-connect-button">
+						class="dops-button is-primary jp-connect-button">
 						<?php esc_html_e( 'Set up Jetpack', 'jetpack' ); ?>
 					</a>
 				</p>
@@ -427,7 +468,7 @@ class Jetpack_Connection_Banner {
 					<div class="jp-connect-full__slide">
 						<div class="jp-connect-full__slide-card illustration">
 							<img
-									src="<?php echo plugins_url( 'images/jetpack-connection-security.svg', JETPACK__PLUGIN_FILE ); ?>"
+									src="<?php echo esc_url( plugins_url( 'images/jetpack-connection-security.svg', JETPACK__PLUGIN_FILE ) ); ?>"
 									alt="<?php esc_attr_e( 'Security & Backups', 'jetpack' ); ?>"
 							/>
 						</div>
@@ -443,7 +484,7 @@ class Jetpack_Connection_Banner {
 					<div class="jp-connect-full__slide">
 						<div class="jp-connect-full__slide-card illustration">
 							<img
-									src="<?php echo plugins_url( 'images/jetpack-connection-performance.svg', JETPACK__PLUGIN_FILE ); ?>"
+									src="<?php echo esc_url( plugins_url( 'images/jetpack-connection-performance.svg', JETPACK__PLUGIN_FILE ) ); ?>"
 									alt="<?php esc_attr_e( 'Built-in Performance', 'jetpack' ); ?>"
 							/>
 						</div>
@@ -491,7 +532,7 @@ class Jetpack_Connection_Banner {
 	/**
 	 * Renders the legacy network connection banner.
 	 */
-	function network_connect_notice() {
+	public function network_connect_notice() {
 		?>
 		<div id="message" class="updated jetpack-message">
 			<div class="squeezer">

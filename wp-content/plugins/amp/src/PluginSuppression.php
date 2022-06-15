@@ -46,14 +46,35 @@ final class PluginSuppression implements Service, Registerable {
 	private $callback_reflection;
 
 	/**
+	 * Paired Routing.
+	 *
+	 * @var PairedRouting
+	 */
+	private $paired_routing;
+
+	/**
+	 * Original render callbacks for blocks.
+	 *
+	 * Populated via the `register_block_type_args` filter at the moment the block is first registered. This is useful
+	 * to detect a suppressed plugin's blocks which had their `render_callback` wrapped by another function before
+	 * plugin suppression is started at the `wp` action.
+	 *
+	 * @see gutenberg_current_parsed_block_tracking()
+	 * @var array
+	 */
+	private $original_block_render_callbacks = [];
+
+	/**
 	 * Instantiate the plugin suppression service.
 	 *
 	 * @param PluginRegistry     $plugin_registry     Plugin registry to use.
 	 * @param CallbackReflection $callback_reflection Callback reflector to use.
+	 * @param PairedRouting      $paired_routing      Paired routing service to use.
 	 */
-	public function __construct( PluginRegistry $plugin_registry, CallbackReflection $callback_reflection ) {
+	public function __construct( PluginRegistry $plugin_registry, CallbackReflection $callback_reflection, PairedRouting $paired_routing ) {
 		$this->plugin_registry     = $plugin_registry;
 		$this->callback_reflection = $callback_reflection;
+		$this->paired_routing      = $paired_routing;
 	}
 
 	/**
@@ -62,7 +83,28 @@ final class PluginSuppression implements Service, Registerable {
 	public function register() {
 		add_filter( 'amp_default_options', [ $this, 'filter_default_options' ] );
 		add_filter( 'amp_options_updating', [ $this, 'sanitize_options' ], 10, 2 );
+		add_filter( 'plugin_row_meta', [ $this, 'filter_plugin_row_meta' ], 10, 2 );
 
+		add_filter(
+			'register_block_type_args',
+			function ( $props, $block_name ) {
+				if ( isset( $props['render_callback'] ) ) {
+					$this->original_block_render_callbacks[ $block_name ] = $props['render_callback'];
+				}
+				return $props;
+			},
+			~PHP_INT_MAX,
+			2
+		);
+
+		// Priority 8 needed to run before ReaderThemeLoader::override_theme() at priority 9.
+		add_action( 'plugins_loaded', [ $this, 'initialize' ], 8 );
+	}
+
+	/**
+	 * Initialize.
+	 */
+	public function initialize() {
 		// When a Reader theme is selected and an AMP request is being made, start suppressing as early as possible.
 		// This can be done because we know it is an AMP page due to the query parameter, but it also _has_ to be done
 		// specifically for the case of accessing the AMP Customizer (in which customize.php is requested with the query
@@ -70,6 +112,7 @@ final class PluginSuppression implements Service, Registerable {
 		// could be done early for Transitional mode as well since a query parameter is also used for frontend requests
 		// but there is no similar need to suppress the registration of Customizer controls in Transitional mode since
 		// there is no separate Customizer for AMP in Transitional mode (or legacy Reader mode).
+		// @todo This check could be replaced with ( ! amp_is_canonical() && $this->paired_routing->has_endpoint() ).
 		if ( $this->is_reader_theme_request() ) {
 			$this->suppress_plugins();
 		} else {
@@ -92,7 +135,7 @@ final class PluginSuppression implements Service, Registerable {
 			&&
 			ReaderThemes::DEFAULT_READER_THEME !== AMP_Options_Manager::get_option( Option::READER_THEME )
 			&&
-			isset( $_GET[ amp_get_slug() ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$this->paired_routing->has_endpoint()
 		);
 	}
 
@@ -156,10 +199,7 @@ final class PluginSuppression implements Service, Registerable {
 		$option                    = $options[ Option::SUPPRESSED_PLUGINS ];
 		$posted_suppressed_plugins = $new_options[ Option::SUPPRESSED_PLUGINS ];
 
-		$plugins           = $this->plugin_registry->get_plugins( true );
-		$errors_by_source  = AMP_Validated_URL_Post_Type::get_recent_validation_errors_by_source();
-		$urls_by_frequency = [];
-		$changes           = 0;
+		$plugins = $this->plugin_registry->get_plugins( true );
 		foreach ( $posted_suppressed_plugins as $plugin_slug => $suppressed ) {
 			if ( ! isset( $plugins[ $plugin_slug ] ) ) {
 				unset( $option[ $plugin_slug ] );
@@ -169,74 +209,18 @@ final class PluginSuppression implements Service, Registerable {
 			$suppressed = rest_sanitize_boolean( $suppressed );
 			if ( isset( $option[ $plugin_slug ] ) && ! $suppressed ) {
 
-				// Gather the URLs on which the error occurred, keeping track of the frequency so that we can use the URL with the most errors to re-validate.
-				if ( ! empty( $option[ $plugin_slug ][ Option::SUPPRESSED_PLUGINS_ERRORING_URLS ] ) ) {
-					foreach ( $option[ $plugin_slug ][ Option::SUPPRESSED_PLUGINS_ERRORING_URLS ] as $url ) {
-						if ( ! isset( $urls_by_frequency[ $url ] ) ) {
-							$urls_by_frequency[ $url ] = 0;
-						}
-						$urls_by_frequency[ $url ]++;
-					}
-				}
-
 				// Remove the plugin from being suppressed.
 				unset( $option[ $plugin_slug ] );
-
-				$changes++;
 			} elseif ( ! isset( $option[ $plugin_slug ] ) && $suppressed && array_key_exists( $plugin_slug, $plugins ) ) {
-
-				// Capture the URLs that the error occurred on so we can check them again when the plugin is re-activated.
-				$urls = [];
-				if ( isset( $errors_by_source['plugin'][ $plugin_slug ] ) ) {
-					foreach ( $errors_by_source['plugin'][ $plugin_slug ] as $validation_error ) {
-						$urls = array_merge(
-							$urls,
-							array_map(
-								[ AMP_Validated_URL_Post_Type::class, 'get_url_from_post' ],
-								$validation_error['post_ids']
-							)
-						);
-					}
-				}
-
 				$user = wp_get_current_user();
 
 				$option[ $plugin_slug ] = [
 					// Note that we store the version that was suppressed so that we can alert the user when to check again.
 					Option::SUPPRESSED_PLUGINS_LAST_VERSION => $plugins[ $plugin_slug ]['Version'],
 					Option::SUPPRESSED_PLUGINS_TIMESTAMP => time(),
-					Option::SUPPRESSED_PLUGINS_USERNAME  => $user instanceof WP_User ? $user->user_nicename : null,
-					Option::SUPPRESSED_PLUGINS_ERRORING_URLS => array_unique( array_filter( $urls ) ),
+					Option::SUPPRESSED_PLUGINS_USERNAME  => $user->ID ? $user->user_nicename : null,
 				];
-				$changes++;
 			}
-		}
-
-		// When the suppressed plugins changed, re-validate so validation errors can be re-computed with the plugins newly-suppressed or un-suppressed.
-		if ( $changes > 0 ) {
-			add_action(
-				'update_option_' . AMP_Options_Manager::OPTION_NAME,
-				static function () use ( $urls_by_frequency ) {
-					$url = null;
-					if ( count( $urls_by_frequency ) > 0 ) {
-						arsort( $urls_by_frequency );
-						$url = key( $urls_by_frequency );
-					} else {
-						$validated_url_posts = get_posts(
-							[
-								'post_type'      => AMP_Validated_URL_Post_Type::POST_TYPE_SLUG,
-								'posts_per_page' => 1,
-							]
-						);
-						if ( count( $validated_url_posts ) > 0 ) {
-							$url = AMP_Validated_URL_Post_Type::get_url_from_post( $validated_url_posts[0] );
-						}
-					}
-					if ( $url ) {
-						AMP_Validation_Manager::validate_url_and_store( $url );
-					}
-				}
-			);
 		}
 
 		$options[ Option::SUPPRESSED_PLUGINS ] = $option;
@@ -384,11 +368,18 @@ final class PluginSuppression implements Service, Registerable {
 	 */
 	private function suppress_hooks( $suppressed_plugins ) {
 		global $wp_filter;
+		/** @var WP_Hook $filter */
 		foreach ( $wp_filter as $tag => $filter ) {
 			foreach ( $filter->callbacks as $priority => $prioritized_callbacks ) {
 				foreach ( $prioritized_callbacks as $callback ) {
 					if ( $this->is_callback_plugin_suppressed( $callback['function'], $suppressed_plugins ) ) {
-						$filter->remove_filter( $tag, $callback['function'], $priority );
+						// Obtain the original function which is necessary to pass into remove_filter() so that the
+						// expected key will be generated by _wp_filter_build_unique_id(). Alternatively, this could
+						// just below do `unset( $filter->callbacks[ $priority ][ $function_key ] )` but it seems safer
+						// to re-use all the existing logic in remove_filter().
+						$original_function = $this->callback_reflection->get_unwrapped_callback( $callback['function'] );
+
+						$filter->remove_filter( $tag, $original_function, $priority );
 					}
 				}
 			}
@@ -426,11 +417,22 @@ final class PluginSuppression implements Service, Registerable {
 		$registry = WP_Block_Type_Registry::get_instance();
 
 		foreach ( $registry->get_all_registered() as $block_type ) {
-			if ( ! $block_type->is_dynamic() || ! $this->is_callback_plugin_suppressed( $block_type->render_callback, $suppressed_plugins ) ) {
+			if ( ! $block_type->is_dynamic() ) {
 				continue;
 			}
-			unset( $block_type->script, $block_type->style );
-			$block_type->render_callback = '__return_empty_string';
+
+			if (
+				$this->is_callback_plugin_suppressed( $block_type->render_callback, $suppressed_plugins )
+				||
+				(
+					isset( $this->original_block_render_callbacks[ $block_type->name ] )
+					&&
+					$this->is_callback_plugin_suppressed( $this->original_block_render_callbacks[ $block_type->name ], $suppressed_plugins )
+				)
+			) {
+				unset( $block_type->script, $block_type->style );
+				$block_type->render_callback = '__return_empty_string';
+			}
 		}
 	}
 
@@ -489,5 +491,34 @@ final class PluginSuppression implements Service, Registerable {
 			'plugin' === $source['type'] &&
 			in_array( $source['name'], $suppressed_plugins, true )
 		);
+	}
+
+	/**
+	 * Add meta if plugin is suppressed in AMP page.
+	 *
+	 * @param array  $plugin_meta An array of the plugin's metadata.
+	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return array An array of the plugin's metadata
+	 */
+	public function filter_plugin_row_meta( $plugin_meta, $plugin_file ) {
+
+		// Do not show on the network plugins screen.
+		if ( is_network_admin() ) {
+			return $plugin_meta;
+		}
+
+		$suppressed_plugins = AMP_Options_Manager::get_option( 'suppressed_plugins' );
+		$plugin_slug        = $this->plugin_registry->get_plugin_slug_from_file( $plugin_file );
+		if ( isset( $suppressed_plugins[ $plugin_slug ] ) ) {
+			$plugin_meta[] = sprintf(
+				'<a href="%s" aria-label="%s">%s</a>',
+				esc_url( admin_url( 'admin.php?page=amp-options' ) . '#plugin-suppression' ),
+				esc_attr__( 'Visit AMP Settings', 'amp' ),
+				esc_html__( 'Suppressed on AMP Pages', 'amp' )
+			);
+		}
+
+		return $plugin_meta;
 	}
 }

@@ -14,14 +14,14 @@ $formData =  array('' => 'Select Field') + AdminHelper::getSubscriptionColumnsBy
 ?>
 
 <div id="importSubscribersSecondStep">
-	<h1 id="importSubscriberHeader"><?php _e('Match Your Fields', SG_POPUP_TEXT_DOMAIN); ?></h1>
+	<h1 id="importSubscriberHeader"><?php esc_html_e('Match Your Fields', SG_POPUP_TEXT_DOMAIN); ?></h1>
 	<div id="importSubscriberBody">
 		<div class="formItem sgpb-justify-content-around">
 			<div class="formItem__title">
-				<?php _e('Available fields', SG_POPUP_TEXT_DOMAIN); ?>
+				<?php esc_html_e('Available fields', SG_POPUP_TEXT_DOMAIN); ?>
 			</div>
 			<div class="formItem__title">
-				<?php _e('Our list fields', SG_POPUP_TEXT_DOMAIN); ?>
+				<?php esc_html_e('Our list fields', SG_POPUP_TEXT_DOMAIN); ?>
 			</div>
 		</div>
 		<?php foreach($csvFileArray[0] as $index => $current): ?>
@@ -30,12 +30,12 @@ $formData =  array('' => 'Select Field') + AdminHelper::getSubscriptionColumnsBy
 			<?php endif; ?>
 			<div class="formItem sgpb-justify-content-between">
 				<div class="subFormItem__title">
-					<?php echo $current; ?>
+					<?php echo esc_html($current); ?>
 				</div>
 				<div>
 					<?php
 					$ourFieldsArgs['data-index'] = $index;
-					echo AdminHelper::createSelectBox($formData, '', $ourFieldsArgs);
+					echo wp_kses(AdminHelper::createSelectBox($formData, '', $ourFieldsArgs), AdminHelper::allowed_html_tags());
 					?>
 				</div>
 			</div>
@@ -45,7 +45,7 @@ $formData =  array('' => 'Select Field') + AdminHelper::getSubscriptionColumnsBy
 	</div>
 
 	<div id="importSubscriberFooter">
-		<input type="button" value="<?php _e('Save', SG_POPUP_TEXT_DOMAIN); ?>" class="sgpb-btn sgpb-btn-blue sgpb-save-subscriber" data-ajaxnonce="popupBuilderAjaxNonce">
+		<input type="button" value="<?php esc_html_e('Save', SG_POPUP_TEXT_DOMAIN); ?>" class="sgpb-btn sgpb-btn-blue sgpb-save-subscriber" data-ajaxnonce="popupBuilderAjaxNonce">
 	</div>
 
 </div>

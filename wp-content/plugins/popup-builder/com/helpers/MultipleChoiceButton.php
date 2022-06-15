@@ -124,10 +124,11 @@ class MultipleChoiceButton
 
 	public function render()
 	{
+		$allowed_html = AdminHelper::allowed_html_tags();
 		ob_start();
 		?>
 
-		<?php echo $this->renderFields()?>
+		<?php echo wp_kses($this->renderFields(), $allowed_html);?>
 
 		<?php
 		$content = ob_get_contents();
@@ -208,7 +209,7 @@ class MultipleChoiceButton
 			$info = '<div class="question-mark">B</div>';
 			$info .= '<div class="sgpb-info-wrapper">';
 			$info .= '<span class="infoSelectRepeat samefontStyle sgpb-info-text" style="display: none;">';
-			$info .= @$field['label']['info'];
+			$info .= $field['label']['info'];
 			$info .= '</span>';
 			$info .= '</div>';
 		}
@@ -282,7 +283,7 @@ class MultipleChoiceButton
 			$info = '<div class="question-mark">B</div>';
 			$info = '<div class="sgpb-info-wrapper">';
 			$info = '<span class="infoSelectRepeat samefontStyle sgpb-info-text" style="display: none;">';
-			$info .= @$field['label']['info'];
+			$info .= $field['label']['info'];
 			$info = '</span>';
 			$info .= '</div>';
 		}

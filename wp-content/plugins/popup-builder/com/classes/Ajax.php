@@ -1,7 +1,6 @@
 <?php
 namespace sgpb;
 use \ConfigDataHelper;
-use \SgpbDataConfig;
 
 class Ajax
 {
@@ -92,8 +91,10 @@ class Ajax
 			wp_die('');
 		}
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-
-		$popupId = @(int)$_POST['post_ID'];
+		if (!isset($_POST['post_ID'])){
+			wp_die(0);
+		}
+		$popupId = (int)sanitize_text_field($_POST['post_ID']);
 		$postStatus = get_post_status($popupId);
 		if($postStatus == 'publish') {
 			wp_die('');
@@ -102,7 +103,13 @@ class Ajax
 		if(!isset($_POST['allPopupData'])) {
 			wp_die(true);
 		}
-		$popupData = SGPopup::parsePopupDataFromData($_POST['allPopupData']);
+		// we will use array_walk_recursive method for sanitizing current data because we can receive an multidimensional array!
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$allPopupData = $_POST['allPopupData']; //
+		array_walk_recursive($allPopupData, function(&$item){
+			$item = sanitize_text_field($item);
+		});
+		$popupData = SGPopup::parsePopupDataFromData($allPopupData);
 		do_action('save_post_popupbuilder');
 		$popupType = $popupData['sgpb-type'];
 		$popupClassName = SGPopup::getPopupClassNameFormType($popupType);
@@ -127,7 +134,7 @@ class Ajax
 	public function changeReviewPopupPeriod()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-		$messageType = sanitize_text_field($_POST['messageType']);
+		$messageType = isset($_POST['messageType']) ? sanitize_text_field($_POST['messageType']) : '';
 
 		if($messageType == 'count') {
 			$maxPopupCount = get_option('SGPBMaxOpenCount');
@@ -162,17 +169,20 @@ class Ajax
 	public function resetPopupOpeningCount()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-
+		if (!isset($_POST['popupId'])){
+			wp_die(0);
+		}
 		global $wpdb;
 
 		$tableName = $wpdb->prefix.'sgpb_analytics';
-		$popupId = (int)$_POST['popupId'];
+		$popupId = (int)sanitize_text_field($_POST['popupId']);
 		$allPopupsCount = get_option('SgpbCounter');
 		if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
 			SGPopup::deleteAnalyticsDataByPopupId($popupId);
 		}
 		if(empty($allPopupsCount)) {
-			echo SGPB_AJAX_STATUS_FALSE;
+			// TODO ASAP remove echo use only wp_die
+			echo esc_html(SGPB_AJAX_STATUS_FALSE);
 			wp_die();
 		}
 		if(isset($allPopupsCount[$popupId])) {
@@ -191,7 +201,7 @@ class Ajax
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		update_option('sgpbDontShowAskReviewBanner', 1);
-		echo SGPB_AJAX_STATUS_TRUE;
+		echo esc_html(SGPB_AJAX_STATUS_TRUE);
 		wp_die();
 	}
 
@@ -199,7 +209,7 @@ class Ajax
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		update_option('sgpb_alert_problems', 1);
-		echo SGPB_AJAX_STATUS_TRUE;
+		echo esc_html(SGPB_AJAX_STATUS_TRUE);
 		wp_die();
 	}
 
@@ -207,7 +217,7 @@ class Ajax
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		update_option('sgpb_extensions_updated', 1);
-		echo SGPB_AJAX_STATUS_TRUE;
+		echo esc_html(SGPB_AJAX_STATUS_TRUE);
 		wp_die();
 	}
 
@@ -233,10 +243,13 @@ class Ajax
 		if(isset($_GET['sg_popup_preview_id']) && !isset($_POST['params'])) {
 			wp_die(0);
 		}
-
-		/* Sanitizing multidimensional array */
+		// we will use array_walk_recursive method for sanitizing current data because we can receive an multidimensional array!
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$popupParams = $_POST['params'];
-		array_walk($popupParams, 'sanitize_text_field');
+		/* Sanitizing multidimensional array */
+		array_walk_recursive($popupParams, function(&$item){
+			$item = sanitize_text_field($item);
+		});
 
 		$popupsIdCollection = is_array($popupParams['popupsIdCollection']) ? $popupParams['popupsIdCollection'] : array();
 		$popupsCounterData = get_option('SgpbCounter');
@@ -262,6 +275,9 @@ class Ajax
 
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 
+		if (empty($_POST['subscribersId'])){
+			wp_die();
+		}
 		$subscribersId = array_map('sanitize_text_field', $_POST['subscribersId']);
 
 		foreach($subscribersId as $subscriberId) {
@@ -276,11 +292,17 @@ class Ajax
 
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		$status = SGPB_AJAX_STATUS_FALSE;
-		$firstName = sanitize_text_field($_POST['firstName']);
-		$lastName = sanitize_text_field($_POST['lastName']);
-		$email = sanitize_text_field($_POST['email']);
+		$firstName = isset($_POST['firstName']) ? sanitize_text_field($_POST['firstName']) : '';
+		$lastName = isset($_POST['lastName']) ? sanitize_text_field($_POST['lastName']) : '';
+		$email = isset($_POST['email']) ? sanitize_text_field($_POST['email']) : '';
 		$date = date('Y-m-d');
-		$subscriptionPopupsId = array_map('sanitize_text_field', $_POST['popups']);
+
+		// we will use array_walk_recursive method for sanitizing current data because we can receive an multidimensional array!
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$subscriptionPopupsId = !empty($_POST['popups']) ? $_POST['popups'] : [];
+		array_walk_recursive($subscriptionPopupsId, function(&$item){
+			$item = sanitize_text_field($item);
+		});
 
 		foreach($subscriptionPopupsId as $subscriptionPopupId) {
 			$selectSql = $wpdb->prepare('SELECT id FROM '.$wpdb->prefix.SGPB_SUBSCRIBERS_TABLE_NAME.' WHERE email = %s AND subscriptionType = %d', $email, $subscriptionPopupId);
@@ -301,21 +323,21 @@ class Ajax
 			}
 		}
 
-		echo $status;
+		echo esc_html($status);
 		wp_die();
 	}
 
 	public function importSubscribers()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-		$formId = (int)sanitize_text_field($_POST['popupSubscriptionList']);
-		$fileURL = sanitize_text_field($_POST['importListURL']);
+		$formId = isset($_POST['popupSubscriptionList']) ? (int)sanitize_text_field($_POST['popupSubscriptionList']) : '';
+		$fileURL = isset($_POST['importListURL']) ? sanitize_text_field($_POST['importListURL']) : '';
 		ob_start();
 		require_once SG_POPUP_VIEWS_PATH.'importConfigView.php';
 		$content = ob_get_contents();
 		ob_end_clean();
 
-		echo $content;
+		echo wp_kses($content, AdminHelper::allowed_html_tags());
 		wp_die();
 	}
 
@@ -327,7 +349,7 @@ class Ajax
 		$content = ob_get_contents();
 		ob_end_clean();
 
-		echo $content;
+		echo wp_kses($content, AdminHelper::allowed_html_tags());
 		wp_die();
 	}
 
@@ -335,9 +357,14 @@ class Ajax
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		@ini_set('auto_detect_line_endings', '1');
-		$formId = (int)sanitize_text_field($_POST['popupSubscriptionList']);
-		$fileURL = sanitize_text_field($_POST['importListURL']);
-		$mapping = $_POST['namesMapping'];
+		$formId = isset($_POST['popupSubscriptionList']) ? (int)sanitize_text_field($_POST['popupSubscriptionList']) : '';
+		$fileURL = isset($_POST['importListURL']) ? sanitize_text_field($_POST['importListURL']) : '';
+		// we will use array_walk_recursive method for sanitizing current data because we can receive an multidimensional array!
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$mapping = !empty($_POST['namesMapping']) ? $_POST['namesMapping'] : [];
+		array_walk_recursive($mapping, function(&$item){
+			$item = sanitize_text_field($item);
+		});
 
 		$fileContent = AdminHelper::getFileFromURL($fileURL);
 		$csvFileArray = array_map('str_getcsv', file($fileURL));
@@ -366,7 +393,7 @@ class Ajax
 			}
 		}
 
-		echo SGPB_AJAX_STATUS_TRUE;
+		echo esc_html(SGPB_AJAX_STATUS_TRUE);
 		wp_die();
 	}
 
@@ -380,7 +407,16 @@ class Ajax
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 		global $wpdb;
 
-		$newsletterData = stripslashes_deep($_POST['newsletterData']);
+		// we will use array_walk_recursive method for sanitizing current data because we can receive an multidimensional array!
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$newsletterData = isset($_POST['newsletterData']) ? stripslashes_deep($_POST['newsletterData']) : [];
+		array_walk_recursive($newsletterData, function(&$item, $k){
+			if ($k === 'messageBody'){
+				$item = wp_kses($item, AdminHelper::allowed_html_tags());
+			} else {
+				$item = sanitize_text_field($item);
+			}
+		});
 		if(isset($newsletterData['testSendingStatus']) && $newsletterData['testSendingStatus'] == 'test') {
 			AdminHelper::sendTestNewsletter($newsletterData);
 		}
@@ -401,13 +437,13 @@ class Ajax
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
 
-		$url = esc_url($_POST['iframeUrl']);
+		$url = isset($_POST['iframeUrl']) ? esc_url_raw($_POST['iframeUrl']) : '';
 		$status = SGPB_AJAX_STATUS_FALSE;
 
 		$remoteGet = wp_remote_get($url);
 
 		if(is_array($remoteGet) && !empty($remoteGet['headers']['x-frame-options'])) {
-			$siteUrl = esc_url($_POST['siteUrl']);
+			$siteUrl = isset($_POST['siteUrl']) ? esc_url_raw($_POST['siteUrl']) : '';
 			$xFrameOptions = $remoteGet['headers']['x-frame-options'];
 			$mayNotShow = false;
 
@@ -424,7 +460,7 @@ class Ajax
 			}
 
 			if($mayNotShow) {
-				echo $status;
+				echo esc_html($status);
 				wp_die();
 			}
 		}
@@ -434,7 +470,7 @@ class Ajax
 			$status = SGPB_AJAX_STATUS_TRUE;
 		}
 
-		echo $status;
+		echo esc_html($status);
 		wp_die();
 	}
 
@@ -442,7 +478,11 @@ class Ajax
 
 	public function changePopupStatus()
 	{
-		$popupId = (int)$_POST['popupId'];
+		check_ajax_referer(SG_AJAX_NONCE, 'ajaxNonce');
+		if (!isset($_POST['popupId'])){
+			wp_die(esc_html(SGPB_AJAX_STATUS_FALSE));
+		}
+		$popupId = (int)sanitize_text_field($_POST['popupId']);
 		$obj = SGPopup::find($popupId);
 		$isDraft = '';
 		$postStatus = get_post_status($popupId);
@@ -451,25 +491,27 @@ class Ajax
 		}
 
 		if(!$obj || !is_object($obj)) {
-			wp_die(SGPB_AJAX_STATUS_FALSE);
+			wp_die(esc_html(SGPB_AJAX_STATUS_FALSE));
 		}
 		$options = $obj->getOptions();
-		$options['sgpb-is-active'] = sanitize_text_field($_POST['popupStatus']);
+		$options['sgpb-is-active'] = isset($_POST['popupStatus'])? sanitize_text_field($_POST['popupStatus']) : '';
 
 		unset($options['sgpb-conditions']);
 		update_post_meta($popupId, 'sg_popup_options'.$isDraft, $options);
 
-		wp_die($popupId);
+		wp_die(esc_html($popupId));
 	}
 
 	public function subscriptionSubmission()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-		$this->setPostData($_POST);
-		$submissionData = $this->getValueFromPost('formData');
-		$popupPostId = (int)$this->getValueFromPost('popupPostId');
-
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$submissionData = isset($_POST['formData']) ? $_POST['formData'] : "[]";
 		parse_str($submissionData, $formData);
+		array_walk_recursive($formData, function(&$item){
+			$item = sanitize_text_field($item);
+		});
+		$popupPostId = isset($_POST['popupPostId']) ? (int)sanitize_text_field($_POST['popupPostId']) : '';
 
 		if(empty($formData)) {
 			echo SGPB_AJAX_STATUS_FALSE;
@@ -516,18 +558,20 @@ class Ajax
 	public function sgpbSubsciptionFormSubmittedAction()
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce');
-		$this->setPostData($_POST);
-
-		$submissionData = $this->getValueFromPost('formData');
-		$popupPostId = (int)$this->getValueFromPost('popupPostId');
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$submissionData = isset($_POST['formData']) ? $_POST['formData'] : "[]";
 		parse_str($submissionData, $formData);
+		array_walk_recursive($formData, function(&$item){
+			$item = sanitize_text_field($item);
+		});
+		$popupPostId = isset($_POST['popupPostId']) ? (int)sanitize_text_field($_POST['popupPostId']) : '';
 		if(empty($_POST)) {
 			echo SGPB_AJAX_STATUS_FALSE;
 			wp_die();
 		}
-		$email = sanitize_email($_POST['emailValue']);
-		$firstName = sanitize_text_field($_POST['firstNameValue']);
-		$lastName = sanitize_text_field($_POST['lastNameValue']);
+		$email = isset($_POST['emailValue']) ? sanitize_email($_POST['emailValue']) : '';
+		$firstName = isset($_POST['firstNameValue']) ? sanitize_text_field($_POST['firstNameValue']) : '';
+		$lastName = isset($_POST['lastNameValue']) ? sanitize_text_field($_POST['lastNameValue']) : '';
 		$userData = array(
 			'email'     => $email,
 			'firstName' => $firstName,
@@ -577,9 +621,19 @@ class Ajax
 	{
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce_ajax');
 
-		$postTypeName = sanitize_text_field($_POST['searchKey']);
-		$search = sanitize_text_field($_POST['searchTerm']);
-		$searchResults = $this->selectFromPost($postTypeName, $search);
+		$postTypeName = isset($_POST['searchKey']) ? sanitize_text_field($_POST['searchKey']) : ''; // TODO strongly validate postTypeName example: use ENUM
+		$search = isset($_POST['searchTerm']) ? sanitize_text_field($_POST['searchTerm']) : '';
+
+		switch($postTypeName){
+			case 'postCategories':
+				$searchResults  = ConfigDataHelper::getPostsAllCategories('post', [], $search);
+				break;
+			case 'postTags':
+				$searchResults  = ConfigDataHelper::getAllTags($search);
+				break;
+			default:
+				$searchResults = $this->selectFromPost($postTypeName, $search);
+		}
 
 		if(isset($_POST['searchCallback'])) {
 			$searchCallback = sanitize_text_field($_POST['searchCallback']);
@@ -598,8 +652,7 @@ class Ajax
 			);
 		}
 
-		echo json_encode($results);
-		wp_die();
+		wp_send_json($results);
 	}
 
 	private function selectFromPost($postTypeName, $search)
@@ -621,8 +674,8 @@ class Ajax
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce_ajax');
 		global $SGPB_DATA_CONFIG_ARRAY;
 
-		$groupId = (int)$_POST['groupId'];
-		$targetType = sanitize_text_field($_POST['conditionName']);
+		$groupId = isset($_POST['groupId']) ? (int)sanitize_text_field($_POST['groupId']) : '';
+		$targetType = isset($_POST['conditionName']) ? sanitize_text_field($_POST['conditionName']) : '';
 		$addedObj = array();
 
 		$builderObj = new ConditionBuilder();
@@ -634,7 +687,7 @@ class Ajax
 		$addedObj[] = $builderObj;
 
 		$creator = new ConditionCreator($addedObj);
-		echo $creator->render();
+		echo wp_kses($creator->render(), AdminHelper::allowed_html_tags());
 		wp_die();
 	}
 
@@ -643,11 +696,11 @@ class Ajax
 		check_ajax_referer(SG_AJAX_NONCE, 'nonce_ajax');
 		$data = '';
 		global $SGPB_DATA_CONFIG_ARRAY;
-		$targetType = sanitize_text_field($_POST['conditionName']);
+		$targetType = isset($_POST['conditionName']) ? sanitize_text_field($_POST['conditionName']) : '';
 		$builderObj = new ConditionBuilder();
 
-		$groupId = (int)$_POST['groupId'];
-		$ruleId = (int)$_POST['ruleId'];
+		$groupId = isset($_POST['groupId']) ? (int)sanitize_text_field($_POST['groupId']) : '';
+		$ruleId = isset($_POST['ruleId']) ? (int)sanitize_text_field($_POST['ruleId']) : '';
 
 		$builderObj->setGroupId($groupId);
 		$builderObj->setRuleId($ruleId);
@@ -656,7 +709,7 @@ class Ajax
 
 		$data .= ConditionCreator::createConditionRuleRow($builderObj);
 
-		echo $data;
+		echo wp_kses($data, AdminHelper::allowed_html_tags());
 		wp_die();
 	}
 
@@ -666,13 +719,13 @@ class Ajax
 		$data = '';
 		global $SGPB_DATA_CONFIG_ARRAY;
 
-		$targetType = sanitize_text_field($_POST['conditionName']);
+		$targetType = isset($_POST['conditionName']) ? sanitize_text_field($_POST['conditionName']) : '';
 		$builderObj = new ConditionBuilder();
 		$conditionConfig = $SGPB_DATA_CONFIG_ARRAY[$targetType];
-		$groupId = (int)$_POST['groupId'];
-		$ruleId = (int)$_POST['ruleId'];
-		$popupId = (int)$_POST['popupId'];
-		$paramName = sanitize_text_field($_POST['paramName']);
+		$groupId = isset($_POST['groupId']) ? (int)sanitize_text_field($_POST['groupId']) : '';
+		$ruleId = isset($_POST['ruleId']) ? (int)sanitize_text_field($_POST['ruleId']) : '';
+		$popupId = isset($_POST['popupId']) ? (int)sanitize_text_field($_POST['popupId']) : '';
+		$paramName = isset($_POST['paramName']) ? sanitize_text_field($_POST['paramName']) : '';
 
 		$savedData = array(
 			'param' => $paramName
@@ -705,7 +758,7 @@ class Ajax
 		}
 		// by default set empty value for users' role (adv. tar.)
 		$savedData['value'] = array();
-		$savedData['hiddenOption'] = @$conditionConfig['hiddenOptionData'][$paramName];
+		$savedData['hiddenOption'] = isset($conditionConfig['hiddenOptionData'][$paramName]) ? $conditionConfig['hiddenOptionData'][$paramName] : '';
 
 		$builderObj->setPopupId($popupId);
 		$builderObj->setGroupId($groupId);
@@ -715,7 +768,7 @@ class Ajax
 
 		$data .= ConditionCreator::createConditionRuleRow($builderObj);
 
-		echo $data;
+		echo wp_kses($data, AdminHelper::allowed_html_tags());
 		wp_die();
 	}
 }

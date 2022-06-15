@@ -71,7 +71,7 @@ class Filters
 
 			$popupType = 'html';
 			$popup = SGPopup::find($postId);
-			if (!empty($popup) || !is_object($popup)) {
+			if (is_object($popup)) {
 				$popupType = $popup->getType();
 			}
 			$link .= '&sgpb_type='.$popupType;
@@ -221,10 +221,10 @@ class Filters
 	public function systemInformation($infoContent)
 	{
 
-		$infoContent .= 'Platform:           '.@$platform . "\n";
-		$infoContent .= 'Browser Name:       '.@$bname . "\n";
-		$infoContent .= 'Browser Version:    '.@$version . "\n";
-		$infoContent .= 'User Agent:         '.@$uAgent . "\n";
+		$infoContent .= 'Platform:           '.isset($platform) ? $platform : '' . "\n";
+		$infoContent .= 'Browser Name:       '.isset($bname) ? $bname : '' . "\n";
+		$infoContent .= 'Browser Version:    '.isset($version) ? $version : '' . "\n";
+		$infoContent .= 'User Agent:         '.isset($uAgent) ? $uAgent : '' . "\n";
 
 		return $infoContent;
 	}
@@ -342,7 +342,7 @@ class Filters
 		return $inactiveExtensionNotice;
 	}
 
-	public function excludeSitemapsYoast($exclude = false, $postType)
+	public function excludeSitemapsYoast($exclude, $postType)
 	{
 		$postTypeObject = get_post_type_object($postType);
 		if (!is_object($postTypeObject)) {
@@ -597,7 +597,7 @@ class Filters
 			if (empty($targets['sgpb-target'][0])) {
 				return $previewLink .= '/?sg_popup_preview_id='.$popupId;
 			}
-			$targetParams = @$targets['sgpb-target'][0][0]['param'];
+			$targetParams = isset($targets['sgpb-target'][0][0]['param']) ? $targets['sgpb-target'][0][0]['param'] : '';
 			if ((!empty($targetParams) && $targetParams == 'not_rule') || empty($targetParams)) {
 				$previewLink = home_url();
 				$previewLink .= '/?sg_popup_preview_id='.$popupId;
@@ -768,6 +768,11 @@ class Filters
 		if (function_exists('do_blocks')) {
 			$content = do_blocks($content);
 		}
+		// check if inside the popup included the same popup! this will prevent from the infinite loop of nested popups doing shortcode
+		preg_match_all('/\[sg_popup.*?id="'.$popupId.'".*?\[\/sg_popup\]/', $content, $matches1);
+		if (has_shortcode( $content, 'sg_popup' ) && (!empty($matches1) &&!empty($matches1[0]))){
+			return $content;
+		}
 
 		return do_shortcode($content);
 	}
@@ -863,11 +868,11 @@ class Filters
 		$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'sgbp-bootstrap.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
 		$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'select2.min.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
 		$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'popupAdminStyles.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
-		$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'popupAdminStyles.css', 'dep' => array(), 'ver' => SG_POPUP_VERSION, 'inFooter' => false);
 		$cssFiles[] = array('folderUrl' => SG_POPUP_CSS_URL, 'filename' => 'newDesignFromBuild.css', 'dep' => array(), 'ver' => rand(1, 10000), 'inFooter' => false);
 
 		return $cssFiles;
 	}
+
 }
 
 

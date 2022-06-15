@@ -9,12 +9,13 @@
 
 namespace AmpProject\AmpWP\DevTools;
 
-use AmpProject\AmpWP\Infrastructure\Registerable;
-use AmpProject\AmpWP\Infrastructure\Service;
-use AmpProject\AmpWP\Option;
 use AMP_Options_Manager;
 use AMP_Theme_Support;
 use AMP_Validation_Manager;
+use AmpProject\AmpWP\DependencySupport;
+use AmpProject\AmpWP\Infrastructure\Registerable;
+use AmpProject\AmpWP\Infrastructure\Service;
+use AmpProject\AmpWP\Option;
 use WP_Error;
 use WP_User;
 
@@ -26,6 +27,18 @@ use WP_User;
  */
 final class UserAccess implements Service, Registerable {
 
+	/** @var DependencySupport */
+	private $dependency_support;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param DependencySupport $dependency_support DependencySupport instance.
+	 */
+	public function __construct( DependencySupport $dependency_support ) {
+		$this->dependency_support = $dependency_support;
+	}
+
 	/**
 	 * User meta key enabling or disabling developer tools.
 	 *
@@ -35,8 +48,6 @@ final class UserAccess implements Service, Registerable {
 
 	/**
 	 * Runs on instantiation.
-	 *
-	 * @action rest_api_init
 	 */
 	public function register() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_field' ] );
@@ -52,6 +63,14 @@ final class UserAccess implements Service, Registerable {
 	 * @return bool Whether developer tools are enabled for the user.
 	 */
 	public function is_user_enabled( $user = null ) {
+		// Note: This is somewhat of a shortcut for blocking access to the validation UI on unsupported versions of WP.
+		// It works because we're already using this method in many places to check if the user interface should be
+		// shown, and its the user interface which is particularly problematic on older versions of WP due to the
+		// JavaScript dependencies.
+		if ( ! $this->dependency_support->has_support() ) {
+			return false; // @codeCoverageIgnore
+		}
+
 		if ( null === $user ) {
 			$user = wp_get_current_user();
 		} elseif ( ! $user instanceof WP_User ) {
@@ -128,12 +147,28 @@ final class UserAccess implements Service, Registerable {
 	}
 
 	/**
+	 * Determine whether the option can be modified.
+	 *
+	 * @param int $user_id User ID.
+	 * @return bool Whether the option can be modified.
+	 */
+	private function can_modify_option( $user_id ) {
+		return (
+			$this->dependency_support->has_support()
+			&&
+			current_user_can( 'edit_user', $user_id )
+			&&
+			AMP_Validation_Manager::has_cap( $user_id )
+		);
+	}
+
+	/**
 	 * Add the developer tools checkbox to the user edit screen.
 	 *
 	 * @param WP_User $profile_user Current user being edited.
 	 */
 	public function print_personal_options( $profile_user ) {
-		if ( ! current_user_can( 'edit_user', $profile_user->ID ) || ! AMP_Validation_Manager::has_cap( $profile_user ) ) {
+		if ( ! $this->can_modify_option( $profile_user->ID ) ) {
 			return;
 		}
 		?>
@@ -158,10 +193,10 @@ final class UserAccess implements Service, Registerable {
 	 * @return bool Whether update was successful.
 	 */
 	public function update_user_setting( $user_id ) {
-		if ( ! current_user_can( 'edit_user', $user_id ) || ! AMP_Validation_Manager::has_cap( $user_id ) ) {
+		if ( ! $this->can_modify_option( $user_id ) ) {
 			return false;
 		}
-		$enabled = isset( $_POST[ self::USER_FIELD_DEVELOPER_TOOLS_ENABLED ] ) && rest_sanitize_boolean( wp_unslash( $_POST[ self::USER_FIELD_DEVELOPER_TOOLS_ENABLED ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$enabled = isset( $_POST[ self::USER_FIELD_DEVELOPER_TOOLS_ENABLED ] ) && rest_sanitize_boolean( wp_unslash( $_POST[ self::USER_FIELD_DEVELOPER_TOOLS_ENABLED ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce handled by user-edit.php; sanitization used is sanitized.
 		return $this->set_user_enabled( $user_id, $enabled );
 	}
 

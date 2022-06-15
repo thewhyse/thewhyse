@@ -1,6 +1,8 @@
 <?php
 
 namespace sgpbDataTable;
+use sgpb\AdminHelper;
+
 /**
  * Base class for displaying a list of items in an ajaxified HTML table.
  *
@@ -311,7 +313,7 @@ class SGPBListTable {
 	 * @access public
 	 */
 	public function no_items() {
-		_e( 'No items found.' );
+		esc_html_e( 'No items found.' );
 	}
 
 	/**
@@ -329,17 +331,17 @@ class SGPBListTable {
 		$input_id = $input_id . '-search-input';
 
 		if ( ! empty( $_REQUEST['orderby'] ) )
-			echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+			echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_text_field($_REQUEST['orderby']) ) . '" />';
 		if ( ! empty( $_REQUEST['order'] ) )
-			echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+			echo '<input type="hidden" name="order" value="' . esc_attr( sanitize_text_field($_REQUEST['order']) ) . '" />';
 		if ( ! empty( $_REQUEST['post_mime_type'] ) )
-			echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+			echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( sanitize_text_field($_REQUEST['post_mime_type']) ) . '" />';
 		if ( ! empty( $_REQUEST['detached'] ) )
-			echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+			echo '<input type="hidden" name="detached" value="' . esc_attr( sanitize_text_field($_REQUEST['detached']) ) . '" />';
 ?>
 <p class="search-box">
-	<label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
-	<input type="search" id="<?php echo $input_id ?>" name="s" value="<?php _admin_search_query(); ?>" />
+	<label class="screen-reader-text" for="<?php echo esc_attr($input_id) ?>"><?php echo esc_html($text); ?>:</label>
+	<input type="search" id="<?php echo esc_attr($input_id) ?>" name="s" value="<?php _admin_search_query(); ?>" />
 	<?php submit_button( $text, 'button', '', false, array('id' => 'search-submit') ); ?>
 </p>
 <?php
@@ -385,7 +387,7 @@ class SGPBListTable {
 		foreach ( $views as $class => $view ) {
 			$views[ $class ] = "\t<li class='$class'>$view";
 		}
-		echo implode( " |</li>\n", $views ) . "</li>\n";
+		echo wp_kses(implode( " |</li>\n", $views ) . "</li>\n", AdminHelper::allowed_html_tags());
 		echo "</ul>";
 	}
 
@@ -436,14 +438,14 @@ class SGPBListTable {
 		if ( empty( $this->_actions ) )
 			return;
 
-		echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . __( 'Select bulk action' ) . "</label>";
-		echo "<select name='action$two' id='bulk-action-selector-" . esc_attr( $which ) . "'>\n";
-		echo "<option value='-1' selected='selected'>" . __( 'Bulk Actions' ) . "</option>\n";
+		echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action' ) . "</label>";
+		echo "<select name='action".esc_attr($two)."' id='bulk-action-selector-" . esc_attr( $which ) . "'>\n";
+		echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions' ) . "</option>\n";
 
 		foreach ( $this->_actions as $name => $title ) {
 			$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
 
-			echo "\t<option value='$name'$class>$title</option>\n";
+			echo "\t<option value='".esc_attr($name)."'".esc_attr($class).">".esc_html($title)."</option>\n";
 		}
 
 		echo "</select>\n";
@@ -465,10 +467,10 @@ class SGPBListTable {
 			return false;
 
 		if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] )
-			return $_REQUEST['action'];
+			return sanitize_text_field($_REQUEST['action']);
 
 		if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] )
-			return $_REQUEST['action2'];
+			return sanitize_text_field($_REQUEST['action2']);
 
 		return false;
 	}
@@ -551,11 +553,11 @@ class SGPBListTable {
 		if ( !$month_count || ( 1 == $month_count && 0 == $months[0]->month ) )
 			return;
 
-		$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
+		$m = isset( $_GET['m'] ) ? (int) sanitize_text_field($_GET['m']) : 0;
 ?>
-		<label for="filter-by-date" class="screen-reader-text"><?php _e( 'Filter by date' ); ?></label>
+		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date' ); ?></label>
 		<select name="m" id="filter-by-date">
-			<option<?php selected( $m, 0 ); ?> value="0"><?php _e( 'All dates' ); ?></option>
+			<option<?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates' ); ?></option>
 <?php
 		foreach ( $months as $arc_row ) {
 			if ( 0 == $arc_row->year )
@@ -568,7 +570,7 @@ class SGPBListTable {
 				selected( $m, $year . $month, false ),
 				esc_attr( $arc_row->year . $month ),
 				/* translators: 1: month name, 2: 4-digit year */
-				sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year )
+				sprintf( esc_html__( '%1$s %2$d' ), esc_html($wp_locale->get_month( $month )), esc_html($year) )
 			);
 		}
 ?>
@@ -596,8 +598,8 @@ class SGPBListTable {
 				printf(
 					"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
 					esc_url( add_query_arg( 'mode', $mode ) ),
-					implode( ' ', $classes ),
-					$title
+					esc_html(implode( ' ', $classes )),
+					esc_html($title)
 				);
 			}
 		?>
@@ -627,27 +629,27 @@ class SGPBListTable {
 		// No comments at all.
 		if ( ! $approved_comments && ! $pending_comments ) {
 			printf( '<span aria-hidden="true">—</span><span class="screen-reader-text">%s</span>',
-				__( 'No comments' )
+				esc_html__( 'No comments' )
 			);
 		// Approved comments have different display depending on some conditions.
 		} elseif ( $approved_comments ) {
 			printf( '<a href="%s" class="post-com-count post-com-count-approved"><span class="comment-count-approved" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
 				esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => 'approved' ), admin_url( 'edit-comments.php' ) ) ),
 				$approved_comments_number,
-				$pending_comments ? $approved_phrase : $approved_only_phrase
+				$pending_comments ? esc_html($approved_phrase) : esc_html($approved_only_phrase)
 			);
 		} else {
 			printf( '<span class="post-com-count post-com-count-no-comments"><span class="comment-count comment-count-no-comments" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
 				$approved_comments_number,
-				$pending_comments ? __( 'No approved comments' ) : __( 'No comments' )
+				$pending_comments ? esc_html__( 'No approved comments' ) : esc_html__( 'No comments' )
 			);
 		}
 
 		if ( $pending_comments ) {
 			printf( '<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
 				esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => 'moderated' ), admin_url( 'edit-comments.php' ) ) ),
-				$pending_comments_number,
-				$pending_phrase
+				esc_html($pending_comments_number),
+				esc_html($pending_phrase)
 			);
 		}
 	}
@@ -724,7 +726,8 @@ class SGPBListTable {
 
 		$current = $this->get_pagenum();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$current_url = set_url_scheme( 'http://' . (isset($_SERVER['HTTP_HOST'])? $_SERVER['HTTP_HOST'] : '') . (isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI'] : '') );
 
 		$current_url = remove_query_arg( array( 'hotkeys_highlight_last', 'hotkeys_highlight_first' ), $current_url );
 
@@ -816,7 +819,7 @@ class SGPBListTable {
 		}
 		$this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
 
-		echo $this->_pagination;
+		echo wp_kses($this->_pagination, AdminHelper::allowed_html_tags());
 	}
 
 	/**
@@ -993,7 +996,8 @@ class SGPBListTable {
 	public function print_column_headers( $with_id = true ) {
 		list( $columns, $hidden, $sortable, $primary ) = $this->get_column_info();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$current_url = set_url_scheme( 'http://' . (isset($_SERVER['HTTP_HOST'])?$_SERVER['HTTP_HOST']:'') . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') );
 		$current_url = remove_query_arg( 'paged', $current_url );
 
 		if ( isset( $_GET['orderby'] ) )
@@ -1001,7 +1005,7 @@ class SGPBListTable {
 		else
 			$current_orderby = '';
 
-		if ( isset( $_GET['order'] ) && 'desc' == $_GET['order'] )
+		if ( isset( $_GET['order'] ) && 'desc' == sanitize_text_field($_GET['order']) )
 			$current_order = 'desc';
 		else
 			$current_order = 'asc';
@@ -1041,7 +1045,7 @@ class SGPBListTable {
 					$class[] = $desc_first ? 'asc' : 'desc';
 				}
 
-				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . $column_display_name . '</span><span class="sorting-indicator"></span></a>';
+				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . esc_html($column_display_name) . '</span><span class="sorting-indicator"></span></a>';
 			}
 
 			$tag = ( 'cb' === $column_key ) ? 'td' : 'th';
@@ -1051,7 +1055,7 @@ class SGPBListTable {
 
 			if ( !empty( $class ) )
 				$class = "class='" . join( ' ', $class ) . "'";
-			echo "<$tag $scope $id $class>$column_display_name</$tag>";
+			echo wp_kses("<$tag $scope $id $class>$column_display_name</$tag>", AdminHelper::allowed_html_tags());
 		}
 	}
 
@@ -1066,7 +1070,7 @@ class SGPBListTable {
 
 		$this->display_tablenav( 'top' );
 ?>
-<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+<table class="wp-list-table <?php echo esc_attr(implode( ' ', $this->get_table_classes() )); ?>">
 	<thead>
 	<tr>
 		<?php $this->print_column_headers(); ?>
@@ -1075,7 +1079,7 @@ class SGPBListTable {
 
 	<tbody id="the-list"<?php
 		if ( $singular ) {
-			echo " data-wp-lists='list:$singular'";
+			echo esc_attr(" data-wp-lists='list:$singular'");
 		} ?>>
 		<?php $this->display_rows_or_placeholder(); ?>
 	</tbody>
@@ -1149,7 +1153,7 @@ class SGPBListTable {
 		if ( $this->has_items() ) {
 			$this->display_rows();
 		} else {
-			echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+			echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr($this->get_column_count()) . '">';
 			$this->no_items();
 			echo '</td></tr>';
 		}
@@ -1222,26 +1226,26 @@ class SGPBListTable {
 
 			if ( 'cb' == $column_name ) {
 				echo '<th scope="row" class="check-column">';
-				echo $this->column_cb( $item );
+				echo wp_kses($this->column_cb( $item ), AdminHelper::allowed_html_tags());
 				echo '</th>';
 			} elseif ( method_exists( $this, '_column_' . $column_name ) ) {
-				echo call_user_func(
+				echo wp_kses(call_user_func(
 					array( $this, '_column_' . $column_name ),
 					$item,
 					$classes,
 					$data,
 					$primary
-				);
+				), AdminHelper::allowed_html_tags());
 			} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
 				//<div class="table__data">01</div>
-				echo "<td $attributes>";
-				echo call_user_func( array( $this, 'column_' . $column_name ), $item );
-				echo $this->handle_row_actions( $item, $column_name, $primary );
+				echo "<td ".esc_attr($attributes).">";
+				echo wp_kses(call_user_func( array( $this, 'column_' . $column_name ), $item ), AdminHelper::allowed_html_tags());
+				echo wp_kses($this->handle_row_actions( $item, $column_name, $primary ), AdminHelper::allowed_html_tags());
 				echo '</td>';
 			} else {
-				echo "<td $attributes>";
-				echo $this->column_default( $item, $column_name );
-				echo $this->handle_row_actions( $item, $column_name, $primary );
+				echo "<td ".esc_attr($attributes).">";
+				echo wp_kses($this->column_default( $item, $column_name ), AdminHelper::allowed_html_tags());
+				echo wp_kses($this->handle_row_actions( $item, $column_name, $primary ), AdminHelper::allowed_html_tags());
 				echo '</td>';
 			}
 		}

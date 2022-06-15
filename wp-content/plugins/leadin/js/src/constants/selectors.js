@@ -10,4 +10,6 @@ export const domElements = {
   thickboxModalClose: '.leadin-modal-close',
   thickboxModalWindow: 'div#TB_window.thickbox-loading',
   thickboxModalContent: 'div#TB_ajaxContent.TB_modal',
+  reviewBannerLeaveReviewLink: 'a#leave-review-button',
+  reviewBannerDismissButton: 'a#dismiss-review-banner-button',
 };

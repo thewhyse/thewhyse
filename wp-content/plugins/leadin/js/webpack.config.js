@@ -6,6 +6,7 @@ module.exports = {
     menu: './src/entries/menu.js',
     gutenberg: './src/entries/gutenberg.js',
     feedback: './src/entries/feedback.js',
+    reviewBanner: './src/entries/reviewBanner.js',
   },
   output: {
     filename: '[name].js',

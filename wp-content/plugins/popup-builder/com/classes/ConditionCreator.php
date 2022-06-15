@@ -74,14 +74,14 @@ class ConditionCreator
 
 	public static function getOrRuleSeparator()
 	{
-		return '<h4 class="sg-rules-or"><span>'.__('OR', SG_POPUP_TEXT_DOMAIN).'</span></h4>';
+		return '<h4 class="sgpb-rules-or"><span>'.__('OR', SG_POPUP_TEXT_DOMAIN).'</span></h4>';
 	}
 
 	public static function createConditionRuleRow($conditionDataObj)
 	{
 		ob_start();
 		?>
-		<div class="events form sg-target-rule sgpb-margin-bottom-40 sg-target-rule-<?php echo $conditionDataObj->getRuleId(); ?> sgpb-event-row" data-rule-id="<?php echo $conditionDataObj->getRuleId(); ?>">
+		<div class="events form sg-target-rule sgpb-margin-bottom-40 sg-target-rule-<?php echo esc_attr($conditionDataObj->getRuleId()); ?> sgpb-event-row" data-rule-id="<?php echo esc_attr($conditionDataObj->getRuleId()); ?>">
 			<div class="formItem sgpb-align-item-start">
 				<?php
 				$savedData = $conditionDataObj->getSavedData();
@@ -102,23 +102,23 @@ class ConditionCreator
 					if (!self::allowToShowOperatorColumn($conditionDataObj, $currentArgs)) {
 						$hideStatus = true;
 					}
-					$showRowStatusClass = ($hideStatus) ? 'sg-hide-condition-row' : $showRowStatusClass;
+					$showRowStatusClass = ($hideStatus) ? 'sgpb-hide-condition-row' : $showRowStatusClass;
 					?>
 					<?php if ($conditionName != 'hiddenOption'): ?>
-						<div data-condition-name="<?php echo $conditionName;?>" class="<?php echo 'inputBlock sg-condition-'.$conditionName.'-wrapper'.' '.$showRowStatusClass; ?>">
+						<div data-condition-name="<?php echo esc_attr($conditionName);?>" class="<?php echo esc_attr('inputBlock sg-condition-'.$conditionName.'-wrapper'.' '.$showRowStatusClass); ?>">
 							<?php
 							if (!$hideStatus) {
-								echo self::createConditionElement($conditionDataObj, $conditionName);
+								echo wp_kses(self::createConditionElement($conditionDataObj, $conditionName), AdminHelper::allowed_html_tags());
 							}
 							?>
 						</div>
 					<?php endif; ?>
 					<?php if (($conditionName == 'hiddenOption')): ?>
 						<?php $hiddenContent = self::getHiddenDataContent($conditionDataObj); ?>
-							<div class="sg-hide-condition-row"><div id="<?php echo $idHiddenDiv;?>"><?php echo $hiddenContent; ?></div></div>
+							<div class="sgpb-hide-condition-row"><div id="<?php echo esc_attr($idHiddenDiv);?>"><?php echo wp_kses($hiddenContent, AdminHelper::allowed_html_tags()); ?></div></div>
 					<?php endif; ?>
 				<?php endforeach;?>
-				<?php echo self::createConditionOperators($conditionDataObj, $idHiddenDiv); ?>
+				<?php echo wp_kses(self::createConditionOperators($conditionDataObj, $idHiddenDiv), AdminHelper::allowed_html_tags()); ?>
 			</div>
 		</div>
 		<?php
@@ -217,12 +217,12 @@ class ConditionCreator
 				$icon = 'D';
 				$btnClass = ' icons_gray';
 				$identificatorClass = $idHiddenDiv;
-				$eventButtonClasses = 'sg-rules-'.$operator['operator'].'-rule ';
+				$eventButtonClasses = 'sgpb-rules-'.$operator['operator'].'-rule ';
 			}
 			if ($operator['operator'] == 'add') {
 				$icon = 'L';
 				$btnClass = ' icons_blue';
-				$eventButtonClasses = 'sg-rules-'.$operator['operator'].'-rule ';
+				$eventButtonClasses = 'sgpb-rules-'.$operator['operator'].'-rule ';
 				//Don't show add button if it's not for last element
 				if ($groupId < $groupTotal) {
 					$style = 'style="display: none;"';
@@ -231,12 +231,12 @@ class ConditionCreator
 			if ($operator['operator'] == 'delete') {
 				$icon = 'I';
 				$btnClass = ' icons_pink';
-				$eventButtonClasses = 'sg-rules-'.$operator['operator'].'-rule ';
+				$eventButtonClasses = 'sgpb-rules-'.$operator['operator'].'-rule ';
 			}
 
 			$element = '<i class="sgpb-icons '.$btnClass.'" data-id="'.$identificatorClass.'">'.$icon.'</i>';
 
-			$operatorsHtml .= '<div class="'.$eventButtonClasses.' sg-rules-'.$operator['operator'].'-button-wrapper" '.$style.'>';
+			$operatorsHtml .= '<div class="'.$eventButtonClasses.' sgpb-rules-'.$operator['operator'].'-button-wrapper" '.$style.'>';
 			$operatorsHtml .= $element;
 			$operatorsHtml .= '</div>';
 		}
@@ -363,6 +363,13 @@ class ConditionCreator
 		return self::createElementHeader($ruleElementData);
 	}
 
+	private static function isAssociativeArrayOrEmptyString($args)
+	{
+		if (gettype($args) === 'string') return true;
+	    if (array() === $args) return false;
+	    return array_keys($args) !== range(0, count($args) - 1);
+	}
+
 	public static function createRuleField($ruleElementData)
 	{
 		$attr = array();
@@ -387,11 +394,29 @@ class ConditionCreator
 				$savedData = $ruleElementData['saved'];
 
 				if (empty($ruleElementData['data'])) {
-					$ruleElementData['data'] = $ruleElementData['saved'];
-					$savedData = array();
+					// this check is for current version update!
+					// the old value was a simple array!
+					// after update we need to convert them all to a associative array
+					// this check will resolve UI issues and also prevent bugs after update-ing the existing popup
+					// this change is for post_category and post_tags!
+					if (self::isAssociativeArrayOrEmptyString($ruleElementData['saved'])){
+						$ruleElementData['data'] = $ruleElementData['saved'];
+						$savedData = array();
 
-					if (!empty($ruleElementData['saved'])) {
-						$savedData = array_keys($ruleElementData['saved']);
+						if (!empty($ruleElementData['saved'])) {
+							$savedData = array_keys($ruleElementData['saved']);
+						}
+					} else {
+						$ruleElementData['data'] = $ruleElementData['saved'];
+
+						if (!empty($ruleElementData['saved'])) {
+							if (isset($attr['isPostCategory'])){
+								$ruleElementData['data'] = \ConfigDataHelper::getTermsByIds($ruleElementData['saved']);
+							} elseif(isset($attr['isPostTag'])) {
+								$ruleElementData['data'] = \ConfigDataHelper::getTagsByIds($ruleElementData['saved']);
+							}
+							$savedData = $ruleElementData['saved'];
+						}
 					}
 				}
 
@@ -437,7 +462,7 @@ class ConditionCreator
 			$popupId = $conditionObj->getPopupId();
 		}
 		else if(!empty($_GET['post'])) {
-			$popupId = $_GET['post'];
+			$popupId = sanitize_text_field($_GET['post']);
 		}
 
 		return $popupId;
@@ -518,13 +543,13 @@ class ConditionCreator
 						$activeClassName = 'sgpb-active';
 					}
 					?>
-					<button class="tablinks sgpb-tab-links <?php echo $activeClassName;?>" data-rule-id="<?php echo $ruleId; ?>" data-content-id="<?php echo $tab.'-'.$ruleId; ?>"><?php echo ucfirst($tab); ?></button>
+					<button class="tablinks sgpb-tab-links <?php echo esc_attr($activeClassName);?>" data-rule-id="<?php echo esc_attr($ruleId); ?>" data-content-id="<?php echo esc_attr($tab.'-'.$ruleId); ?>"><?php echo esc_html(ucfirst($tab)); ?></button>
 				<?php endforeach;?>
 			</div>
-			<?php echo self::createHiddenFields($hiddenOptionsData, $conditionDataObj, $ruleId); ?>
+			<?php echo wp_kses(self::createHiddenFields($hiddenOptionsData, $conditionDataObj, $ruleId), AdminHelper::allowed_html_tags()); ?>
 			<div class="modal-footer">
-				<button type="button" class="sgpb-no-button events-option-close sgpb-modal-cancel sgpb-btn sgpb-btn-gray-light" href="#"><?php _e('Cancel', SG_POPUP_TEXT_DOMAIN); ?></button>
-				<button class="sgpb-btn sgpb-btn-blue sgpb-popup-option-save"><?php _e('Save', SG_POPUP_TEXT_DOMAIN); ?></button>
+				<button type="button" class="sgpb-no-button events-option-close sgpb-modal-cancel sgpb-btn sgpb-btn-gray-light" href="#"><?php esc_html_e('Cancel', SG_POPUP_TEXT_DOMAIN); ?></button>
+				<button class="sgpb-btn sgpb-btn-blue sgpb-popup-option-save"><?php esc_html_e('Save', SG_POPUP_TEXT_DOMAIN); ?></button>
 			</div>
 		</div>
 		<?php
@@ -539,8 +564,8 @@ class ConditionCreator
 		ob_start();
 		?>
 		<?php foreach ($hiddenOptionsData as $key => $hiddenData): ?>
-		<div id="<?php echo $key.'-'.$ruleId; ?>" class="sgpb-tab-content-<?php echo $ruleId;?>">
-			<div id="<?php echo $key; ?>" class="sgpb-tab-content-options">
+		<div id="<?php echo esc_attr($key.'-'.$ruleId); ?>" class="sgpb-tab-content-<?php echo esc_attr($ruleId);?>">
+			<div id="<?php echo esc_attr($key); ?>" class="sgpb-tab-content-options">
 				<?php foreach ($hiddenData as $name => $label): ?>
 					<?php
 					$hiddenOptionsView = self::optionLabelSupplement($conditionDataObj, $name);
@@ -551,14 +576,14 @@ class ConditionCreator
 					?>
 					<div class="row form-group formItem sgpb-margin-y-10">
 						<div class="col-md-6">
-							<?php echo self::createConditionFieldHeader($conditionDataObj, $name); ?>
+							<?php echo wp_kses(self::createConditionFieldHeader($conditionDataObj, $name), AdminHelper::allowed_html_tags()); ?>
 						</div>
-						<div class="col-md-<?php echo $colMdValue; ?>">
-							<?php echo self::createConditionField($conditionDataObj, $name); ?>
+						<div class="col-md-<?php echo esc_attr($colMdValue); ?>">
+							<?php echo wp_kses(self::createConditionField($conditionDataObj, $name), AdminHelper::allowed_html_tags()); ?>
 						</div>
 						<?php if (!empty($hiddenOptionsView)): ?>
 							<div class="col-md-4">
-								<?php echo $hiddenOptionsView; ?>
+								<?php echo wp_kses($hiddenOptionsView, AdminHelper::allowed_html_tags()); ?>
 							</div>
 						<?php endif; ?>
 					</div>
@@ -589,15 +614,15 @@ class ConditionCreator
 		$name = $parentOptionName;
 		ob_start();
 		?>
-		<div class="row <?php echo 'sgpb-popup-hidden-content-'.$name.'-'.$conditionDataObj->getRuleId().'-wrapper'?> form-group">
+		<div class="row <?php echo esc_attr('sgpb-popup-hidden-content-'.$name.'-'.$conditionDataObj->getRuleId().'-wrapper')?> form-group">
 			<?php foreach ($subOptions as $subOption): ?>
 				<div class="col-md-6">
-					<?php echo self::createConditionFieldHeader($conditionDataObj, $subOption); ?>
+					<?php echo wp_kses(self::createConditionFieldHeader($conditionDataObj, $subOption), AdminHelper::allowed_html_tags()); ?>
 				</div>
 				<div class="col-md-6">
-					<?php echo self::createConditionField($conditionDataObj, $subOption); ?>
+					<?php echo wp_kses(self::createConditionField($conditionDataObj, $subOption), AdminHelper::allowed_html_tags()); ?>
 				</div>
-				<?php  echo self::hiddenSubOptionsView($subOption, $conditionDataObj)?>
+				<?php  echo wp_kses(self::hiddenSubOptionsView($subOption, $conditionDataObj), AdminHelper::allowed_html_tags())?>
 			<?php endforeach;?>
 		</div>
 		<?php
@@ -660,7 +685,7 @@ class ConditionCreator
 		$header = '<div class="sg-target-header-wrapper">';
 
 		foreach ($columnLabels as $key => $columnLabel) {
-			$header .= '<div class="sg-col-md">'.$columnLabel.'</div>';
+			$header .= '<div class="sgpb-col-md">'.$columnLabel.'</div>';
 		}
 		$header .= '</div>';
 		return $header;

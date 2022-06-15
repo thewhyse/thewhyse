@@ -12,6 +12,7 @@ class Javascript
 {
 	public static function enqueueScripts($hook)
 	{
+		global $wp_version;
 		$pageName = $hook;
 		$scripts = array();
 		$popupType = AdminHelper::getCurrentPopupType();
@@ -119,8 +120,13 @@ class Javascript
 				if (!is_array($localizeData['data'])) {
 					$localizeData['data'] = (array)$localizeData['data'];
 				}
-
-				ScriptsIncluder::localizeScript($localizeData['handle'], $localizeData['name'], $localizeData['data']);
+				if (version_compare($wp_version, '4.5', '>')){
+					/* after wp 4.5 version */
+					ScriptsIncluder::addInlineScripts($localizeData['handle'], 'var '.$localizeData['name'].' = ' .json_encode($localizeData['data']).';' );
+				} else {
+					/* since wp 4.5 version */
+					ScriptsIncluder::localizeScript($localizeData['handle'], $localizeData['name'], $localizeData['data']);
+				}
 			}
 		}
 	}

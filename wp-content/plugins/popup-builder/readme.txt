@@ -6,9 +6,9 @@ Plugin URI: https://popup-builder.com
 Donate link: https://popup-builder.com
 Tags: popup, pop up, wordpress popup, popup maker, exit popup, popup builder, wordpress popup plugin
 Requires at least: 4.2
-Tested up to: 5.8
+Tested up to: 6.0
 Requires PHP: 5.3.3
-Stable tag: 4.0.1
+Stable tag: 4.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Popup Builder is a Perfect solution for any WordPress website. With a wide range
 Moreover, our team created a custom JS/CSS coding opportunity for all our WordPress pop up types making any popup unique and fully customizable.
 Use the best WordPress popup plugin and enjoy the popup creation process.
 
-https://www.youtube.com/watch?v=-wFDJDjczeY
+https://www.youtube.com/watch?v=CONvwuTdGYI
 
 **SUPER EASY AND SIMPLE TO USE**
 
@@ -130,20 +130,105 @@ Go to the Popup Builder settings and set your desired options.
 == Screenshots ==
 
 1.  List of popups screen
-2.  Add new popup screen
-3.  Edit popup screen - Visual Composer
-4.  Edit popup screen - DIVI Builder
-5.  Subscribers list
-6.  Newsletter
-7.  Video popup
-8.  Social popup
-9.  Content restriction popup
-10. Subscription popup
-11. Image popup
-12. Countdown popup
-13. Facebook popup
+2.  Image popup settings
+3.  Design settings
+4.  Dimensions
+5.	Advanced targeting
+6.  Floating button
+7.  Facebook settings
+8.  Subscription settings
+9.  Subscribers list
+10. Newsletter
+11. Subscription popup
+12. Facebook popup
+13. Content restriction popup
+14. Registration popup
 
 == Changelog ==
+
+= Version 4.1.10 =
+* Code improvements and bug fixes
+
+= Version 4.1.9 =
+* Bug fixed related to popups that are set to appear with shortcodes and conditions
+
+= Version 4.1.8 =
+* Bug fixed related to popups that are set to appear with shortcodes and conditions
+* Bug fixed related to JS error that blocks popup triggering
+* Bug fixed related to layout on RTL sites
+* Bug fixed related to compatibility error control operator in PHP 8
+* Bug fixed related to conflict with Elementor
+* Bug fixed related to errors that appear after installing the plugin
+
+= Version 4.1.7 =
+* Improvement of Popup Builder button: the button has been added in Gutenberg editor
+* Bug fixed related to typo related to translating menu items
+* Bug fixed related to 502 error when popup is inserted with its shortcode in the same popup
+* Bug fixed related to conflict with UberMenu plugin
+* Bug fixed related to PHP errors in "All Subscribers" page
+
+= Version 4.1.6 =
+* Bug fixed related to draft popups that were not visible in trash
+* Bug fixed related to Popup Builder's button that was visible in Newsletter
+* Improvement of popup's background settings
+
+= Version 4.1.5 =
+* Improvement of code, some queries are optimized
+* Bug fixed related to popup opening issues on iOS devices
+* Bug fixed related to Newsletter text formatting in testing mode
+* Bug fixed related to popups that are set to appear on post categories
+
+= Version 4.1.4 =
+* Bug fixed related to filenames that contain non ascii characters
+* Bug fixed related to UI issues on multisite
+* Bug fixed related to draft popups, that were not saved properly
+
+= Version 4.1.3 =
+* Improvement of shortcodes when user sends newsletters in test mode
+
+= Version 4.1.2 =
+* Bug fixed related to the debug mode that was not working properly
+* Bug fixed related to custom js and css codes
+* Bug fixed related to popups that are set with shortcodes
+* Bug fixed related to compatibility with PHP 8
+
+= Version 4.1.1 =
+* Improvement of code related to making our plugin more secure
+* Bug fixed related to validation of some fields
+* Bug fixed related to conflict with some website functionalities in admin like search
+* Bug fixed related to popups that are set in private mode
+
+= Version 4.1.0 =
+* Code improvements.
+* Minor fixes.
+
+= Version 4.0.9 =
+* Security improvements and fixes.
+
+= Version 4.0.8 =
+* Security improvements and fixes.
+
+= Version 4.0.7 =
+* Bug fixed related to export of subscribers
+* Bug fixed related to sgpb_type parameter
+
+= Version 4.0.6 =
+* Bug fixed related to our products' url
+
+= Version 4.0.5 =
+* Bug fixes and improvements
+
+= Version 4.0.4 =
+* Bug fixed related to JS files that some 3rd party plugins minify on our side
+
+= Version 4.0.3 =
+* New feature: AJAX mode has been added when using Geo targeting
+* Improvement of cities, Sydney has been added in city targeting
+
+= Version 4.0.2 =
+* Bug fixed related to PHP notices, localize was called incorrectly.
+* Bug fixed related to errors with PHP 8 version.
+* Bug fixed related to CSS and JS files in order to improve website loading.
 
 = Version 4.0.1 =
 * Bug fixed related to issue with PHP version below 7.0
@@ -466,4 +551,4 @@ Leave us a good review :)
 
 == Upgrade Notice ==
 
-Current Version of Popup Builder is 4.0
+Current Version of Popup Builder is 4.1.10

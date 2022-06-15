@@ -55,8 +55,8 @@ class PopupLoader
 		if (isset($_GET['sg_popup_id']) || isset($_GET['sg_popup_preview_id']) || $currentUrl !== false) {
 			$args = array();
 			$previewPopups = array();
-			$getterId = isset($_GET['sg_popup_id']) ? (int)$_GET['sg_popup_id'] : 0;
-			$previewedPopupId = isset($_GET['sg_popup_preview_id']) ? (int)$_GET['sg_popup_preview_id'] : 0;
+			$getterId = isset($_GET['sg_popup_id']) ? (int)sanitize_text_field($_GET['sg_popup_id']) : 0;
+			$previewedPopupId = isset($_GET['sg_popup_preview_id']) ? (int)sanitize_text_field($_GET['sg_popup_preview_id']) : 0;
 			if (isset($_GET['sg_popup_preview_id'])) {
 				$getterId = $previewedPopupId;
 				$args['is-preview'] = true;
@@ -67,16 +67,15 @@ class PopupLoader
 			if ($currentUrl !== false) {
 				$getterId = $previewedPopupId;
 				if (isset($_GET['preview_id'])) {
-					$getterId = (int)$_GET['preview_id'];
+					$getterId = (int)sanitize_text_field($_GET['preview_id']);
 				}
 			}
 
 			$popupFromUrl = SGPopup::find($getterId, $args);
 			if (!empty($popupFromUrl)) {
-				global $SGPB_DATA_CONFIG_ARRAY;
 				$defaultEvent = array();
 				$customDelay = $popupFromUrl->getOptionValue('sgpb-popup-delay');
-				$defaultEvent[] = $SGPB_DATA_CONFIG_ARRAY['events']['initialData'][0];
+				$defaultEvent[] = \SgpbDataConfig::websiteDefaultConfigs()['events'][0];
 				$defaultEvent[0]['value'] = 0;
 				if ($customDelay) {
 					$defaultEvent[0]['value'] = $customDelay;
@@ -101,10 +100,9 @@ class PopupLoader
 			$foundPopup = $post;
 		}
 		if (!empty($foundPopup)) {
-			global $SGPB_DATA_CONFIG_ARRAY;
-			if (@$foundPopup->post_type == SG_POPUP_POST_TYPE) {
-				$events = $SGPB_DATA_CONFIG_ARRAY['events']['initialData'][0];
-				$targets = array($SGPB_DATA_CONFIG_ARRAY['target']['initialData']);
+			if (isset($foundPopup->post_type) && $foundPopup->post_type == SG_POPUP_POST_TYPE) {
+				$events = \SgpbDataConfig::websiteDefaultConfigs()['events'][0];
+				$targets = array(\SgpbDataConfig::websiteDefaultConfigs()['target']);
 				// for any targets preview popup should open
 				if (!empty($targets[0][0])) {
 					$targets[0][0]['param'] = 'post_all';
@@ -143,7 +141,8 @@ class PopupLoader
 			if (empty($popup) || !is_object($popup)) {
 				continue;
 			}
-			if ($popup->allowToLoad() || (is_preview() && get_post_type() == SG_POPUP_POST_TYPE)) {
+
+			if (($popup->getOptions()['sgpb-is-active'] && $popup->allowToLoad()) || (is_preview() && get_post_type() == SG_POPUP_POST_TYPE)) {
 				$this->addLoadablePopup($popup);
 			}
 		}
@@ -154,6 +153,18 @@ class PopupLoader
 		$scriptsLoader = new ScriptsLoader();
 		$scriptsLoader->setLoadablePopups($popups);
 		$scriptsLoader->loadToFooter();
+	}
+	public function loadPopupAjax($popup)
+	{
+		$scriptsLoader = new ScriptsLoader();
+		$scriptsLoader->setLoadablePopups([$popup]);
+		$scriptsLoader->setIsAjax(true);
+		$scriptsLoader->loadToFooter(true);
+		$data = [
+			'scriptsAndStyles' => $scriptsLoader->getScriptsAndStylesForAjax(),
+			'footerContent' => $scriptsLoader->getFooterContentAjax(),
+		];
+		return $data;
 	}
 
 	private function doGroupFiltersPopups()

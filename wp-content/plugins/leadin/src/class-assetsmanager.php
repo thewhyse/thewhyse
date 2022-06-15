@@ -21,6 +21,7 @@ class AssetsManager {
 	const FORMS_SCRIPT  = 'leadin-forms-v2';
 	const LEADIN_CONFIG = 'leadinConfig';
 	const LEADIN_I18N   = 'leadinI18n';
+	const REVIEW_BANNER = 'leadin-review-banner';
 
 	/**
 	 * Register and localize all assets.
@@ -71,7 +72,7 @@ class AssetsManager {
 		$embed_domain = LeadinFilters::get_leadin_script_loader_domain();
 		$portal_id    = AccountOptions::get_portal_id();
 		$embed_url    = "https://$embed_domain/$portal_id.js?integration=WordPress";
-		wp_register_script( self::TRACKING_CODE, $embed_url, array( 'jquery' ), null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_register_script( self::TRACKING_CODE, $embed_url, array( 'jquery' ), LEADIN_PLUGIN_VERSION, true );
 		wp_localize_script( self::TRACKING_CODE, 'leadin_wordpress', $leadin_wordpress_info );
 		wp_enqueue_script( self::TRACKING_CODE );
 	}
@@ -80,11 +81,11 @@ class AssetsManager {
 	 * Register and enqueue forms script
 	 */
 	public static function enqueue_forms_script() {
-		wp_enqueue_script( // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_enqueue_script(
 			self::FORMS_SCRIPT,
 			LeadinFilters::get_leadin_forms_script_url(),
 			array(),
-			null,
+			LEADIN_PLUGIN_VERSION,
 			true
 		);
 	}
@@ -96,5 +97,14 @@ class AssetsManager {
 		wp_register_script( self::GUTENBERG, LEADIN_JS_BASE_PATH . '/gutenberg.js', array( 'wp-blocks', 'wp-element' ), LEADIN_PLUGIN_VERSION, true );
 		wp_localize_script( self::GUTENBERG, self::LEADIN_CONFIG, AdminConstants::get_background_leadin_config() );
 		wp_localize_script( self::GUTENBERG, self::LEADIN_I18N, AdminConstants::get_leadin_i18n() );
+	}
+
+	/**
+	 * Register and enqueue a new script for tracking review banner events.
+	 */
+	public static function enqueue_review_banner_tracking_script() {
+		wp_register_script( self::REVIEW_BANNER, LEADIN_JS_BASE_PATH . '/reviewBanner.js', array( 'jquery' ), LEADIN_PLUGIN_VERSION, true );
+		wp_localize_script( self::REVIEW_BANNER, self::LEADIN_CONFIG, AdminConstants::get_background_leadin_config() );
+		wp_enqueue_script( self::REVIEW_BANNER );
 	}
 }

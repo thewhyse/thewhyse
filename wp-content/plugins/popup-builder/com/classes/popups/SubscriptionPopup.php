@@ -312,7 +312,7 @@ class SubscriptionPopup extends SGPopup
 			),
 			'style' => array('width' => isset($inputWidth)? $inputWidth :''),
 			'label' => $gdprLabel,
-			'text' => $this->getFieldValue('sgpb-subs-gdpr-text'),
+			'text' => wp_kses($this->getFieldValue('sgpb-subs-gdpr-text'), AdminHelper::allowed_html_tags(false)),
 			'errorMessageBoxStyles' => isset($inputStyles['width'])?$inputStyles['width']:''
 		);
 		/* GDPR checkbox */
@@ -466,13 +466,13 @@ class SubscriptionPopup extends SGPopup
 		ob_start();
 		?>
 			<style type="text/css">
-				.sgpb-subs-form-<?php echo $popupId; ?> {background-color: <?php echo $formBackgroundColor; ?>;padding: <?php echo $formPadding.'px'; ?>}
-				.sgpb-subs-form-<?php echo $popupId; ?> .js-subs-text-inputs::-webkit-input-placeholder {color: <?php echo $placeholderColor; ?>;font-weight: lighter;}
-				.sgpb-subs-form-<?php echo $popupId; ?> .js-subs-text-inputs::-moz-placeholder {color:<?php echo $placeholderColor; ?>;font-weight: lighter;}
-				.sgpb-subs-form-<?php echo $popupId; ?> .js-subs-text-inputs:-ms-input-placeholder {color:<?php echo $placeholderColor; ?>;font-weight: lighter;} /* ie */
-				.sgpb-subs-form-<?php echo $popupId; ?> .js-subs-text-inputs:-moz-placeholder {color:<?php echo $placeholderColor; ?>;font-weight: lighter;}
-				.sgpb-subs-form-<?php echo $popupId; ?> input[type="checkbox"] {-webkit-appearance: checkbox;!important}
-				.sgpb-subs-form-<?php echo $popupId; ?> input[type="checkbox"]:before {content: none!important; }
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> {background-color: <?php echo esc_html($formBackgroundColor); ?>;padding: <?php echo esc_html($formPadding).'px'; ?>}
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> .js-subs-text-inputs::-webkit-input-placeholder {color: <?php echo esc_html($placeholderColor); ?>;font-weight: lighter;}
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> .js-subs-text-inputs::-moz-placeholder {color:<?php echo esc_html($placeholderColor); ?>;font-weight: lighter;}
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> .js-subs-text-inputs:-ms-input-placeholder {color:<?php echo esc_html($placeholderColor); ?>;font-weight: lighter;} /* ie */
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> .js-subs-text-inputs:-moz-placeholder {color:<?php echo esc_html($placeholderColor); ?>;font-weight: lighter;}
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> input[type="checkbox"] {-webkit-appearance: checkbox;!important}
+				.sgpb-subs-form-<?php echo esc_attr($popupId); ?> input[type="checkbox"]:before {content: none!important; }
 			</style>
 		<?php
 		$styles = ob_get_contents();

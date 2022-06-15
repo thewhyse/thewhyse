@@ -14,6 +14,7 @@ abstract class SGPopup
 	private $sanitizedData;
 	private $postData = array();
 	private $id;
+	private $ajax_page_id;
 	private $title;
 	private $content;
 	private $target;
@@ -33,6 +34,15 @@ abstract class SGPopup
 	public function getId()
 	{
 		return (int)$this->id;
+	}
+	public function setCurrentPageIdForAjax($id)
+	{
+		$this->ajax_page_id = $id;
+	}
+
+	public function getCurrentPageIdForAjax()
+	{
+		return (int)$this->ajax_page_id;
 	}
 
 	public function setTitle($title)
@@ -264,7 +274,7 @@ abstract class SGPopup
 			$status = get_post_status($popupId);
 			$popupContent = $popupPost->post_content;
 		}
-		$allowedStatus = array('publish', 'draft');
+		$allowedStatus = array('publish', 'draft', 'private');
 
 		if (!empty($args['status'])) {
 			$allowedStatus = $args['status'];
@@ -297,7 +307,7 @@ abstract class SGPopup
 		}
 		$savedData = apply_filters('sgpbPopupSavedData', $savedData);
 
-		if (empty($savedData)) {
+		if (empty($savedData) && $currentPostStatus !== 'trash') {
 			return false;
 		}
 
@@ -538,8 +548,8 @@ abstract class SGPopup
 		$contentBackgroundImageData = '';
 
 		$data = $this->getSanitizedData();
-		$buttonImageUrl = @$data['sgpb-button-image'];
-		$contentBackgroundImageUrl = @$data['sgpb-background-image'];
+		$buttonImageUrl = isset($data['sgpb-button-image']) ? $data['sgpb-button-image'] : '';
+		$contentBackgroundImageUrl = isset($data['sgpb-background-image']) ? $data['sgpb-background-image'] : '';
 
 		$savedPopup = $this->getSavedPopup();
 
@@ -648,6 +658,12 @@ abstract class SGPopup
 
 					if (empty($valueAttrs['isNotPostType'])) {
 						$isNotPostType = false;
+					}
+
+					if (isset($valueAttrs['isPostCategory'])){
+						$targetData[$groupId][$ruleId]['value'] = ConfigDataHelper::getTermsByIds($ruleData['value']);
+					} elseif(isset($valueAttrs['isPostTag'])) {
+						$targetData[$groupId][$ruleId]['value'] = ConfigDataHelper::getTagsByIds($ruleData['value']);
 					}
 
 					/*
@@ -870,6 +886,9 @@ abstract class SGPopup
 		$optionsData = array();
 		if (get_post_meta($popupId, 'sg_popup_options'.$saveMode, true)) {
 			$optionsData = get_post_meta($popupId, 'sg_popup_options'.$saveMode, true);
+			if (isset($optionsData['sgpb-subs-gdpr-text'])){
+				$optionsData['sgpb-subs-gdpr-text'] = wp_kses($optionsData['sgpb-subs-gdpr-text'], AdminHelper::allowed_html_tags(false));
+			}
 		}
 
 		return $optionsData;
@@ -1277,17 +1296,19 @@ abstract class SGPopup
 		unset($args['event']);
 		unset($args['id']);
 		$attr = AdminHelper::createAttrs($args);
+		$allowed_html = AdminHelper::allowed_html_tags();
+
 		?>
-		<<?php echo $wrap; ?>
+		<<?php echo esc_attr($wrap); ?>
 		<?php if ($wrap == 'a') : ?>
 		href="javascript:void(0)"
 		<?php endif ?>
-		class="sg-show-popup <?php echo 'sgpb-popup-id-'.$popupId; ?>"
+		class="sgpb-show-popup <?php echo esc_attr('sgpb-popup-id-'.$popupId); ?>"
 		data-sgpbpopupid="<?php echo esc_attr($popupId); ?>"
-		data-popup-event="<?php echo $event; ?>"
-		<?php echo $attr; ?>>
-		<?php echo $content; ?>
-		</<?php echo $wrap; ?>>
+		data-popup-event="<?php echo esc_attr($event); ?>"
+		<?php echo esc_attr($attr); ?>>
+		<?php echo wp_kses($content, $allowed_html); ?>
+		</<?php echo esc_attr($wrap); ?>>
 		<?php
 
 		$shortcodeContent = ob_get_contents();
@@ -1329,6 +1350,8 @@ abstract class SGPopup
 	}
 
 	/**
+	 * TODO remove ASAP!
+	 *
 	 *  Collect all popups by taxonomy slug
 	 *
 	 * @since 1.0.0
@@ -1466,7 +1489,7 @@ abstract class SGPopup
 		}
 
 		if (!file_exists($typePath.$popupClassName.'.php')) {
-			wp_die(__('Popup class does not exist', SG_POPUP_TEXT_DOMAIN));
+			wp_die(esc_html__('Popup class does not exist', SG_POPUP_TEXT_DOMAIN));
 		}
 		require_once($typePath.$popupClassName.'.php');
 
@@ -1536,6 +1559,17 @@ abstract class SGPopup
 		return ($loadableModes['attr_event'] || $loadableModes['option_event']);
 	}
 
+	public function allowToLoadAJAX()
+	{
+		global $post;
+
+		$popupChecker = PopupChecker::instance();
+		$loadableModes = $popupChecker->isLoadable($this, $post, true);
+		$this->setLoadableModes($loadableModes);
+
+		return ($loadableModes['attr_event'] || $loadableModes['option_event']);
+	}
+
 	public static function getAllPopups($filters = array())
 	{
 		$args = array(
@@ -1557,7 +1591,7 @@ abstract class SGPopup
 			if (empty($popup) || !($popup instanceof SGPopup)) {
 				continue;
 			}
-			$type = @$popup->getType();
+			$type = $popup->getType();
 
 			if (isset($filters['type'])) {
 				if (is_array($filters['type'])) {
@@ -1609,7 +1643,7 @@ abstract class SGPopup
 		$subPopups = array();
 		$options = $this->getOptions();
 
-		$specialBehaviors = @$options['sgpb-behavior-after-special-events'];
+		$specialBehaviors = isset($options['sgpb-behavior-after-special-events']) ? $options['sgpb-behavior-after-special-events'] : '';
 		if (!empty($specialBehaviors) && is_array($specialBehaviors)) {
 			foreach ($specialBehaviors as $behavior) {
 				foreach ($behavior as $row) {

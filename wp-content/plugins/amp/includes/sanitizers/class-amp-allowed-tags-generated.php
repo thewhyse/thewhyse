@@ -15,7 +15,9 @@
  */
 class AMP_Allowed_Tags_Generated {
 
-	private static $spec_file_revision = 1095;
+	// @phpstan-ignore-next-line
+	private static $spec_file_revision = 1188;
+	// @phpstan-ignore-next-line
 	private static $minimum_validator_revision_required = 475;
 
 	private static $descendant_tag_lists = array(
@@ -81,9 +83,11 @@ class AMP_Allowed_Tags_Generated {
 			'b',
 			'br',
 			'button',
+			'circle',
 			'col',
 			'colgroup',
 			'div',
+			'ellipse',
 			'em',
 			'fieldset',
 			'form',
@@ -97,12 +101,16 @@ class AMP_Allowed_Tags_Generated {
 			'input',
 			'label',
 			'li',
+			'line',
 			'mark',
 			'nav',
 			'ol',
 			'option',
 			'p',
 			'path',
+			'polygon',
+			'polyline',
+			'rect',
 			'section',
 			'select',
 			'span',
@@ -132,6 +140,7 @@ class AMP_Allowed_Tags_Generated {
 			'address',
 			'amp-call-tracking',
 			'amp-date-countdown',
+			'amp-date-display',
 			'amp-fit-text',
 			'amp-font',
 			'amp-img',
@@ -157,6 +166,7 @@ class AMP_Allowed_Tags_Generated {
 			'em',
 			'fecolormatrix',
 			'fecomposite',
+			'feblend',
 			'feflood',
 			'fegaussianblur',
 			'femerge',
@@ -242,22 +252,29 @@ class AMP_Allowed_Tags_Generated {
 			'amp-analytics',
 			'amp-audio',
 			'amp-date-countdown',
+			'amp-date-display',
 			'amp-experiment',
 			'amp-fit-text',
 			'amp-font',
 			'amp-gist',
-			'amp-google-vrview-image',
 			'amp-img',
 			'amp-install-serviceworker',
 			'amp-list',
 			'amp-live-list',
 			'amp-pixel',
+			'amp-render',
 			'amp-state',
 			'amp-story-360',
+			'amp-story-auto-analytics',
+			'amp-story-captions',
 			'amp-story-interactive-binary-poll',
+			'amp-story-interactive-img-poll',
+			'amp-story-interactive-img-quiz',
 			'amp-story-interactive-poll',
 			'amp-story-interactive-quiz',
 			'amp-story-interactive-results',
+			'amp-story-panning-media',
+			'amp-story-shopping-tag',
 			'amp-timeago',
 			'amp-twitter',
 			'amp-video',
@@ -288,6 +305,7 @@ class AMP_Allowed_Tags_Generated {
 			'em',
 			'fecolormatrix',
 			'fecomposite',
+			'feblend',
 			'feflood',
 			'fegaussianblur',
 			'femerge',
@@ -393,6 +411,7 @@ class AMP_Allowed_Tags_Generated {
 			'amp-carousel',
 			'amp-dailymotion',
 			'amp-date-countdown',
+			'amp-date-display',
 			'amp-embedly-card',
 			'amp-facebook',
 			'amp-facebook-comments',
@@ -404,7 +423,6 @@ class AMP_Allowed_Tags_Generated {
 			'amp-gfycat',
 			'amp-gist',
 			'amp-google-document-embed',
-			'amp-google-vrview-image',
 			'amp-hulu',
 			'amp-ima-video',
 			'amp-image-slider',
@@ -428,8 +446,10 @@ class AMP_Allowed_Tags_Generated {
 			'amp-powr-player',
 			'amp-reach-player',
 			'amp-reddit',
+			'amp-render',
 			'amp-riddle-quiz',
 			'amp-soundcloud',
+			'amp-selector',
 			'amp-springboard-player',
 			'amp-timeago',
 			'amp-twitter',
@@ -458,6 +478,7 @@ class AMP_Allowed_Tags_Generated {
 			'col',
 			'colgroup',
 			'data',
+			'datalist',
 			'dd',
 			'defs',
 			'del',
@@ -470,14 +491,17 @@ class AMP_Allowed_Tags_Generated {
 			'em',
 			'fecolormatrix',
 			'fecomposite',
+			'feblend',
 			'feflood',
 			'fegaussianblur',
 			'femerge',
 			'femergenode',
 			'feoffset',
 			'figcaption',
+			'fieldset',
 			'figure',
 			'filter',
+			'form',
 			'footer',
 			'g',
 			'glyph',
@@ -494,8 +518,11 @@ class AMP_Allowed_Tags_Generated {
 			'hr',
 			'i',
 			'image',
+			'input',
 			'ins',
 			'kbd',
+			'label',
+			'legend',
 			'li',
 			'line',
 			'lineargradient',
@@ -504,14 +531,19 @@ class AMP_Allowed_Tags_Generated {
 			'marker',
 			'mask',
 			'metadata',
+			'meter',
 			'nav',
 			'ol',
+			'optgroup',
+			'option',
+			'output',
 			'p',
 			'path',
 			'pattern',
 			'polygon',
 			'polyline',
 			'pre',
+			'progress',
 			'q',
 			'radialgradient',
 			'rect',
@@ -522,6 +554,7 @@ class AMP_Allowed_Tags_Generated {
 			's',
 			'samp',
 			'section',
+			'select',
 			'small',
 			'solidcolor',
 			'source',
@@ -536,7 +569,9 @@ class AMP_Allowed_Tags_Generated {
 			'table',
 			'tbody',
 			'td',
+			'template',
 			'text',
+			'textarea',
 			'textpath',
 			'tfoot',
 			'th',
@@ -555,13 +590,27 @@ class AMP_Allowed_Tags_Generated {
 			'vkern',
 			'wbr',
 		),
+		'amp-story-player-allowed-descendants' => array(
+			'a',
+			'span',
+			'img',
+		),
+		'amp-story-social-share-allowed-descendants' => array(
+			'script',
+		),
 	);
 
 	private static $allowed_tags = array(
 		'a' => array(
 			array(
 				'attr_spec_list' => array(
+					'attributiondestination' => array(),
+					'attributionexpiry' => array(),
+					'attributionreportto' => array(),
+					'attributionsourceeventid' => array(),
+					'attributionsourceid' => array(),
 					'border' => array(),
+					'conversiondestination' => array(),
 					'data-amp-bind-href' => array(),
 					'download' => array(),
 					'href' => array(
@@ -585,6 +634,7 @@ class AMP_Allowed_Tags_Generated {
 								'feed',
 								'intent',
 								'line',
+								'microsoft-edge',
 								'skype',
 								'sms',
 								'snapchat',
@@ -601,6 +651,8 @@ class AMP_Allowed_Tags_Generated {
 						),
 					),
 					'hreflang' => array(),
+					'impressiondata' => array(),
+					'impressionexpiry' => array(),
 					'media' => array(),
 					'name' => array(
 						'disallowed_value_regex' => '(^|\\s)(__amp_\\S*|__count__|__defineGetter__|__defineSetter__|__lookupGetter__|__lookupSetter__|__noSuchMethod__|__parent__|__proto__|__AMP_\\S*|\\$p|\\$proxy|acceptCharset|addEventListener|appendChild|assignedSlot|attachShadow|baseURI|checkValidity|childElementCount|childNodes|classList|className|clientHeight|clientLeft|clientTop|clientWidth|compareDocumentPosition|computedName|computedRole|contentEditable|createShadowRoot|enqueAction|firstChild|firstElementChild|getAnimations|getAttribute|getAttributeNS|getAttributeNode|getAttributeNodeNS|getBoundingClientRect|getClientRects|getDestinationInsertionPoints|getElementsByClassName|getElementsByTagName|getElementsByTagNameNS|getRootNode|hasAttribute|hasAttributeNS|hasAttributes|hasChildNodes|hasPointerCapture|innerHTML|innerText|inputMode|insertAdjacentElement|insertAdjacentHTML|insertAdjacentText|isContentEditable|isDefaultNamespace|isEqualNode|isSameNode|lastChild|lastElementChild|lookupNamespaceURI|namespaceURI|nextElementSibling|nextSibling|nodeName|nodeType|nodeValue|offsetHeight|offsetLeft|offsetParent|offsetTop|offsetWidth|outerHTML|outerText|ownerDocument|parentElement|parentNode|previousElementSibling|previousSibling|querySelector|querySelectorAll|releasePointerCapture|removeAttribute|removeAttributeNS|removeAttributeNode|removeChild|removeEventListener|replaceChild|reportValidity|requestPointerLock|scrollHeight|scrollIntoView|scrollIntoViewIfNeeded|scrollLeft|scrollWidth|setAttribute|setAttributeNS|setAttributeNode|setAttributeNodeNS|setPointerCapture|shadowRoot|styleMap|tabIndex|tagName|textContent|toString|valueOf|(webkit|ms|moz|o)dropzone|(webkit|moz|ms|o)MatchesSelector|(webkit|moz|ms|o)RequestFullScreen|(webkit|moz|ms|o)RequestFullscreen)(\\s|$)',
@@ -609,6 +661,7 @@ class AMP_Allowed_Tags_Generated {
 					'rel' => array(
 						'disallowed_value_regex' => '(^|\\s)(components|dns-prefetch|import|manifest|preconnect|prefetch|preload|prerender|serviceworker|stylesheet|subresource)(\\s|$)',
 					),
+					'reportingorigin' => array(),
 					'role' => array(),
 					'show-tooltip' => array(
 						'value' => array(
@@ -816,6 +869,8 @@ class AMP_Allowed_Tags_Generated {
 			array(
 				'attr_spec_list' => array(
 					'alt' => array(),
+					'always-serve-npa' => array(),
+					'block-rtc' => array(),
 					'json' => array(),
 					'media' => array(),
 					'noloading' => array(
@@ -836,6 +891,11 @@ class AMP_Allowed_Tags_Generated {
 					'sticky' => array(
 						'value' => array(
 							'',
+							'bottom',
+							'bottom-right',
+							'left',
+							'right',
+							'top',
 						),
 					),
 					'template' => array(),
@@ -910,12 +970,14 @@ class AMP_Allowed_Tags_Generated {
 						'amp-ad',
 					),
 					'spec_name' => 'amp-ad with type=custom',
-					'spec_url' => 'https://github.com/ampproject/amphtml/blob/master/ads/custom.md',
+					'spec_url' => 'https://github.com/ampproject/amphtml/blob/main/ads/vendors/custom.md',
 				),
 			),
 			array(
 				'attr_spec_list' => array(
 					'alt' => array(),
+					'always-serve-npa' => array(),
+					'block-rtc' => array(),
 					'data-multi-size' => array(
 						'dispatch_key' => 2,
 						'mandatory' => true,
@@ -1350,6 +1412,7 @@ class AMP_Allowed_Tags_Generated {
 						'supported_layouts' => array(
 							2,
 							3,
+							5,
 							1,
 						),
 					),
@@ -1480,6 +1543,7 @@ class AMP_Allowed_Tags_Generated {
 							'',
 						),
 					),
+					'prefetch' => array(),
 					'query' => array(),
 					'src' => array(
 						'value_url' => array(
@@ -1525,6 +1589,9 @@ class AMP_Allowed_Tags_Generated {
 					'auto-advance-loops' => array(
 						'value_regex' => '([^,]+\\s+(\\d+),\\s*)*(\\d+)',
 					),
+					'controls' => array(
+						'value_regex' => '([^,]+\\s+(always|auto|never),\\s*)*(always|auto|never)',
+					),
 					'data-amp-bind-advance-count' => array(),
 					'data-amp-bind-auto-advance' => array(),
 					'data-amp-bind-auto-advance-count' => array(),
@@ -1533,6 +1600,7 @@ class AMP_Allowed_Tags_Generated {
 					'data-amp-bind-horizontal' => array(),
 					'data-amp-bind-loop' => array(),
 					'data-amp-bind-mixed-length' => array(),
+					'data-amp-bind-orientation' => array(),
 					'data-amp-bind-slide' => array(),
 					'data-amp-bind-snap' => array(),
 					'data-amp-bind-snap-align' => array(),
@@ -1542,7 +1610,7 @@ class AMP_Allowed_Tags_Generated {
 						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false)',
 					),
 					'loop' => array(
-						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false)',
+						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false|^$)',
 					),
 					'media' => array(),
 					'mixed-length' => array(
@@ -1552,6 +1620,9 @@ class AMP_Allowed_Tags_Generated {
 						'value' => array(
 							'',
 						),
+					),
+					'orientation' => array(
+						'value_regex' => '([^,]+\\s+(horizontal|vertical),\\s*)*(horizontal|vertical)',
 					),
 					'slide' => array(
 						'value_regex' => '([^,]+\\s+(\\d+),\\s*)*(\\d+)',
@@ -1604,6 +1675,9 @@ class AMP_Allowed_Tags_Generated {
 					'auto-advance-loops' => array(
 						'value_regex' => '([^,]+\\s+(\\d+),\\s*)*(\\d+)',
 					),
+					'controls' => array(
+						'value_regex' => '([^,]+\\s+(always|auto|never),\\s*)*(always|auto|never)',
+					),
 					'data-amp-bind-advance-count' => array(),
 					'data-amp-bind-auto-advance' => array(),
 					'data-amp-bind-auto-advance-count' => array(),
@@ -1612,6 +1686,7 @@ class AMP_Allowed_Tags_Generated {
 					'data-amp-bind-horizontal' => array(),
 					'data-amp-bind-loop' => array(),
 					'data-amp-bind-mixed-length' => array(),
+					'data-amp-bind-orientation' => array(),
 					'data-amp-bind-slide' => array(),
 					'data-amp-bind-snap' => array(),
 					'data-amp-bind-snap-align' => array(),
@@ -1624,7 +1699,7 @@ class AMP_Allowed_Tags_Generated {
 						'mandatory' => true,
 					),
 					'loop' => array(
-						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false)',
+						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false|^$)',
 					),
 					'media' => array(),
 					'mixed-length' => array(
@@ -1634,6 +1709,9 @@ class AMP_Allowed_Tags_Generated {
 						'value' => array(
 							'',
 						),
+					),
+					'orientation' => array(
+						'value_regex' => '([^,]+\\s+(horizontal|vertical),\\s*)*(horizontal|vertical)',
 					),
 					'slide' => array(
 						'value_regex' => '([^,]+\\s+(\\d+),\\s*)*(\\d+)',
@@ -1674,8 +1752,8 @@ class AMP_Allowed_Tags_Generated {
 						),
 					),
 					'requires_extension' => array(
-						'amp-lightbox-gallery',
 						'amp-base-carousel',
+						'amp-lightbox-gallery',
 					),
 					'spec_name' => 'AMP-BASE-CAROUSEL [lightbox]',
 					'spec_url' => 'https://amp.dev/documentation/components/amp-base-carousel/',
@@ -1757,8 +1835,9 @@ class AMP_Allowed_Tags_Generated {
 					),
 					'renderer' => array(
 						'value_casei' => array(
-							'svg',
+							'canvas',
 							'html',
+							'svg',
 						),
 					),
 					'src' => array(
@@ -1793,6 +1872,9 @@ class AMP_Allowed_Tags_Generated {
 			array(
 				'attr_spec_list' => array(
 					'autoplay' => array(),
+					'data-carousel' => array(
+						'value_regex' => '[0-9]+',
+					),
 					'data-dynamic' => array(
 						'value_regex' => '[a-z]+',
 					),
@@ -1837,6 +1919,7 @@ class AMP_Allowed_Tags_Generated {
 						),
 					),
 					'mandatory_oneof' => array(
+						'data-carousel',
 						'data-outstream',
 						'data-playlist',
 						'data-video',
@@ -2270,6 +2353,16 @@ class AMP_Allowed_Tags_Generated {
 							'hours',
 							'minutes',
 							'seconds',
+						),
+					),
+					'count-up' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'data-count-up' => array(
+						'value' => array(
+							'',
 						),
 					),
 					'end-date' => array(
@@ -2840,6 +2933,8 @@ class AMP_Allowed_Tags_Generated {
 			array(
 				'attr_spec_list' => array(
 					'alt' => array(),
+					'always-serve-npa' => array(),
+					'block-rtc' => array(),
 					'json' => array(),
 					'media' => array(),
 					'noloading' => array(
@@ -2886,6 +2981,8 @@ class AMP_Allowed_Tags_Generated {
 			array(
 				'attr_spec_list' => array(
 					'alt' => array(),
+					'always-serve-npa' => array(),
+					'block-rtc' => array(),
 					'data-multi-size' => array(
 						'dispatch_key' => 2,
 						'mandatory' => true,
@@ -3060,9 +3157,40 @@ class AMP_Allowed_Tags_Generated {
 							4,
 						),
 					),
+					'bento' => false,
 					'requires_extension' => array(
 						'amp-facebook-comments',
 					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'data-href' => array(
+						'mandatory' => true,
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							1,
+							4,
+						),
+					),
+					'bento' => true,
+					'requires_extension' => array(
+						'amp-facebook',
+					),
+					'spec_name' => 'amp-facebook-comments 1.0',
 				),
 			),
 		),
@@ -3097,9 +3225,47 @@ class AMP_Allowed_Tags_Generated {
 							4,
 						),
 					),
+					'bento' => false,
 					'requires_extension' => array(
 						'amp-facebook-like',
 					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'data-href' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							1,
+							4,
+						),
+					),
+					'bento' => true,
+					'requires_extension' => array(
+						'amp-facebook',
+					),
+					'spec_name' => 'amp-facebook-like 1.0',
 				),
 			),
 		),
@@ -3134,9 +3300,47 @@ class AMP_Allowed_Tags_Generated {
 							4,
 						),
 					),
+					'bento' => false,
 					'requires_extension' => array(
 						'amp-facebook-page',
 					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'data-href' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							1,
+							4,
+						),
+					),
+					'bento' => true,
+					'requires_extension' => array(
+						'amp-facebook',
+					),
+					'spec_name' => 'amp-facebook-page 1.0',
 				),
 			),
 		),
@@ -3355,6 +3559,81 @@ class AMP_Allowed_Tags_Generated {
 				),
 			),
 		),
+		'amp-google-read-aloud-player' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-ad-tag-url' => array(
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'data-api-key' => array(
+						'mandatory' => true,
+					),
+					'data-call-to-action-label' => array(),
+					'data-intro' => array(
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'data-locale' => array(
+						'value_regex_casei' => '[a-z]{2}',
+					),
+					'data-outro' => array(
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'data-speakable' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'data-tracking-ids' => array(
+						'mandatory' => true,
+						'value_regex_casei' => '^UA-\\d+-\\d+(\\s*,\\s*UA-\\d+-\\d+)*$',
+					),
+					'data-url' => array(
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'data-voice' => array(
+						'mandatory' => true,
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							2,
+							3,
+						),
+					),
+					'requires_extension' => array(
+						'amp-google-read-aloud-player',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-google-read-aloud-player',
+				),
+			),
+		),
 		'amp-hulu' => array(
 			array(
 				'attr_spec_list' => array(
@@ -3465,6 +3744,57 @@ class AMP_Allowed_Tags_Generated {
 					'requires_extension' => array(
 						'amp-iframe',
 					),
+				),
+			),
+		),
+		'amp-iframely' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-border' => array(
+						'value_regex' => '(\\d+)',
+					),
+					'data-domain' => array(
+						'value_regex' => '^((?:[^\\.\\/]+\\.)?iframe\\.ly|if\\-cdn\\.com|iframely\\.net|oembed\\.vice\\.com|iframe\\.nbcnews\\.com)$',
+					),
+					'data-id' => array(),
+					'data-img' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'data-key' => array(),
+					'data-url' => array(),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'resizable' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							4,
+							9,
+						),
+					),
+					'mandatory_oneof' => array(
+						'data-id',
+						'data-url',
+					),
+					'requires_extension' => array(
+						'amp-iframely',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-iframely',
 				),
 			),
 		),
@@ -3601,6 +3931,13 @@ class AMP_Allowed_Tags_Generated {
 					'data-amp-bind-attribution' => array(),
 					'data-amp-bind-src' => array(),
 					'data-amp-bind-srcset' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
 					'lightbox' => array(),
 					'lightbox-thumbnail-id' => array(
 						'value_regex_casei' => '^[a-z][a-z\\d_-]*',
@@ -3759,6 +4096,10 @@ class AMP_Allowed_Tags_Generated {
 		'amp-inline-gallery-thumbnails' => array(
 			array(
 				'attr_spec_list' => array(
+					'aspect-ratio' => array(
+						'disallowed_value_regex' => '^0+(\\.0+)?$',
+						'value_regex' => '\\d+(\\.\\d+)?',
+					),
 					'aspect-ratio-height' => array(
 						'disallowed_value_regex' => '^0+(\\.0+)?$',
 						'value_regex' => '\\d+(\\.\\d+)?',
@@ -3771,6 +4112,7 @@ class AMP_Allowed_Tags_Generated {
 						'value' => array(
 							'true',
 							'false',
+							'',
 						),
 					),
 					'media' => array(),
@@ -3905,7 +4247,7 @@ class AMP_Allowed_Tags_Generated {
 						),
 					),
 					'data-media-id' => array(
-						'value_regex_casei' => '[0-9a-z]{8}',
+						'value_regex_casei' => '[0-9a-z]{8}|outstream',
 					),
 					'data-player-id' => array(
 						'mandatory' => true,
@@ -4003,6 +4345,13 @@ class AMP_Allowed_Tags_Generated {
 			array(
 				'attr_spec_list' => array(
 					'animate-in' => array(
+						'value_casei' => array(
+							'fade-in',
+							'fly-in-bottom',
+							'fly-in-top',
+						),
+					),
+					'animation' => array(
 						'value_casei' => array(
 							'fade-in',
 							'fly-in-bottom',
@@ -4621,9 +4970,16 @@ class AMP_Allowed_Tags_Generated {
 					'data-client' => array(
 						'mandatory' => true,
 					),
+					'data-exit-mode' => array(
+						'value' => array(
+							'load',
+							'loop',
+							'replay',
+						),
+					),
 					'data-mediaid' => array(
 						'mandatory' => true,
-						'value_regex' => '[^=/?:]+',
+						'value_regex' => '[^=\\/?:]+',
 					),
 					'data-mode' => array(
 						'value' => array(
@@ -4631,22 +4987,17 @@ class AMP_Allowed_Tags_Generated {
 							'static',
 						),
 					),
-					'data-origin' => array(
-						'value_url' => array(
-							'allow_empty' => true,
-							'protocol' => array(
-								'https',
-								'http',
-							),
-						),
-					),
 					'data-streamtype' => array(
 						'value' => array(
 							'album',
 							'audio',
+							'audioalbum',
+							'collection',
 							'live',
 							'playlist',
 							'playlist-marked',
+							'radio',
+							'set',
 							'video',
 						),
 					),
@@ -4704,6 +5055,37 @@ class AMP_Allowed_Tags_Generated {
 					'requires_extension' => array(
 						'amp-o2-player',
 					),
+				),
+			),
+		),
+		'amp-onetap-google' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-src' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							1,
+						),
+					),
+					'requires_extension' => array(
+						'amp-onetap-google',
+					),
+					'unique' => true,
 				),
 			),
 		),
@@ -5159,6 +5541,62 @@ class AMP_Allowed_Tags_Generated {
 				),
 			),
 		),
+		'amp-render' => array(
+			array(
+				'attr_spec_list' => array(
+					'binding' => array(
+						'value' => array(
+							'always',
+							'never',
+							'no',
+							'refresh',
+						),
+					),
+					'credentials' => array(),
+					'data-amp-bind-src' => array(),
+					'key' => array(),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'src' => array(
+						'disallowed_value_regex' => '__amp_source_origin',
+						'value_url' => array(
+							'protocol' => array(
+								'amp-script',
+								'amp-state',
+								'https',
+							),
+						),
+					),
+					'template' => array(),
+					'xssi-prefix' => array(),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							5,
+							6,
+							2,
+							3,
+							7,
+							1,
+							4,
+						),
+					),
+					'mandatory_anyof' => array(
+						'data-amp-bind-src',
+						'src',
+					),
+					'requires_extension' => array(
+						'amp-render',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-render/',
+				),
+			),
+		),
 		'amp-riddle-quiz' => array(
 			array(
 				'attr_spec_list' => array(
@@ -5204,6 +5642,11 @@ class AMP_Allowed_Tags_Generated {
 						),
 					),
 					'sandbox' => array(),
+					'sandboxed' => array(
+						'value' => array(
+							'',
+						),
+					),
 					'script' => array(),
 					'src' => array(
 						'disallowed_value_regex' => '__amp_source_origin',
@@ -5749,8 +6192,10 @@ class AMP_Allowed_Tags_Generated {
 							'amp-pixel',
 							'amp-sidebar',
 							'amp-story-auto-ads',
+							'amp-story-auto-analytics',
 							'amp-story-bookend',
 							'amp-story-page',
+							'amp-story-social-share',
 						),
 						'mandatory_min_num_child_tags' => 1,
 					),
@@ -5764,6 +6209,11 @@ class AMP_Allowed_Tags_Generated {
 		'amp-story-360' => array(
 			array(
 				'attr_spec_list' => array(
+					'controls' => array(
+						'value' => array(
+							'gyroscope',
+						),
+					),
 					'duration' => array(
 						'value_regex' => '([0-9\\.]+)\\s*(s|ms)',
 					),
@@ -5777,6 +6227,15 @@ class AMP_Allowed_Tags_Generated {
 						'value_regex' => '-?\\d+\\.?\\d*',
 					),
 					'pitch-start' => array(
+						'value_regex' => '-?\\d+\\.?\\d*',
+					),
+					'scene-heading' => array(
+						'value_regex' => '-?\\d+\\.?\\d*',
+					),
+					'scene-pitch' => array(
+						'value_regex' => '-?\\d+\\.?\\d*',
+					),
+					'scene-roll' => array(
 						'value_regex' => '-?\\d+\\.?\\d*',
 					),
 					'zoom-end' => array(
@@ -5794,12 +6253,12 @@ class AMP_Allowed_Tags_Generated {
 							3,
 							7,
 							1,
-							4,
 						),
 					),
 					'child_tags' => array(
 						'child_tag_name_oneof' => array(
 							'amp-img',
+							'amp-video',
 						),
 						'mandatory_num_child_tags' => 1,
 					),
@@ -5860,6 +6319,21 @@ class AMP_Allowed_Tags_Generated {
 				),
 			),
 		),
+		'amp-story-auto-analytics' => array(
+			array(
+				'attr_spec_list' => array(
+					'gtag-id' => array(
+						'mandatory' => true,
+						'value_regex' => '[A-Z]{1,2}-[A-Z0-9-]+',
+					),
+				),
+				'tag_spec' => array(
+					'requires_extension' => array(
+						'amp-story-auto-analytics',
+					),
+				),
+			),
+		),
 		'amp-story-bookend' => array(
 			array(
 				'attr_spec_list' => array(
@@ -5881,6 +6355,46 @@ class AMP_Allowed_Tags_Generated {
 				'tag_spec' => array(
 					'descendant_tag_list' => 'amp-story-bookend-allowed-descendants',
 					'mandatory_ancestor' => 'amp-story',
+				),
+			),
+		),
+		'amp-story-captions' => array(
+			array(
+				'attr_spec_list' => array(
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'style-preset' => array(
+						'value' => array(
+							'default',
+							'appear',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							5,
+							6,
+							2,
+							3,
+							7,
+							8,
+							9,
+							4,
+						),
+					),
+					'child_tags' => array(
+						'mandatory_num_child_tags' => 0,
+					),
+					'mandatory_ancestor' => 'amp-story',
+					'requires_extension' => array(
+						'amp-story-captions',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-captions',
 				),
 			),
 		),
@@ -5930,6 +6444,9 @@ class AMP_Allowed_Tags_Generated {
 		'amp-story-grid-layer' => array(
 			array(
 				'attr_spec_list' => array(
+					'anchor' => array(
+						'value_regex' => 'top|bottom|left|right|(top|bottom)[ -](left|right)|(left|right)[ -](top|bottom)',
+					),
 					'aspect-ratio' => array(
 						'value_regex' => '\\d+:\\d+',
 					),
@@ -5937,6 +6454,12 @@ class AMP_Allowed_Tags_Generated {
 						'value' => array(
 							'landscape-half-left',
 							'landscape-half-right',
+						),
+					),
+					'preset' => array(
+						'value' => array(
+							'2021-background',
+							'2021-foreground',
 						),
 					),
 					'template' => array(
@@ -6013,6 +6536,204 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'mandatory_ancestor' => 'amp-story-grid-layer',
+					'requires_extension' => array(
+						'amp-story-interactive',
+					),
+				),
+			),
+		),
+		'amp-story-interactive-img-poll' => array(
+			array(
+				'attr_spec_list' => array(
+					'chip-style' => array(
+						'value' => array(
+							'shadow',
+							'flat',
+							'transparent',
+						),
+					),
+					'endpoint' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'allow_empty' => false,
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'id' => array(
+						'mandatory' => true,
+					),
+					'option-1-confetti' => array(),
+					'option-1-image' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-1-image-alt' => array(
+						'mandatory' => true,
+					),
+					'option-1-results-category' => array(),
+					'option-2-confetti' => array(),
+					'option-2-image' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-2-image-alt' => array(
+						'mandatory' => true,
+					),
+					'option-2-results-category' => array(),
+					'option-3-confetti' => array(),
+					'option-3-image' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-3-image-alt' => array(),
+					'option-3-results-category' => array(),
+					'option-4-confetti' => array(),
+					'option-4-image' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-4-image-alt' => array(),
+					'option-4-results-category' => array(),
+					'prompt-size' => array(
+						'value' => array(
+							'small',
+							'medium',
+							'large',
+						),
+					),
+					'prompt-text' => array(),
+					'theme' => array(
+						'value' => array(
+							'light',
+							'dark',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'amp-story-grid-layer',
+					'requires_extension' => array(
+						'amp-story-interactive',
+					),
+				),
+			),
+		),
+		'amp-story-interactive-img-quiz' => array(
+			array(
+				'attr_spec_list' => array(
+					'chip-style' => array(
+						'value' => array(
+							'shadow',
+							'flat',
+							'transparent',
+						),
+					),
+					'endpoint' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'allow_empty' => false,
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'id' => array(
+						'mandatory' => true,
+					),
+					'option-1-confetti' => array(),
+					'option-1-correct' => array(),
+					'option-1-image' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-1-image-alt' => array(
+						'mandatory' => true,
+					),
+					'option-2-confetti' => array(),
+					'option-2-correct' => array(),
+					'option-2-image' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-2-image-alt' => array(
+						'mandatory' => true,
+					),
+					'option-3-confetti' => array(),
+					'option-3-correct' => array(),
+					'option-3-image' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-3-image-alt' => array(),
+					'option-4-confetti' => array(),
+					'option-4-correct' => array(),
+					'option-4-image' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'option-4-image-alt' => array(),
+					'prompt-size' => array(
+						'value' => array(
+							'small',
+							'medium',
+							'large',
+						),
+					),
+					'prompt-text' => array(),
+					'theme' => array(
+						'value' => array(
+							'light',
+							'dark',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'amp-story-grid-layer',
+					'mandatory_oneof' => array(
+						'option-1-correct',
+						'option-2-correct',
+						'option-3-correct',
+						'option-4-correct',
+					),
 					'requires_extension' => array(
 						'amp-story-interactive',
 					),
@@ -6152,21 +6873,39 @@ class AMP_Allowed_Tags_Generated {
 		'amp-story-interactive-results' => array(
 			array(
 				'attr_spec_list' => array(
+					'chip-style' => array(
+						'value' => array(
+							'flat',
+							'transparent',
+						),
+					),
 					'option-1-image' => array(),
 					'option-1-results-category' => array(
 						'mandatory' => true,
+					),
+					'option-1-results-threshold' => array(
+						'value_regex' => '\\d+(\\.\\d+)?',
 					),
 					'option-1-text' => array(),
 					'option-2-image' => array(),
 					'option-2-results-category' => array(
 						'mandatory' => true,
 					),
+					'option-2-results-threshold' => array(
+						'value_regex' => '\\d+(\\.\\d+)?',
+					),
 					'option-2-text' => array(),
 					'option-3-image' => array(),
 					'option-3-results-category' => array(),
+					'option-3-results-threshold' => array(
+						'value_regex' => '\\d+(\\.\\d+)?',
+					),
 					'option-3-text' => array(),
 					'option-4-image' => array(),
 					'option-4-results-category' => array(),
+					'option-4-results-threshold' => array(
+						'value_regex' => '\\d+(\\.\\d+)?',
+					),
 					'option-4-text' => array(),
 					'prompt-text' => array(),
 					'theme' => array(
@@ -6208,9 +6947,12 @@ class AMP_Allowed_Tags_Generated {
 							'amp-analytics',
 							'amp-pixel',
 							'amp-story-animation',
+							'amp-story-auto-analytics',
 							'amp-story-cta-layer',
 							'amp-story-grid-layer',
 							'amp-story-page-attachment',
+							'amp-story-page-outlink',
+							'amp-story-shopping-attachment',
 						),
 						'mandatory_min_num_child_tags' => 1,
 					),
@@ -6224,6 +6966,7 @@ class AMP_Allowed_Tags_Generated {
 		'amp-story-page-attachment' => array(
 			array(
 				'attr_spec_list' => array(
+					'cta-text' => array(),
 					'href' => array(
 						'mandatory' => true,
 						'value_url' => array(
@@ -6245,6 +6988,7 @@ class AMP_Allowed_Tags_Generated {
 							'light',
 						),
 					),
+					'title' => array(),
 				),
 				'tag_spec' => array(
 					'child_tags' => array(
@@ -6256,6 +7000,23 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
+					'cta-image' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'cta-image-2' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'cta-text' => array(),
 					'layout' => array(
 						'mandatory' => true,
 						'value' => array(
@@ -6268,11 +7029,94 @@ class AMP_Allowed_Tags_Generated {
 							'light',
 						),
 					),
+					'title' => array(),
 				),
 				'tag_spec' => array(
 					'descendant_tag_list' => 'amp-story-page-attachment-allowed-descendants',
 					'mandatory_ancestor' => 'amp-story-page',
 					'spec_name' => 'amp-story-page-attachment',
+				),
+			),
+		),
+		'amp-story-page-outlink' => array(
+			array(
+				'attr_spec_list' => array(
+					'cta-accent-color' => array(),
+					'cta-accent-element' => array(
+						'value' => array(
+							'background',
+							'text',
+						),
+					),
+					'cta-image' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+					'layout' => array(
+						'mandatory' => true,
+						'value' => array(
+							'nodisplay',
+						),
+					),
+					'theme' => array(
+						'value' => array(
+							'custom',
+							'dark',
+							'light',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'child_tags' => array(
+						'child_tag_name_oneof' => array(
+							'a',
+						),
+						'mandatory_num_child_tags' => 1,
+					),
+					'mandatory_ancestor' => 'amp-story-page',
+					'spec_name' => 'amp-story-page-outlink',
+				),
+			),
+		),
+		'amp-story-panning-media' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-x' => array(
+						'value_regex' => '-?(0|[0-9]?\\d\\.?\\d*%|100%)',
+					),
+					'data-y' => array(
+						'value_regex' => '-?(0|[0-9]?\\d\\.?\\d*%|100%)',
+					),
+					'data-zoom' => array(
+						'value_regex' => '\\d+\\.?\\d*',
+					),
+					'lock-bounds' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+						),
+					),
+					'child_tags' => array(
+						'child_tag_name_oneof' => array(
+							'amp-img',
+						),
+						'mandatory_num_child_tags' => 1,
+					),
+					'mandatory_ancestor' => 'amp-story-grid-layer',
+					'requires_extension' => array(
+						'amp-story-panning-media',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-panning-media',
 				),
 			),
 		),
@@ -6287,16 +7131,262 @@ class AMP_Allowed_Tags_Generated {
 							3,
 							7,
 							4,
+							9,
+						),
+					),
+					'descendant_tag_list' => 'amp-story-player-allowed-descendants',
+					'requires_extension' => array(
+						'amp-story-player',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-player/',
+				),
+			),
+		),
+		'amp-story-shopping-attachment' => array(
+			array(
+				'attr_spec_list' => array(
+					'cta-text' => array(),
+					'src' => array(
+						'value_url' => array(
+							'allow_relative' => true,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'theme' => array(
+						'value' => array(
+							'dark',
+							'light',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							5,
 						),
 					),
 					'child_tags' => array(
 						'child_tag_name_oneof' => array(
-							'a',
+							'script',
+						),
+						'mandatory_min_num_child_tags' => 1,
+					),
+					'requires_extension' => array(
+						'amp-story-shopping',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-shopping/',
+				),
+			),
+		),
+		'amp-story-shopping-tag' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-product-id' => array(
+						'mandatory' => true,
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							5,
+						),
+					),
+					'mandatory_ancestor' => 'amp-story-grid-layer',
+					'requires_extension' => array(
+						'amp-story-shopping',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-shopping/',
+				),
+			),
+		),
+		'amp-story-social-share' => array(
+			array(
+				'attr_spec_list' => array(
+					'layout' => array(
+						'mandatory' => true,
+						'value' => array(
+							'nodisplay',
+						),
+					),
+					'src' => array(
+						'value_url' => array(
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+				),
+				'tag_spec' => array(
+					'descendant_tag_list' => 'amp-story-social-share-allowed-descendants',
+					'mandatory_ancestor' => 'amp-story',
+				),
+			),
+		),
+		'amp-story-subscriptions' => array(
+			array(
+				'attr_spec_list' => array(
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							5,
 						),
 					),
 					'requires_extension' => array(
-						'amp-story-player',
+						'amp-story-subscriptions',
 					),
+				),
+			),
+		),
+		'amp-stream-gallery' => array(
+			array(
+				'attr_spec_list' => array(
+					'controls' => array(
+						'value_regex' => '([^,]+\\s+(always|auto|never),\\s*)*(always|auto|never)',
+					),
+					'data-amp-bind-controls' => array(),
+					'data-amp-bind-extra-space' => array(),
+					'data-amp-bind-loop' => array(),
+					'data-amp-bind-max-item-width' => array(),
+					'data-amp-bind-max-visible-count' => array(),
+					'data-amp-bind-min-item-width' => array(),
+					'data-amp-bind-min-visible-count' => array(),
+					'data-amp-bind-outset-arrows' => array(),
+					'data-amp-bind-peek' => array(),
+					'data-amp-bind-slide-align' => array(),
+					'data-amp-bind-snap' => array(),
+					'extra-space' => array(
+						'value' => array(
+							'between',
+						),
+					),
+					'loop' => array(
+						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false|^$)',
+					),
+					'max-item-width' => array(
+						'value_regex' => '([^,]+\\s+(\\d+),\\s*)*(\\d+)',
+					),
+					'max-visible-count' => array(
+						'value_regex' => '([^,]+\\s+(\\d+(\\.\\d+)?),\\s*)*(\\d+(\\.\\d+)?)',
+					),
+					'media' => array(),
+					'min-item-width' => array(
+						'value_regex' => '([^,]+\\s+(\\d+),\\s*)*(\\d+)',
+					),
+					'min-visible-count' => array(
+						'value_regex' => '([^,]+\\s+(\\d+(\\.\\d+)?),\\s*)*(\\d+(\\.\\d+)?)',
+					),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+					'outset-arrows' => array(
+						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false)',
+					),
+					'peek' => array(
+						'value_regex' => '([^,]+\\s+(\\d+(\\.\\d+)?),\\s*)*(\\d+(\\.\\d+)?)',
+					),
+					'slide-align' => array(
+						'value_regex' => '([^,]+\\s+(start|center),\\s*)*(start|center)',
+					),
+					'snap' => array(
+						'value_regex' => '([^,]+\\s+(true|false),\\s*)*(true|false)',
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							9,
+							1,
+							4,
+						),
+					),
+					'requires_extension' => array(
+						'amp-stream-gallery',
+					),
+					'spec_url' => 'https://github.com/ampproject/amphtml/blob/master/extensions/amp-stream-gallery/amp-stream-gallery.md',
+				),
+			),
+		),
+		'amp-tiktok' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-src' => array(
+						'mandatory' => true,
+						'value_regex' => '(https:\\/\\/www\\.tiktok\\.com\\/.*)?\\d+.*',
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							9,
+							1,
+							4,
+						),
+					),
+					'requires_extension' => array(
+						'amp-tiktok',
+					),
+					'spec_name' => 'AMP-TIKTOK',
+					'spec_url' => 'https://amp.dev/documentation/components/amp-tiktok',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							9,
+							1,
+							4,
+						),
+					),
+					'child_tags' => array(
+						'child_tag_name_oneof' => array(
+							'blockquote',
+						),
+						'mandatory_min_num_child_tags' => 1,
+					),
+					'requires_extension' => array(
+						'amp-tiktok',
+					),
+					'spec_name' => 'AMP-TIKTOK blockquote',
+					'spec_url' => 'https://amp.dev/documentation/components/amp-tiktok',
 				),
 			),
 		),
@@ -6577,6 +7667,7 @@ class AMP_Allowed_Tags_Generated {
 							2,
 							3,
 							7,
+							9,
 							1,
 							4,
 						),
@@ -6690,6 +7781,7 @@ class AMP_Allowed_Tags_Generated {
 							2,
 							3,
 							7,
+							9,
 							1,
 							4,
 						),
@@ -6713,6 +7805,16 @@ class AMP_Allowed_Tags_Generated {
 						'mandatory' => true,
 						'value' => array(
 							'',
+						),
+					),
+					'cache' => array(
+						'value' => array(
+							'google',
+						),
+					),
+					'captions-id' => array(
+						'requires_extension' => array(
+							'amp-story-captions',
 						),
 					),
 					'controls' => array(
@@ -6793,6 +7895,9 @@ class AMP_Allowed_Tags_Generated {
 							),
 						),
 					),
+					'volume' => array(
+						'value_regex' => '^(0(\\.0*)?|(0?\\.[0-9]+)?|1(\\.0*)?)$',
+					),
 				),
 				'tag_spec' => array(
 					'amp_layout' => array(
@@ -6853,9 +7958,7 @@ class AMP_Allowed_Tags_Generated {
 							'',
 						),
 					),
-					'poster' => array(
-						'mandatory' => true,
-					),
+					'poster' => array(),
 					'referrerpolicy' => array(),
 					'rotate-to-fullscreen' => array(
 						'value' => array(
@@ -6887,86 +7990,6 @@ class AMP_Allowed_Tags_Generated {
 					'requires_extension' => array(
 						'amp-video-iframe',
 					),
-					'spec_name' => 'AMP-VIDEO-IFRAME[poster]',
-					'spec_url' => 'https://amp.dev/documentation/components/amp-video-iframe/',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'album' => array(),
-					'alt' => array(),
-					'artist' => array(),
-					'artwork' => array(),
-					'attribution' => array(),
-					'autoplay' => array(
-						'value' => array(
-							'',
-						),
-					),
-					'data-amp-bind-src' => array(),
-					'dock' => array(
-						'requires_extension' => array(
-							'amp-video-docking',
-						),
-					),
-					'implements-media-session' => array(
-						'value' => array(
-							'',
-						),
-					),
-					'implements-rotate-to-fullscreen' => array(
-						'value' => array(
-							'',
-						),
-					),
-					'lightbox' => array(),
-					'lightbox-thumbnail-id' => array(
-						'value_regex_casei' => '^[a-z][a-z\\d_-]*',
-					),
-					'media' => array(),
-					'noloading' => array(
-						'value' => array(
-							'',
-						),
-					),
-					'referrerpolicy' => array(),
-					'rotate-to-fullscreen' => array(
-						'value' => array(
-							'',
-						),
-					),
-					'src' => array(
-						'disallowed_value_regex' => '__amp_source_origin',
-						'mandatory' => true,
-						'value_url' => array(
-							'protocol' => array(
-								'https',
-							),
-						),
-					),
-				),
-				'tag_spec' => array(
-					'amp_layout' => array(
-						'supported_layouts' => array(
-							6,
-							2,
-							3,
-							7,
-							9,
-							1,
-							4,
-						),
-					),
-					'reference_points' => array(
-						'AMP-VIDEO-IFRAME > [placeholder]' => array(
-							'mandatory' => true,
-							'unique' => true,
-						),
-					),
-					'requires_extension' => array(
-						'amp-video-iframe',
-					),
-					'spec_name' => 'AMP-VIDEO-IFRAME with [placeholder]',
 					'spec_url' => 'https://amp.dev/documentation/components/amp-video-iframe/',
 				),
 			),
@@ -7226,6 +8249,44 @@ class AMP_Allowed_Tags_Generated {
 				),
 			),
 		),
+		'amp-wordpress-embed' => array(
+			array(
+				'attr_spec_list' => array(
+					'data-url' => array(
+						'mandatory' => true,
+						'value_url' => array(
+							'allow_relative' => false,
+							'protocol' => array(
+								'https',
+							),
+						),
+					),
+					'media' => array(),
+					'noloading' => array(
+						'value' => array(
+							'',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'amp_layout' => array(
+						'supported_layouts' => array(
+							6,
+							2,
+							3,
+							7,
+							9,
+							1,
+							4,
+						),
+					),
+					'requires_extension' => array(
+						'amp-wordpress-embed',
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-wordpress-embed/',
+				),
+			),
+		),
 		'amp-yotpo' => array(
 			array(
 				'attr_spec_list' => array(
@@ -7272,10 +8333,10 @@ class AMP_Allowed_Tags_Generated {
 					),
 					'data-amp-bind-data-videoid' => array(),
 					'data-live-channelid' => array(
-						'value_regex' => '[^=/?:]+',
+						'value_regex' => '[^=\\/?:]+',
 					),
 					'data-videoid' => array(
-						'value_regex' => '[^=/?:]+',
+						'value_regex' => '[^=\\/?:]+',
 					),
 					'dock' => array(
 						'requires_extension' => array(
@@ -7352,6 +8413,16 @@ class AMP_Allowed_Tags_Generated {
 					'spec_url' => 'https://amp.dev/documentation/components/amp-audio/',
 				),
 			),
+			array(
+				'attr_spec_list' => array(
+					'controls' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'amp-audio',
+					'spec_name' => 'amp-audio > audio',
+					'spec_url' => 'https://amp.dev/documentation/components/amp-audio/',
+				),
+			),
 		),
 		'b' => array(
 			array(
@@ -7417,6 +8488,25 @@ class AMP_Allowed_Tags_Generated {
 					),
 				),
 				'tag_spec' => array(),
+			),
+			array(
+				'attr_spec_list' => array(
+					'align' => array(),
+					'cite' => array(
+						'disallowed_value_regex' => '__amp_source_origin',
+						'value_url' => array(
+							'allow_empty' => true,
+							'protocol' => array(
+								'http',
+								'https',
+							),
+						),
+					),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'amp-tiktok blockquote',
+					'spec_name' => 'BLOCKQUOTE with TikTok',
+				),
 			),
 		),
 		'body' => array(
@@ -8052,9 +9142,15 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'amp-nested-submenu' => array(),
-					'amp-nested-submenu-close' => array(),
-					'amp-nested-submenu-open' => array(),
+					'amp-nested-submenu' => array(
+						'dispatch_key' => 2,
+					),
+					'amp-nested-submenu-close' => array(
+						'dispatch_key' => 2,
+					),
+					'amp-nested-submenu-open' => array(
+						'dispatch_key' => 2,
+					),
 				),
 				'tag_spec' => array(
 					'disallowed_ancestor' => array(
@@ -8174,6 +9270,90 @@ class AMP_Allowed_Tags_Generated {
 				'tag_spec' => array(),
 			),
 		),
+		'feblend' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'in2' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'mode' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
 		'fecolormatrix' => array(
 			array(
 				'attr_spec_list' => array(
@@ -8240,6 +9420,87 @@ class AMP_Allowed_Tags_Generated {
 					'type' => array(),
 					'unicode-bidi' => array(),
 					'values' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fecomponenttransfer' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
 					'vector-effect' => array(),
 					'visibility' => array(),
 					'width' => array(),
@@ -8346,6 +9607,369 @@ class AMP_Allowed_Tags_Generated {
 				),
 			),
 		),
+		'feconvolvematrix' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'bias' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'divisor' => array(),
+					'dominant-baseline' => array(),
+					'edgemode' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'kernelmatrix' => array(),
+					'kernelunitlength' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'order' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'preservealpha' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'targetx' => array(),
+					'targety' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fediffuselighting' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'diffuseconstant' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'kernelunitlength' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'surfacescale' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fedisplacementmap' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'in2' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'scale' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xchannelselector' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+					'ychannelselector' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fedistantlight' => array(
+			array(
+				'attr_spec_list' => array(
+					'azimuth' => array(),
+					'elevation' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fedropshadow' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'dx' => array(),
+					'dy' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stddeviation' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'mandatory_parent' => 'filter',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
 		'feflood' => array(
 			array(
 				'attr_spec_list' => array(
@@ -8423,6 +10047,98 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fefunca' => array(
+			array(
+				'attr_spec_list' => array(
+					'amplitude' => array(),
+					'exponent' => array(),
+					'intercept' => array(),
+					'offset' => array(),
+					'slope' => array(),
+					'table' => array(),
+					'tablevalues' => array(),
+					'type' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'mandatory_parent' => 'fecomponenttransfer',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fefuncb' => array(
+			array(
+				'attr_spec_list' => array(
+					'amplitude' => array(),
+					'exponent' => array(),
+					'intercept' => array(),
+					'offset' => array(),
+					'slope' => array(),
+					'table' => array(),
+					'tablevalues' => array(),
+					'type' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'mandatory_parent' => 'fecomponenttransfer',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fefuncg' => array(
+			array(
+				'attr_spec_list' => array(
+					'amplitude' => array(),
+					'exponent' => array(),
+					'intercept' => array(),
+					'offset' => array(),
+					'slope' => array(),
+					'table' => array(),
+					'tablevalues' => array(),
+					'type' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'mandatory_parent' => 'fecomponenttransfer',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fefuncr' => array(
+			array(
+				'attr_spec_list' => array(
+					'amplitude' => array(),
+					'exponent' => array(),
+					'intercept' => array(),
+					'offset' => array(),
+					'slope' => array(),
+					'table' => array(),
+					'tablevalues' => array(),
+					'type' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'mandatory_parent' => 'fecomponenttransfer',
 					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
 				),
 			),
@@ -8608,6 +10324,90 @@ class AMP_Allowed_Tags_Generated {
 				),
 			),
 		),
+		'femorphology' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'operator' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'radius' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
 		'feoffset' => array(
 			array(
 				'attr_spec_list' => array(
@@ -8673,6 +10473,299 @@ class AMP_Allowed_Tags_Generated {
 					'text-anchor' => array(),
 					'text-decoration' => array(),
 					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fepointlight' => array(
+			array(
+				'attr_spec_list' => array(
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+					'z' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fespecularlighting' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'kernelunitlength' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'specularconstant' => array(),
+					'specularexponent' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'surfacescale' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fespotlight' => array(
+			array(
+				'attr_spec_list' => array(
+					'limitingconeangle' => array(),
+					'pointsatx' => array(),
+					'pointsaty' => array(),
+					'pointsatz' => array(),
+					'specularexponent' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+					'z' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'fetile' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'in' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'shape-rendering' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'unicode-bidi' => array(),
+					'vector-effect' => array(),
+					'visibility' => array(),
+					'width' => array(),
+					'word-spacing' => array(),
+					'writing-mode' => array(),
+					'x' => array(),
+					'xml:lang' => array(),
+					'xml:space' => array(),
+					'xmlns' => array(),
+					'xmlns:xlink' => array(),
+					'y' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'svg',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#svg',
+				),
+			),
+		),
+		'feturbulence' => array(
+			array(
+				'attr_spec_list' => array(
+					'alignment-baseline' => array(),
+					'basefrequency' => array(),
+					'baseline-shift' => array(),
+					'clip' => array(),
+					'clip-path' => array(),
+					'clip-rule' => array(),
+					'color' => array(),
+					'color-interpolation' => array(),
+					'color-interpolation-filters' => array(),
+					'color-profile' => array(),
+					'color-rendering' => array(),
+					'cursor' => array(),
+					'direction' => array(),
+					'display' => array(),
+					'dominant-baseline' => array(),
+					'enable-background' => array(),
+					'fill' => array(),
+					'fill-opacity' => array(),
+					'fill-rule' => array(),
+					'filter' => array(),
+					'flood-color' => array(),
+					'flood-opacity' => array(),
+					'focusable' => array(),
+					'font-family' => array(),
+					'font-size' => array(),
+					'font-size-adjust' => array(),
+					'font-stretch' => array(),
+					'font-style' => array(),
+					'font-variant' => array(),
+					'font-weight' => array(),
+					'glyph-orientation-horizontal' => array(),
+					'glyph-orientation-vertical' => array(),
+					'height' => array(),
+					'image-rendering' => array(),
+					'kerning' => array(),
+					'letter-spacing' => array(),
+					'lighting-color' => array(),
+					'marker-end' => array(),
+					'marker-mid' => array(),
+					'marker-start' => array(),
+					'mask' => array(),
+					'numoctaves' => array(),
+					'opacity' => array(),
+					'overflow' => array(),
+					'pointer-events' => array(),
+					'result' => array(),
+					'seed' => array(),
+					'shape-rendering' => array(),
+					'stitchtiles' => array(),
+					'stop-color' => array(),
+					'stop-opacity' => array(),
+					'stroke' => array(),
+					'stroke-dasharray' => array(),
+					'stroke-dashoffset' => array(),
+					'stroke-linecap' => array(),
+					'stroke-linejoin' => array(),
+					'stroke-miterlimit' => array(),
+					'stroke-opacity' => array(),
+					'stroke-width' => array(),
+					'style' => array(),
+					'text-anchor' => array(),
+					'text-decoration' => array(),
+					'text-rendering' => array(),
+					'type' => array(),
 					'unicode-bidi' => array(),
 					'vector-effect' => array(),
 					'visibility' => array(),
@@ -8880,6 +10973,7 @@ class AMP_Allowed_Tags_Generated {
 							),
 						),
 					),
+					'xssi-prefix' => array(),
 				),
 				'tag_spec' => array(
 					'disallowed_ancestor' => array(
@@ -9366,14 +11460,7 @@ class AMP_Allowed_Tags_Generated {
 		),
 		'html' => array(
 			array(
-				'attr_spec_list' => array(
-					'data-amp-autocomplete-opt-in' => array(
-						'disallowed_value_regex' => 'false',
-						'value' => array(
-							'false',
-						),
-					),
-				),
+				'attr_spec_list' => array(),
 				'tag_spec' => array(
 					'mandatory' => true,
 					'mandatory_parent' => '!doctype',
@@ -9440,6 +11527,246 @@ class AMP_Allowed_Tags_Generated {
 			),
 		),
 		'image' => array(
+			array(
+				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
+					'alt' => array(),
+					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
+					'decoding' => array(
+						'value_casei' => array(
+							'async',
+						),
+					),
+					'height' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
+					'ismap' => array(),
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
+						),
+					),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'usemap' => array(),
+					'vspace' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'disallowed_ancestor' => array(
+						'amp-img',
+						'amp-story',
+					),
+					'spec_name' => 'Standard Image',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
+					'alt' => array(),
+					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
+					'data-hero' => array(
+						'dispatch_key' => 1,
+						'mandatory' => true,
+					),
+					'decoding' => array(
+						'value_casei' => array(
+							'async',
+						),
+					),
+					'height' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
+					'ismap' => array(),
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
+						),
+					),
+					'sizes' => array(),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'usemap' => array(),
+					'vspace' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'disallowed_ancestor' => array(
+						'amp-img',
+						'amp-story',
+					),
+					'spec_name' => 'Hero Image',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
+					'alt' => array(),
+					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
+					'decoding' => array(
+						'value_casei' => array(
+							'async',
+						),
+					),
+					'height' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
+					'ismap' => array(),
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
+						),
+					),
+					'sizes' => array(),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'usemap' => array(),
+					'vspace' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'disallowed_ancestor' => array(
+						'amp-img',
+						'amp-story',
+					),
+					'spec_name' => 'Image using srcset',
+				),
+			),
 			array(
 				'attr_spec_list' => array(
 					'alignment-baseline' => array(),
@@ -9548,28 +11875,136 @@ class AMP_Allowed_Tags_Generated {
 		'img' => array(
 			array(
 				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
 					'alt' => array(),
-					'attribution' => array(),
 					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
 					'decoding' => array(
-						'value' => array(
+						'value_casei' => array(
 							'async',
-							'auto',
-							'sync',
 						),
 					),
 					'height' => array(),
-					'importance' => array(),
-					'intrinsicsize' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
 					'ismap' => array(),
-					'loading' => array(),
-					'longdesc' => array(
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
+						),
+					),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
 						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
 						'value_url' => array(
 							'protocol' => array(
+								'data',
 								'http',
 								'https',
 							),
+						),
+					),
+					'usemap' => array(),
+					'vspace' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'disallowed_ancestor' => array(
+						'amp-img',
+						'amp-story',
+					),
+					'spec_name' => 'Standard Img',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
+					'alt' => array(),
+					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
+					'data-hero' => array(
+						'dispatch_key' => 1,
+						'mandatory' => true,
+					),
+					'decoding' => array(
+						'value_casei' => array(
+							'async',
+						),
+					),
+					'height' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
+					'ismap' => array(),
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
 						),
 					),
 					'sizes' => array(),
@@ -9580,7 +12015,6 @@ class AMP_Allowed_Tags_Generated {
 						'disallowed_value_regex' => '__amp_source_origin',
 						'mandatory' => true,
 						'value_url' => array(
-							'allow_relative' => true,
 							'protocol' => array(
 								'data',
 								'http',
@@ -9588,12 +12022,228 @@ class AMP_Allowed_Tags_Generated {
 							),
 						),
 					),
+					'usemap' => array(),
+					'vspace' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'disallowed_ancestor' => array(
+						'amp-img',
+						'amp-story',
+					),
+					'spec_name' => 'Hero Img',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
+					'alt' => array(),
+					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
+					'decoding' => array(
+						'value_casei' => array(
+							'async',
+						),
+					),
+					'height' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
+					'ismap' => array(),
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
+						),
+					),
+					'sizes' => array(),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'usemap' => array(),
+					'vspace' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'disallowed_ancestor' => array(
+						'amp-img',
+						'amp-story',
+					),
+					'spec_name' => 'Img using srcset',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'align' => array(
+						'value_casei' => array(
+							'top',
+							'middle',
+							'bottom',
+							'left',
+							'right',
+						),
+					),
+					'alt' => array(),
+					'attribution' => array(),
+					'border' => array(),
+					'crossorigin' => array(
+						'value_casei' => array(
+							'anonymous',
+							'use-credentials',
+						),
+					),
+					'decoding' => array(
+						'value_casei' => array(
+							'async',
+							'auto',
+							'sync',
+						),
+					),
+					'height' => array(),
+					'hspace' => array(),
+					'importance' => array(
+						'value_casei' => array(
+							'high',
+							'low',
+							'auto',
+						),
+					),
+					'intrinsicsize' => array(),
+					'ismap' => array(),
+					'loading' => array(
+						'value_casei' => array(
+							'lazy',
+						),
+					),
+					'name' => array(),
+					'referrerpolicy' => array(
+						'value_casei' => array(
+							'no-referrer',
+							'no-referrer-when-downgrade',
+							'origin',
+							'origin-when-cross-origin',
+							'same-origin',
+							'strict-origin',
+							'strict-origin-when-cross-origin',
+							'unsafe-url',
+						),
+					),
+					'sizes' => array(),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'usemap' => array(),
+					'vspace' => array(),
 					'width' => array(),
 				),
 				'tag_spec' => array(
 					'mandatory_ancestor' => 'noscript',
 					'mandatory_ancestor_suggested_alternative' => 'amp-img',
+					'spec_name' => 'noscript > img',
 					'spec_url' => 'https://amp.dev/documentation/components/amp-img/',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'alt' => array(),
+					'attribution' => array(),
+					'data-amp-story-player-poster-img' => array(
+						'dispatch_key' => 2,
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'decoding' => array(
+						'value' => array(
+							'async',
+						),
+					),
+					'height' => array(
+						'value_regex' => '[0-9]+',
+					),
+					'loading' => array(
+						'mandatory' => true,
+						'value' => array(
+							'lazy',
+						),
+					),
+					'sizes' => array(),
+					'src' => array(
+						'alternative_names' => array(
+							'srcset',
+						),
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'width' => array(
+						'value_regex' => '[0-9]+',
+					),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'amp-story-player',
+					'mandatory_parent' => 'a',
+					'spec_name' => 'amp-story-player > img',
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-player/',
 				),
 			),
 		),
@@ -9671,6 +12321,11 @@ class AMP_Allowed_Tags_Generated {
 					'accesskey' => array(),
 					'autocomplete' => array(),
 					'autofocus' => array(),
+					'capture' => array(
+						'value' => array(
+							'',
+						),
+					),
 					'checked' => array(),
 					'data-amp-bind-accept' => array(),
 					'data-amp-bind-accesskey' => array(),
@@ -9808,6 +12463,85 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
+					'accept' => array(),
+					'accesskey' => array(),
+					'autocomplete' => array(),
+					'autofocus' => array(),
+					'checked' => array(),
+					'data-amp-bind-accept' => array(),
+					'data-amp-bind-accesskey' => array(),
+					'data-amp-bind-autocomplete' => array(),
+					'data-amp-bind-checked' => array(),
+					'data-amp-bind-disabled' => array(),
+					'data-amp-bind-height' => array(),
+					'data-amp-bind-inputmode' => array(),
+					'data-amp-bind-max' => array(),
+					'data-amp-bind-maxlength' => array(),
+					'data-amp-bind-min' => array(),
+					'data-amp-bind-minlength' => array(),
+					'data-amp-bind-multiple' => array(),
+					'data-amp-bind-pattern' => array(),
+					'data-amp-bind-placeholder' => array(),
+					'data-amp-bind-readonly' => array(),
+					'data-amp-bind-required' => array(),
+					'data-amp-bind-selectiondirection' => array(),
+					'data-amp-bind-size' => array(),
+					'data-amp-bind-spellcheck' => array(),
+					'data-amp-bind-step' => array(),
+					'data-amp-bind-type' => array(),
+					'data-amp-bind-value' => array(),
+					'data-amp-bind-width' => array(),
+					'disabled' => array(),
+					'enterkeyhint' => array(),
+					'height' => array(),
+					'inputmode' => array(),
+					'list' => array(),
+					'max' => array(),
+					'maxlength' => array(),
+					'min' => array(),
+					'minlength' => array(),
+					'multiple' => array(),
+					'name' => array(
+						'disallowed_value_regex' => '(^|\\s)(__amp_\\S*|__count__|__defineGetter__|__defineSetter__|__lookupGetter__|__lookupSetter__|__noSuchMethod__|__parent__|__proto__|__AMP_\\S*|\\$p|\\$proxy|acceptCharset|addEventListener|appendChild|assignedSlot|attachShadow|baseURI|checkValidity|childElementCount|childNodes|classList|className|clientHeight|clientLeft|clientTop|clientWidth|compareDocumentPosition|computedName|computedRole|contentEditable|createShadowRoot|enqueAction|firstChild|firstElementChild|getAnimations|getAttribute|getAttributeNS|getAttributeNode|getAttributeNodeNS|getBoundingClientRect|getClientRects|getDestinationInsertionPoints|getElementsByClassName|getElementsByTagName|getElementsByTagNameNS|getRootNode|hasAttribute|hasAttributeNS|hasAttributes|hasChildNodes|hasPointerCapture|innerHTML|innerText|inputMode|insertAdjacentElement|insertAdjacentHTML|insertAdjacentText|isContentEditable|isDefaultNamespace|isEqualNode|isSameNode|lastChild|lastElementChild|lookupNamespaceURI|namespaceURI|nextElementSibling|nextSibling|nodeName|nodeType|nodeValue|offsetHeight|offsetLeft|offsetParent|offsetTop|offsetWidth|outerHTML|outerText|ownerDocument|parentElement|parentNode|previousElementSibling|previousSibling|querySelector|querySelectorAll|releasePointerCapture|removeAttribute|removeAttributeNS|removeAttributeNode|removeChild|removeEventListener|replaceChild|reportValidity|requestPointerLock|scrollHeight|scrollIntoView|scrollIntoViewIfNeeded|scrollLeft|scrollWidth|setAttribute|setAttributeNS|setAttributeNode|setAttributeNodeNS|setPointerCapture|shadowRoot|styleMap|tabIndex|tagName|textContent|toString|valueOf|(webkit|ms|moz|o)dropzone|(webkit|moz|ms|o)MatchesSelector|(webkit|moz|ms|o)RequestFullScreen|(webkit|moz|ms|o)RequestFullscreen)(\\s|$)',
+					),
+					'pattern' => array(),
+					'placeholder' => array(),
+					'readonly' => array(),
+					'required' => array(),
+					'selectiondirection' => array(),
+					'size' => array(),
+					'spellcheck' => array(),
+					'src' => array(
+						'disallowed_value_regex' => '__amp_source_origin',
+						'mandatory' => true,
+						'value_url' => array(
+							'protocol' => array(
+								'data',
+								'http',
+								'https',
+							),
+						),
+					),
+					'step' => array(),
+					'tabindex' => array(),
+					'type' => array(
+						'dispatch_key' => 2,
+						'mandatory' => true,
+						'value_casei' => array(
+							'image',
+						),
+					),
+					'value' => array(),
+					'width' => array(),
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'form [method=post]',
+					'spec_name' => 'INPUT [type=image]',
+					'spec_url' => 'https://amp.dev/documentation/components/amp-form/',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
 					'type' => array(
 						'mandatory' => true,
 						'value_casei' => array(
@@ -9819,8 +12553,8 @@ class AMP_Allowed_Tags_Generated {
 				'tag_spec' => array(
 					'mandatory_parent' => 'amp-autocomplete',
 					'requires_extension' => array(
-						'amp-form',
 						'amp-autocomplete',
+						'amp-form',
 					),
 					'spec_name' => 'amp-autocomplete > input',
 				),
@@ -10547,7 +13281,7 @@ class AMP_Allowed_Tags_Generated {
 					'hreflang' => array(),
 					'media' => array(),
 					'rel' => array(
-						'disallowed_value_regex' => '(^|\\s)(canonical|components|import|manifest|preload|serviceworker|stylesheet|subresource)(\\s|$)',
+						'disallowed_value_regex' => '(^|\\s)(canonical|components|import|manifest|modulepreload|preload|serviceworker|stylesheet|subresource)(\\s|$)',
 						'mandatory' => true,
 					),
 					'sizes' => array(),
@@ -10641,6 +13375,38 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
+					'as' => array(
+						'mandatory' => true,
+						'value' => array(
+							'script',
+						),
+					),
+					'crossorigin' => array(
+						'mandatory' => true,
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'href' => array(
+						'mandatory' => true,
+						'value_regex' => '.*\\.mjs$',
+					),
+					'rel' => array(
+						'dispatch_key' => 2,
+						'mandatory' => true,
+						'value_casei' => array(
+							'modulepreload',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'mandatory_parent' => 'head',
+					'spec_name' => 'link rel=modulepreload',
+					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#html-tags',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
 					'as' => array(),
 					'charset' => array(
 						'value_casei' => array(
@@ -10687,7 +13453,7 @@ class AMP_Allowed_Tags_Generated {
 					'crossorigin' => array(),
 					'href' => array(
 						'mandatory' => true,
-						'value_regex' => 'https://cdn\\.materialdesignicons\\.com/([0-9]+\\.?)+/css/materialdesignicons\\.min\\.css|https://cloud\\.typography\\.com/[0-9]*/[0-9]*/css/fonts\\.css|https://fast\\.fonts\\.net/.*|https://fonts\\.googleapis\\.com/css2?\\?.*|https://fonts\\.googleapis\\.com/icon\\?.*|https://fonts\\.googleapis\\.com/earlyaccess/.*\\.css|https://maxcdn\\.bootstrapcdn\\.com/font-awesome/([0-9]+\\.?)+/css/font-awesome\\.min\\.css(\\?.*)?|https://(use|pro)\\.fontawesome\\.com/releases/v([0-9]+\\.?)+/css/[0-9a-zA-Z-]+\\.css|https://(use|pro)\\.fontawesome\\.com/[0-9a-zA-Z-]+\\.css|https://use\\.typekit\\.net/[\\w\\p{L}\\p{N}_]+\\.css',
+						'value_regex' => 'https:\\/\\/cdn\\.materialdesignicons\\.com\\/([0-9]+\\.?)+\\/css\\/materialdesignicons\\.min\\.css|https:\\/\\/cloud\\.typography\\.com\\/[0-9]*\\/[0-9]*\\/css\\/fonts\\.css|https:\\/\\/fast\\.fonts\\.net\\/.*|https:\\/\\/fonts\\.googleapis\\.com\\/css2?\\?.*|https:\\/\\/fonts\\.googleapis\\.com\\/icon\\?.*|https:\\/\\/fonts\\.googleapis\\.com\\/earlyaccess\\/.*\\.css|https:\\/\\/maxcdn\\.bootstrapcdn\\.com\\/font-awesome\\/([0-9]+\\.?)+\\/css\\/font-awesome\\.min\\.css(\\?.*)?|https:\\/\\/(use|pro|kit)\\.fontawesome\\.com\\/releases\\/v([0-9]+\\.?)+\\/css\\/[0-9a-zA-Z-]+\\.css|https:\\/\\/(use|pro|kit)\\.fontawesome\\.com\\/[0-9a-zA-Z-]+\\.css|https:\\/\\/use\\.typekit\\.net\\/[\\w\\p{L}\\p{N}_]+\\.css',
 					),
 					'integrity' => array(),
 					'media' => array(),
@@ -11272,6 +14038,7 @@ class AMP_Allowed_Tags_Generated {
 				'attr_spec_list' => array(
 					'content' => array(),
 					'itemprop' => array(),
+					'media' => array(),
 					'name' => array(
 						'disallowed_value_regex' => '(^|\\s)(amp-.*|amp4ads-.*|apple-itunes-app|content-disposition|revisit-after|viewport)(\\s|$)',
 					),
@@ -11618,11 +14385,15 @@ class AMP_Allowed_Tags_Generated {
 			array(
 				'attr_spec_list' => array(),
 				'tag_spec' => array(
-					'mandatory' => true,
+					'child_tags' => array(
+						'child_tag_name_oneof' => array(
+							'style',
+						),
+						'mandatory_min_num_child_tags' => 1,
+					),
 					'mandatory_parent' => 'head',
-					'spec_name' => 'noscript enclosure for boilerplate',
+					'spec_name' => 'noscript enclosure for amp style tags',
 					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amp-boilerplate/?format=websites',
-					'unique' => true,
 				),
 			),
 			array(
@@ -12379,9 +15150,8 @@ class AMP_Allowed_Tags_Generated {
 					),
 				),
 				'tag_spec' => array(
-					'mandatory_alternatives' => 'amphtml engine v0.js script',
 					'mandatory_parent' => 'head',
-					'spec_name' => 'amphtml engine v0.js script',
+					'spec_name' => 'amphtml engine script',
 					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#required-markup',
 					'unique' => true,
 				),
@@ -12422,9 +15192,8 @@ class AMP_Allowed_Tags_Generated {
 					),
 				),
 				'tag_spec' => array(
-					'mandatory_alternatives' => 'amphtml engine v0.js script',
 					'mandatory_parent' => 'head',
-					'spec_name' => 'amphtml engine v0.js lts script',
+					'spec_name' => 'amphtml engine script (LTS)',
 					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#required-markup',
 					'unique' => true,
 				),
@@ -12508,192 +15277,21 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
+					'amp-onerror' => array(
+						'dispatch_key' => 2,
 						'mandatory' => true,
 						'value' => array(
 							'',
 						),
 					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
+				),
+				'cdata' => array(
+					'mandatory_cdata' => 'document.querySelector("script[src*=\'/v0.js\']").onerror=function(){document.querySelector(\'style[amp-boilerplate]\').textContent=\'\'}',
 				),
 				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-3d-gltf',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-3q-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-access-laterpay',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-							'0.2',
-						),
-					),
-					'requires_extension' => array(
-						'amp-access',
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-access-poool',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-					'requires_extension' => array(
-						'amp-access',
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-access-scroll',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-					'requires_extension' => array(
-						'amp-access',
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-access',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
+					'mandatory_parent' => 'head',
+					'spec_name' => 'script amp-onerror (v0.js)',
+					'unique' => true,
 				),
 			),
 			array(
@@ -12732,188 +15330,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-accordion',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-action-macro',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-ad-custom',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-					'spec_name' => 'amp-ad-custom extension .js script',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-ad',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-					'spec_name' => 'amp-ad extension .js script',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-addthis',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-analytics',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'nonce' => array(),
 					'type' => array(
 						'dispatch_key' => 3,
@@ -12938,66 +15354,6 @@ class AMP_Allowed_Tags_Generated {
 					),
 					'spec_name' => 'amp-analytics extension .json script',
 					'spec_url' => 'https://amp.dev/documentation/components/amp-analytics/',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-anim',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-animation',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
 				),
 			),
 			array(
@@ -13029,156 +15385,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-apester-media',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-app-banner',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-audio',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-auto-ads',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-autocomplete',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'nonce' => array(),
 					'type' => array(
 						'dispatch_key' => 3,
@@ -13202,96 +15408,6 @@ class AMP_Allowed_Tags_Generated {
 						'amp-autocomplete',
 					),
 					'spec_name' => 'amp-autocomplete JSON',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-base-carousel',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-beopinion',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-bind',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
 				),
 			),
 			array(
@@ -13326,247 +15442,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-bodymovin-animation',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-brid-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-brightcove',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-byside-content',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-call-tracking',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-carousel',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-							'0.2',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-connatix-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-consent',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'nonce' => array(),
 					'type' => array(
 						'dispatch_key' => 3,
@@ -13595,247 +15470,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-dailymotion',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-date-countdown',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-date-display',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-date-picker',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-delight-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-dynamic-css-classes',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-embedly-card',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-experiment',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-							'1.0',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'nonce' => array(),
 					'type' => array(
 						'dispatch_key' => 3,
@@ -13859,306 +15493,6 @@ class AMP_Allowed_Tags_Generated {
 					'mandatory_parent' => 'amp-experiment',
 					'spec_name' => 'amp-experiment extension .json script',
 					'spec_url' => 'https://amp.dev/documentation/components/amp-experiment/',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-facebook-comments',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-facebook-like',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-facebook-page',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-facebook',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-fit-text',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-font',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-form',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-fx-collection',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-fx-flying-carpet',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-geo',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
 				),
 			),
 			array(
@@ -14191,576 +15525,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-gfycat',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-gist',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-google-document-embed',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-hulu',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-iframe',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-ima-video',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-image-lightbox',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-image-slider',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-imgur',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-inline-gallery',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-inputmask',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-instagram',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-install-serviceworker',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-izlesene',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-jwplayer',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-kaltura-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-lightbox-gallery',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-lightbox',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-link-rewriter',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'nonce' => array(),
 					'type' => array(
 						'dispatch_key' => 3,
@@ -14784,249 +15548,6 @@ class AMP_Allowed_Tags_Generated {
 						'amp-link-rewriter',
 					),
 					'spec_name' => 'amp-link-rewriter extension .json script',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-list',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-live-list',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-					'mandatory_parent' => 'head',
-					'unique_warning' => true,
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-mathml',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-mega-menu',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-megaphone',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-minute-media-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-mowplayer',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-mustache',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-							'0.2',
-						),
-					),
 				),
 			),
 			array(
@@ -15074,67 +15595,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-nested-menu',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-next-page',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-							'1.0',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'type' => array(
 						'dispatch_key' => 3,
 						'mandatory' => true,
@@ -15150,456 +15610,6 @@ class AMP_Allowed_Tags_Generated {
 					),
 					'spec_name' => 'AMP-NEXT-PAGE > SCRIPT[type=application/json]',
 					'spec_url' => 'https://amp.dev/documentation/components/amp-next-page/',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-nexxtv-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-o2-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-ooyala-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-orientation-observer',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-pan-zoom',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-pinterest',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-playbuzz',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-position-observer',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-powr-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-reach-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-recaptcha-input',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-redbull-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-reddit',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-riddle-quiz',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-script',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
 				),
 			),
 			array(
@@ -15643,307 +15653,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-selector',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-sidebar',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-skimlinks',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-smartlinks',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-social-share',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-soundcloud',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-springboard-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-sticky-ad',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-							'1.0',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-story-360',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-story-auto-ads',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'nonce' => array(),
 					'type' => array(
 						'dispatch_key' => 3,
@@ -15972,92 +15681,30 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
 					'nonce' => array(),
 					'type' => array(
+						'dispatch_key' => 3,
+						'mandatory' => true,
 						'value_casei' => array(
-							'text/javascript',
+							'application/json',
+						),
+					),
+				),
+				'cdata' => array(
+					'disallowed_cdata_regex' => array(
+						array(
+							'error_message' => 'html comments',
+							'regex' => '<!--',
 						),
 					),
 				),
 				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-story-interactive',
-						'requires_usage' => true,
-						'version' => array(
-							'1.0',
-						),
+					'mandatory_parent' => 'amp-story-shopping-attachment',
+					'requires_extension' => array(
+						'amp-story-shopping',
 					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-story-player',
-						'requires_usage' => true,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-story',
-						'requires_usage' => true,
-						'version' => array(
-							'1.0',
-						),
-					),
+					'spec_name' => 'amp-story-shopping-attachment config script',
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-shopping/',
 				),
 			),
 			array(
@@ -16077,6 +15724,26 @@ class AMP_Allowed_Tags_Generated {
 						'amp-story',
 					),
 					'spec_name' => 'amp-story-bookend extension .json script',
+					'unique' => true,
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'nonce' => array(),
+					'type' => array(
+						'dispatch_key' => 3,
+						'mandatory' => true,
+						'value_casei' => array(
+							'application/json',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'mandatory_parent' => 'amp-story-social-share',
+					'requires_extension' => array(
+						'amp-story',
+					),
+					'spec_name' => 'amp-story-social-share extension .json script',
 					'unique' => true,
 				),
 			),
@@ -16162,36 +15829,6 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-subscriptions',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-				),
-			),
-			array(
-				'attr_spec_list' => array(
 					'id' => array(
 						'dispatch_key' => 2,
 						'mandatory' => true,
@@ -16222,39 +15859,6 @@ class AMP_Allowed_Tags_Generated {
 					),
 					'spec_name' => 'amp-subscriptions extension .json script',
 					'unique' => true,
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
-						'name' => 'amp-subscriptions-google',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
-						),
-					),
-					'requires_extension' => array(
-						'amp-subscriptions',
-					),
 				),
 			),
 			array(
@@ -16334,7 +15938,8 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
-						'name' => 'amp-timeago',
+						'latest' => '0.1',
+						'name' => 'amp-3d-gltf',
 						'requires_usage' => true,
 						'version' => array(
 							'0.1',
@@ -16364,6 +15969,3860 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-3q-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-access',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-access-fewcents',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+					'requires_extension' => array(
+						'amp-access',
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.2',
+						'name' => 'amp-access-laterpay',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+							'0.2',
+						),
+					),
+					'requires_extension' => array(
+						'amp-access',
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-access-poool',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+					'requires_extension' => array(
+						'amp-access',
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-access-scroll',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+					'requires_extension' => array(
+						'amp-access',
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-accordion',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-action-macro',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-ad',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-ad-custom',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-addthis',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-analytics',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-anim',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-animation',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-apester-media',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-app-banner',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => false,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-audio',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-auto-ads',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-autocomplete',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-base-carousel',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-beopinion',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-bind',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-bodymovin-animation',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-brid-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-brightcove',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-byside-content',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-cache-url',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-call-tracking',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-carousel',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'0.2',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-connatix-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-consent',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-dailymotion',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-date-countdown',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-date-display',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-date-picker',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-delight-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-dynamic-css-classes',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-embedly-card',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-experiment',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-facebook',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-facebook-comments',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-facebook-like',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-facebook-page',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-fit-text',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-font',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-form',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-fx-collection',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-fx-flying-carpet',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-geo',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-gfycat',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-gist',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-google-document-embed',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-google-read-aloud-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-hulu',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-iframe',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-iframely',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-ima-video',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-image-lightbox',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-image-slider',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-imgur',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-inline-gallery',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-inputmask',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-instagram',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-install-serviceworker',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-izlesene',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-jwplayer',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-kaltura-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-lightbox',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-lightbox-gallery',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-link-rewriter',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-list',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-live-list',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+					'mandatory_parent' => 'head',
+					'unique_warning' => true,
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-mathml',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-mega-menu',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-megaphone',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-minute-media-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-mowplayer',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.2',
+						'name' => 'amp-mustache',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'0.2',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-nested-menu',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '1.0',
+						'name' => 'amp-next-page',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-nexxtv-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-o2-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-onetap-google',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-ooyala-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-orientation-observer',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-pan-zoom',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-pinterest',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-playbuzz',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-position-observer',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-powr-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-reach-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-recaptcha-input',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-redbull-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-reddit',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '1.0',
+						'name' => 'amp-render',
+						'requires_usage' => true,
+						'version' => array(
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-riddle-quiz',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-script',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-selector',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-sidebar',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-skimlinks',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-smartlinks',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-social-share',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-soundcloud',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-springboard-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '1.0',
+						'name' => 'amp-sticky-ad',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '1.0',
+						'name' => 'amp-story',
+						'requires_usage' => true,
+						'version' => array(
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-360',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-auto-ads',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-auto-analytics',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-captions',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-interactive',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-panning-media',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-player',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+					'spec_url' => 'https://amp.dev/documentation/components/amp-story-player/',
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-shopping',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-story-subscriptions',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-stream-gallery',
+						'requires_usage' => true,
+						'version' => array(
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-subscriptions',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-subscriptions-google',
+						'requires_usage' => false,
+						'version' => array(
+							'0.1',
+						),
+					),
+					'requires_extension' => array(
+						'amp-subscriptions',
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
+						'name' => 'amp-tiktok',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-timeago',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-truncate-text',
 						'requires_usage' => true,
 						'version' => array(
@@ -16394,10 +19853,16 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
 						'name' => 'amp-twitter',
 						'requires_usage' => true,
 						'version' => array(
 							'0.1',
+							'1.0',
 						),
 					),
 				),
@@ -16424,6 +19889,7 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-user-notification',
 						'requires_usage' => true,
 						'version' => array(
@@ -16454,13 +19920,49 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
+						'name' => 'amp-video',
+						'requires_usage' => true,
+						'version' => array(
+							'0.1',
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-video-docking',
 						'requires_usage' => true,
 						'version' => array(
 							'0.1',
 						),
 					),
-					'spec_name' => 'amp-video-docking',
 				),
 			),
 			array(
@@ -16485,10 +19987,16 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
 						'name' => 'amp-video-iframe',
 						'requires_usage' => true,
 						'version' => array(
 							'0.1',
+							'1.0',
 						),
 					),
 				),
@@ -16515,41 +20023,16 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
-						'name' => 'amp-video',
-						'requires_usage' => false,
-						'version' => array(
-							'0.1',
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
 						),
-					),
-					'spec_name' => 'amp-video extension .js script',
-				),
-			),
-			array(
-				'attr_spec_list' => array(
-					'async' => array(
-						'mandatory' => true,
-						'value' => array(
-							'',
-						),
-					),
-					'crossorigin' => array(
-						'value' => array(
-							'anonymous',
-						),
-					),
-					'nonce' => array(),
-					'type' => array(
-						'value_casei' => array(
-							'text/javascript',
-						),
-					),
-				),
-				'tag_spec' => array(
-					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-vimeo',
 						'requires_usage' => true,
 						'version' => array(
 							'0.1',
+							'1.0',
 						),
 					),
 				),
@@ -16576,6 +20059,7 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-vine',
 						'requires_usage' => true,
 						'version' => array(
@@ -16606,6 +20090,7 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-viqeo-player',
 						'requires_usage' => true,
 						'version' => array(
@@ -16636,6 +20121,7 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-vk',
 						'requires_usage' => true,
 						'version' => array(
@@ -16666,6 +20152,7 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-web-push',
 						'requires_usage' => true,
 						'version' => array(
@@ -16696,6 +20183,7 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-wistia-player',
 						'requires_usage' => true,
 						'version' => array(
@@ -16726,6 +20214,42 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '1.0',
+						'name' => 'amp-wordpress-embed',
+						'requires_usage' => true,
+						'version' => array(
+							'1.0',
+						),
+					),
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'async' => array(
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'crossorigin' => array(
+						'value' => array(
+							'anonymous',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/javascript',
+						),
+					),
+				),
+				'tag_spec' => array(
+					'extension_spec' => array(
+						'latest' => '0.1',
 						'name' => 'amp-yotpo',
 						'requires_usage' => true,
 						'version' => array(
@@ -16757,10 +20281,16 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'tag_spec' => array(
 					'extension_spec' => array(
+						'bento' => array(
+							'has_css' => true,
+							'version' => '1.0',
+						),
+						'latest' => '0.1',
 						'name' => 'amp-youtube',
 						'requires_usage' => true,
 						'version' => array(
 							'0.1',
+							'1.0',
 						),
 					),
 				),
@@ -16788,7 +20318,13 @@ class AMP_Allowed_Tags_Generated {
 			),
 			array(
 				'attr_spec_list' => array(
+					'access-hide' => array(
+						'value' => array(
+							'',
+						),
+					),
 					'data-amp-bind-data-expand' => array(),
+					'data-amp-bind-expanded' => array(),
 					'expanded' => array(
 						'value' => array(
 							'',
@@ -17194,6 +20730,7 @@ class AMP_Allowed_Tags_Generated {
 							'media',
 							'page',
 							'supports',
+							'-moz-document',
 						),
 						'declaration' => array(),
 						'validate_keyframes' => false,
@@ -17235,7 +20772,6 @@ class AMP_Allowed_Tags_Generated {
 					'doc_css_bytes' => false,
 				),
 				'tag_spec' => array(
-					'mandatory' => true,
 					'mandatory_parent' => 'head',
 					'spec_name' => 'head > style[amp-boilerplate]',
 					'spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amp-boilerplate/?format=websites',
@@ -17258,7 +20794,6 @@ class AMP_Allowed_Tags_Generated {
 					'doc_css_bytes' => false,
 				),
 				'tag_spec' => array(
-					'mandatory' => true,
 					'mandatory_ancestor' => 'head',
 					'mandatory_parent' => 'noscript',
 					'spec_name' => 'noscript > style[amp-boilerplate]',
@@ -17299,6 +20834,55 @@ class AMP_Allowed_Tags_Generated {
 				'tag_spec' => array(
 					'mandatory_parent' => 'body',
 					'spec_name' => 'style[amp-keyframes]',
+					'unique' => true,
+				),
+			),
+			array(
+				'attr_spec_list' => array(
+					'amp-noscript' => array(
+						'dispatch_key' => 1,
+						'mandatory' => true,
+						'value' => array(
+							'',
+						),
+					),
+					'nonce' => array(),
+					'type' => array(
+						'value_casei' => array(
+							'text/css',
+						),
+					),
+				),
+				'cdata' => array(
+					'css_spec' => array(
+						'allowed_at_rules' => array(
+							'media',
+							'page',
+							'supports',
+							'-moz-document',
+						),
+						'declaration' => array(),
+						'validate_keyframes' => false,
+					),
+					'disallowed_cdata_regex' => array(
+						array(
+							'error_message' => 'html comments',
+							'regex' => '<!--',
+						),
+						array(
+							'error_message' => 'CSS i-amphtml- name prefix',
+							'regex' => '(^|\\W)i-amphtml-',
+						),
+					),
+					'doc_css_bytes' => true,
+					'max_bytes' => 10000,
+					'max_bytes_spec_url' => 'https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/#maximum-size',
+				),
+				'tag_spec' => array(
+					'mandatory_ancestor' => 'head',
+					'mandatory_parent' => 'noscript',
+					'spec_name' => 'style amp-noscript',
+					'spec_url' => 'https://github.com/ampproject/amphtml/issues/20609',
 					'unique' => true,
 				),
 			),
@@ -18838,6 +22422,7 @@ class AMP_Allowed_Tags_Generated {
 		'aria-labelledby' => array(),
 		'aria-level' => array(),
 		'aria-live' => array(),
+		'aria-modal' => array(),
 		'aria-multiline' => array(),
 		'aria-multiselectable' => array(),
 		'aria-orientation' => array(),
@@ -19361,6 +22946,9 @@ class AMP_Allowed_Tags_Generated {
 				'animate-in-delay' => array(),
 				'animate-in-duration' => array(),
 				'animate-in-timing-function' => array(),
+				'pan-scaling-factor' => array(
+					'value_regex_casei' => '^([0-9]*[.]?[0-9]+)|([0-9]+[.]?[0-9]*)$',
+				),
 				'scale-end' => array(
 					'value_regex' => '[0-9]+([.][0-9]+)?',
 				),
@@ -19428,6 +23016,9 @@ class AMP_Allowed_Tags_Generated {
 					'value' => array(
 						'',
 					),
+				),
+				'pan-scaling-factor' => array(
+					'value_regex_casei' => '^([0-9]*[.]?[0-9]+)|([0-9]+[.]?[0-9]*)$',
 				),
 				'scale-end' => array(
 					'value_regex' => '[0-9]+([.][0-9]+)?',
@@ -19557,6 +23148,9 @@ class AMP_Allowed_Tags_Generated {
 						'stretch',
 					),
 				),
+				'pan-scaling-factor' => array(
+					'value_regex_casei' => '^([0-9]*[.]?[0-9]+)|([0-9]+[.]?[0-9]*)$',
+				),
 				'scale-end' => array(
 					'value_regex' => '[0-9]+([.][0-9]+)?',
 				),
@@ -19584,17 +23178,6 @@ class AMP_Allowed_Tags_Generated {
 				),
 				'spec_name' => 'AMP-STORY-GRID-LAYER default',
 				'spec_url' => 'https://amp.dev/documentation/components/amp-story/',
-			),
-		),
-		'AMP-VIDEO-IFRAME > [placeholder]' => array(
-			'attr_spec_list' => array(
-				'placeholder' => array(
-					'mandatory' => true,
-				),
-			),
-			'tag_spec' => array(
-				'spec_name' => 'AMP-VIDEO-IFRAME > [placeholder]',
-				'spec_url' => 'https://amp.dev/documentation/components/amp-video-iframe/',
 			),
 		),
 	);

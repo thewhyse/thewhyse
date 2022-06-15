@@ -32,7 +32,7 @@ class FblikePopup extends SGPopup
 						sgpbOldCB();
 					}
 					FB.init({
-						appId: <?php echo SGPB_FACEBOOK_APP_ID;?>
+						appId: <?php echo esc_html(SGPB_FACEBOOK_APP_ID);?>
 				    });
 				};
 				(function(d, s, id) {

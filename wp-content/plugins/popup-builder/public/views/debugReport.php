@@ -2,12 +2,10 @@
 global $SGPB_DEBUG_POPUP_BUILDER_DETAILS;
 $SGPB_DEBUG_POPUP_BUILDER_DETAILS = json_encode($SGPB_DEBUG_POPUP_BUILDER_DETAILS);
 
-echo '<script>var SGPB_DEBUG_POPUP_BUILDER_DETAILS = '.$SGPB_DEBUG_POPUP_BUILDER_DETAILS.';</script>';
+echo wp_kses('<script>var SGPB_DEBUG_POPUP_BUILDER_DETAILS = '.$SGPB_DEBUG_POPUP_BUILDER_DETAILS.';</script>', \sgpb\AdminHelper::allowed_html_tags());
 ?>
+
 <script type="text/javascript">
-
-var SGPB_DEBUG_POPUP_BUILDER_DETAILS = <?php echo $SGPB_DEBUG_POPUP_BUILDER_DETAILS; ?>;
-
 function debugModeInit()
 {
 	if (typeof SGPB_DEBUG_POPUP_BUILDER_DETAILS == 'undefined') {

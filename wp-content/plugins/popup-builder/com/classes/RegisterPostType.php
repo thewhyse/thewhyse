@@ -143,7 +143,7 @@ class RegisterPostType
 		$popupId = 0;
 
 		if (!empty($_GET['post'])) {
-			$popupId = (int)$_GET['post'];
+			$popupId = (int)sanitize_text_field($_GET['post']);
 		}
 
 		$popupType = $this->getPopupTypeName();
@@ -162,7 +162,7 @@ class RegisterPostType
 		 * if the post id doesn't exist, we try to find it with $_GET['sgpb_type']
 		 */
 		if (!empty($_GET['post'])) {
-			$popupId = (int)$_GET['post'];
+			$popupId = (int)sanitize_text_field($_GET['post']);
 			$popupOptionsData = SGPopup::getPopupOptionsById($popupId);
 			if (!empty($popupOptionsData['sgpb-type'])) {
 				$popupType = $popupOptionsData['sgpb-type'];
@@ -203,7 +203,7 @@ class RegisterPostType
 		$popupClassName = $this->getPopupClassNameFromPopupType($popupType);
 
 		if (!file_exists($typePath.$popupClassName.'.php')) {
-			die(__('Popup class does not exist', SG_POPUP_TEXT_DOMAIN));
+			die(esc_html__('Popup class does not exist', SG_POPUP_TEXT_DOMAIN));
 		}
 		require_once($typePath.$popupClassName.'.php');
 		$popupClassName = __NAMESPACE__.'\\'.$popupClassName;
@@ -223,9 +223,10 @@ class RegisterPostType
 			//add_action('add_meta_boxes', array($this, 'popupTypeOptions'));
 			add_filter('sgpbAdditionalMetaboxes', array($this, 'sgpbPopupTypeOptionsViewMetaboxes'), 1, 1);
 		}
-		if ($popupType == 'subscription') {
+		// TODO remove all content about this section!
+	/*	if ($popupType == 'subscription') {
 			add_action('add_meta_boxes', array($this, 'rightBannerMetabox'));
-		}
+		}*/
 	}
 
 	public function rightBannerMetabox()
@@ -473,6 +474,6 @@ class RegisterPostType
 	public function popupTypeRightBannerView()
 	{
 		$banner = AdminHelper::getRightMetaboxBannerText();
-		echo $banner;
+		echo wp_kses($banner, AdminHelper::allowed_html_tags());
 	}
 }
