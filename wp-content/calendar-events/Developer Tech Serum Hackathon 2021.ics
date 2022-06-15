@@ -1,0 +1,193 @@
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 16.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+X-MS-OLK-FORCEINSPECTOROPEN:TRUE
+BEGIN:VTIMEZONE
+TZID:Eastern Standard Time
+BEGIN:STANDARD
+DTSTART:16011104T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010311T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+ATTENDEE;CN="Ann Devney Marciano";RSVP=TRUE:mailto:amarciano@proximylhealth
+	.com
+CLASS:PUBLIC
+CREATED:20210507T173937Z
+DESCRIPTION:\n\n \n\n\n\n \n\nWelcome to Tech Serum 2021!\n\nHealthcare’s
+	 ER Visit\n\n \n\n \n\nImportant Links:\n\n \n\nDownload Microsoft Teams <
+	https://teams.microsoft.com/downloads> \n\nQuestions? Visit the Microsoft 
+	Teams tutorials <https://support.office.com/en-us/article/Microsoft-Teams-
+	video-training-4f108e54-240b-4351-8084-b1089f0d21d7> \n\nMicrosoft Teams R
+	esources Channel <https://teams.microsoft.com/l/channel/19%3aa0946033a78d4
+	cfda3c39f6772fcb963%40thread.tacv2/-Resources?groupId=83d77a04-9750-4fcc-8
+	039-5fe34631f6f6&tenantId=17467e5f-984a-456e-8868-2bdb9a096b1b> \n\nEvent 
+	page <https://www.thewhyse.com/events/techserum-healthcare-er-visit/>  wit
+	h agenda\, medical experts\, guest speakers and topics\n\n \n\nEvent Remin
+	ders:\n\nMonday\, June 7th Tech Training- Download reminder <https://thewh
+	yse.com/wp-content/calendar-events/Tech%20Serum%20Microsoft%20Teams%20Trai
+	ning.ics> \n\nFriday\, June 11th Introductions- Download the invite <https
+	://www.thewhyse.com/wp-content/calendar-events/Tech%20Serum%20Friday%20Kic
+	k-off.ics> \n\nSunday\, June 13th Presentations- Download the invite <http
+	s://www.thewhyse.com/wp-content/calendar-events/Tech%20Serum%20Sunday%20Pr
+	esentations.ics> \n\n \n\n\n Questions? Reach out to techserum.support@the
+	whyse.com <mailto:techserum.support@thewhyse.com>  \n\n\nKeep up to date o
+	n social media. \nUse the hashtag: #techserum21\n\n\n \n\n\n \n\n\n \n\n\n
+	\n\n\n \n\n \n\n \n\n \n\n
+DTEND;TZID="Eastern Standard Time":20210613T150000
+DTSTAMP:20210507T171233Z
+DTSTART;TZID="Eastern Standard Time":20210611T180000
+LAST-MODIFIED:20210507T173937Z
+LOCATION:https://teams.microsoft.com/l/team/19%3a8b7d5b6dd47a427cb3a39264a0
+	299cfc%40thread.tacv2/conversations?groupId=83d77a04-9750-4fcc-8039-5fe346
+	31f6f6&tenantId=17467e5f-984a-456e-8868-2bdb9a096b1b
+ORGANIZER;CN="Rachel Seidman":mailto:RSeidman@thewhyse.com
+PRIORITY:5
+SEQUENCE:0
+SUMMARY:Tech Serum Hackathon 2021
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000A1F9E9DDAF42D701000000000000000
+	0100000003FB4F1F2C091A94FB8452D87B7EE1375
+X-ALT-DESC;FMTTYPE=text/html:<html xmlns:v="urn:schemas-microsoft-com:vml" 
+	xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-mic
+	rosoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/
+	12/omml" xmlns="http://www.w3.org/TR/REC-html40"><head>\n\n<meta name="Gen
+	erator" content="Microsoft Word 15 (filtered medium)">\n<!--[if !mso]><sty
+	le>v\\:* {behavior:url(#default#VML)\;}\no\\:* {behavior:url(#default#VML)
+	\;}\nw\\:* {behavior:url(#default#VML)\;}\n.shape {behavior:url(#default#V
+	ML)\;}\n</style><![endif]--><style><!--\n/* Font Definitions */\n@font-fac
+	e\n	{font-family:"Cambria Math"\;\n	panose-1:2 4 5 3 5 4 6 3 2 4\;}\n@font
+	-face\n	{font-family:Calibri\;\n	panose-1:2 15 5 2 2 2 4 3 2 4\;}\n@font-f
+	ace\n	{font-family:"Avenir Book"\;\n	panose-1:2 0 5 3 2 0 0 2 0 3\;}\n/* S
+	tyle Definitions */\np.MsoNormal\, li.MsoNormal\, div.MsoNormal\n	{margin:
+	0in\;\n	font-size:12.0pt\;\n	font-family:"Calibri"\,sans-serif\;}\nh2\n	{m
+	so-style-priority:9\;\n	mso-style-link:"Heading 2 Char"\;\n	mso-margin-top
+	-alt:auto\;\n	margin-right:0in\;\n	mso-margin-bottom-alt:auto\;\n	margin-l
+	eft:0in\;\n	font-size:18.0pt\;\n	font-family:"Calibri"\,sans-serif\;}\na:l
+	ink\, span.MsoHyperlink\n	{mso-style-priority:99\;\n	color:#0563C1\;\n	tex
+	t-decoration:underline\;}\np.MsoListParagraph\, li.MsoListParagraph\, div.
+	MsoListParagraph\n	{mso-style-priority:34\;\n	margin-top:0in\;\n	margin-ri
+	ght:0in\;\n	margin-bottom:0in\;\n	margin-left:.5in\;\n	font-size:12.0pt\;\
+	n	font-family:"Calibri"\,sans-serif\;}\nspan.Heading2Char\n	{mso-style-nam
+	e:"Heading 2 Char"\;\n	mso-style-priority:9\;\n	mso-style-link:"Heading 2"
+	\;\n	font-family:"Calibri"\,sans-serif\;\n	font-weight:bold\;}\nspan.Email
+	Style20\n	{mso-style-type:personal-compose\;\n	font-family:"Calibri"\,sans
+	-serif\;\n	color:windowtext\;}\n.MsoChpDefault\n	{mso-style-type:export-on
+	ly\;\n	font-size:10.0pt\;}\n@page WordSection1\n	{size:8.5in 11.0in\;\n	ma
+	rgin:1.0in 1.0in 1.0in 1.0in\;}\ndiv.WordSection1\n	{page:WordSection1\;}\
+	n--></style>\n</head>\n<body lang="EN-US" link="#0563C1" vlink="#954F72" s
+	tyle="word-wrap:break-word">\n<div class="WordSection1">\n<p class="MsoNor
+	mal" align="center" style="text-align:center"><span style="font-size:11.0p
+	t"><img width="324" height="78" style="width:3.375in\;height:.8125in" id="
+	Picture_x0020_1" alt="A picture containing text\, sign\n\nDescription auto
+	matically generated" src="cid:image001.png@01D74342.A1C761E0"><o:p></o:p><
+	/span></p>\n<p class="MsoNormal" align="center" style="text-align:center">
+	<span style="font-size:8.0pt"><o:p>&nbsp\;</o:p></span></p>\n<p class="Mso
+	Normal" align="center" style="text-align:center"><span style="font-size:11
+	.0pt"><img width="252" height="28" style="width:2.625in\;height:.2916in" i
+	d="Picture_x0020_2" alt="A black background with white text\n\nDescription
+	 automatically generated with medium confidence" src="cid:image002.png@01D
+	74342.A1C761E0"><o:p></o:p></span></p>\n<p class="MsoNormal" align="center
+	" style="text-align:center"><span style="font-size:11.0pt"><o:p>&nbsp\;</o
+	:p></span></p>\n<p class="MsoNormal" align="center" style="text-align:cent
+	er"><span style="font-size:14.0pt\;font-family:'Avenir Book'">Welcome to T
+	ech Serum 2021!<o:p></o:p></span></p>\n<p class="MsoNormal" align="center"
+	 style="text-align:center"><i><span style="font-size:11.0pt\;font-family:'
+	Avenir Book'">Healthcare’s ER Visit<o:p></o:p></span></i></p>\n<p class=
+	"MsoNormal" align="center" style="text-align:center"><i><span style="font-
+	size:11.0pt\;font-family:'Avenir Book'"><o:p>&nbsp\;</o:p></span></i></p>\
+	n<p class="MsoNormal" align="center" style="text-align:center"><span style
+	="font-size:11.0pt\;font-family:'Avenir Book'"><o:p>&nbsp\;</o:p></span></
+	p>\n<p class="MsoNormal" align="center" style="text-align:center"><b><span
+	 style="font-family:'Avenir Book'">Important Links:<o:p></o:p></span></b><
+	/p>\n<p class="MsoNormal" align="center" style="text-align:center"><span s
+	tyle="font-size:11.0pt\;font-family:'Avenir Book'"><o:p>&nbsp\;</o:p></spa
+	n></p>\n<p class="MsoListParagraph" style="margin-left:2.5in\;text-indent:
+	-.25in"><span style="font-family:'Avenir Book'">Download\n<a href="https:/
+	/teams.microsoft.com/downloads" target="_blank">Microsoft Teams</a><o:p></
+	o:p></span></p>\n<p class="MsoListParagraph" style="margin-left:2.5in\;tex
+	t-indent:-.25in"><span style="font-family:'Avenir Book'">Questions? Visit 
+	the Microsoft Teams\n<a href="https://support.office.com/en-us/article/Mic
+	rosoft-Teams-video-training-4f108e54-240b-4351-8084-b1089f0d21d7" target="
+	_blank">\ntutorials</a><o:p></o:p></span></p>\n<p class="MsoListParagraph"
+	 style="margin-left:2.5in\;text-indent:-.25in"><span style="font-family:'A
+	venir Book'">Microsoft Teams Resources\n<a href="https://teams.microsoft.c
+	om/l/channel/19%3aa0946033a78d4cfda3c39f6772fcb963%40thread.tacv2/-Resourc
+	es?groupId=83d77a04-9750-4fcc-8039-5fe34631f6f6&amp\;tenantId=17467e5f-984
+	a-456e-8868-2bdb9a096b1b">\nChannel</a><o:p></o:p></span></p>\n<p class="M
+	soListParagraph" style="margin-left:2.5in\;text-indent:-.25in"><span style
+	="font-family:'Avenir Book'"><a href="https://www.thewhyse.com/events/tech
+	serum-healthcare-er-visit/">Event page</a> with agenda\, medical experts\,
+	 guest speakers and topics<o:p></o:p></span></p>\n<p class="MsoNormal" sty
+	le="margin-left:2.0in"><span style="font-family:'Avenir Book'"><o:p>&nbsp\
+	;</o:p></span></p>\n<p class="MsoNormal" style="margin-left:2.0in\;text-in
+	dent:.25in"><span style="font-family:'Avenir Book'">Event Reminders:<o:p><
+	/o:p></span></p>\n<p class="MsoListParagraph" style="margin-left:2.5in\;te
+	xt-indent:-.25in"><span style="font-family:'Avenir Book'">Monday\, June 7t
+	h Tech Training-\n<a href="https://thewhyse.com/wp-content/calendar-events
+	/Tech%20Serum%20Microsoft%20Teams%20Training.ics" target="_blank">\nDownlo
+	ad reminder</a><o:p></o:p></span></p>\n<p class="MsoListParagraph" style="
+	margin-left:2.5in\;text-indent:-.25in"><span style="font-family:'Avenir Bo
+	ok'">Friday\, June 11th Introductions-\n<a href="https://www.thewhyse.com/
+	wp-content/calendar-events/Tech%20Serum%20Friday%20Kick-off.ics" target="_
+	blank">\nDownload the invite</a><o:p></o:p></span></p>\n<p class="MsoListP
+	aragraph" style="margin-left:2.5in\;text-indent:-.25in"><span style="font-
+	family:'Avenir Book'">Sunday\, June 13th Presentations-\n<a href="https://
+	www.thewhyse.com/wp-content/calendar-events/Tech%20Serum%20Sunday%20Presen
+	tations.ics" target="_blank">\nDownload the invite</a><o:p></o:p></span></
+	p>\n<p class="MsoNormal"><span style="font-family:'Avenir Book'"><o:p>&nbs
+	p\;</o:p></span></p>\n<table class="MsoNormalTable" border="0" cellspacing
+	="0" cellpadding="0" width="100%" style="width:100.0%\;border-collapse:col
+	lapse">\n<tbody>\n<tr>\n<td style="padding:5.25pt 15.0pt 11.25pt 15.0pt">\
+	n<h2 align="center" style="margin:0in\;text-align:center\;line-height:23.6
+	5pt"><span style="font-size:11.0pt\;font-family:'Avenir Book'\;font-weight
+	:normal">&nbsp\;Questions? Reach out to&nbsp\;<span style="color:#8996CB">
+	<a href="mailto:techserum.support@thewhyse.com" target="_blank"><span styl
+	e="color:#8996CB">techserum.support@thewhyse.com</span></a>&nbsp\;</span><
+	span style="color:#23496D"><o:p></o:p></span></span></h2>\n</td>\n</tr>\n<
+	tr>\n<td style="padding:5.25pt 15.0pt 11.25pt 15.0pt">\n<h2 align="center"
+	 style="margin:0in\;text-align:center\;line-height:21.0pt"><span style="fo
+	nt-size:12.0pt\;font-family:'Avenir Book'\;color:#00AAE8\;font-weight:norm
+	al">Keep up to date on social media.\n</span><span style="font-size:12.0pt
+	\;font-family:'Avenir Book'\;color:#00AAE8"><br>\nUse the hashtag: #techse
+	rum21<o:p></o:p></span></h2>\n<h2 align="center" style="margin:0in\;text-a
+	lign:center\;line-height:21.0pt"><span style="font-size:12.0pt\;font-famil
+	y:'Avenir Book'\;color:#00AAE8"><o:p>&nbsp\;</o:p></span></h2>\n<h2 style=
+	"margin:0in\;line-height:21.0pt"><span style="font-size:12.0pt\;font-famil
+	y:'Avenir Book'\;color:#00AAE8"><o:p>&nbsp\;</o:p></span></h2>\n<h2 align=
+	"center" style="margin:0in\;text-align:center\;line-height:21.0pt"><span s
+	tyle="font-size:12.0pt\;font-family:'Avenir Book'\;color:#00AAE8"><o:p>&nb
+	sp\;</o:p></span></h2>\n<h2 align="center" style="margin:0in\;text-align:c
+	enter\;line-height:21.0pt"><span style="font-size:12.0pt\;font-family:'Ave
+	nir Book'\;color:#23496D"><img border="0" width="248" height="112" style="
+	width:2.5833in\;height:1.1666in" id="Picture_x0020_4" src="cid:image003.pn
+	g@01D74342.A1C761E0"><o:p></o:p></span></h2>\n</td>\n</tr>\n</tbody>\n</ta
+	ble>\n<p class="MsoNormal" align="center" style="text-align:center"><span 
+	style="font-family:'Avenir Book'"><o:p>&nbsp\;</o:p></span></p>\n<p class=
+	"MsoNormal" style="margin-left:2.0in"><span style="font-size:11.0pt\;font-
+	family:'Avenir Book'"><o:p>&nbsp\;</o:p></span></p>\n<p class="MsoNormal" 
+	align="center" style="text-align:center"><span style="font-size:11.0pt"><o
+	:p>&nbsp\;</o:p></span></p>\n<p class="MsoNormal"><span style="font-size:1
+	1.0pt\;font-family:'Avenir Book'"><o:p>&nbsp\;</o:p></span></p>\n</div>\n<
+	/body>\n</html>\n
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MS-OLK-APPTSEQTIME:20210507T171233Z
+BEGIN:VALARM
+TRIGGER:-PT1440M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

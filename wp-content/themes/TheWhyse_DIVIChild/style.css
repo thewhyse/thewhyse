@@ -1,0 +1,522 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+/*
+ Theme Name:     The Whyse
+ Theme URI:      https://www.thewhyse.com
+ Description:    The Whyse Child Theme
+ Author:         Sean Owhady
+ Author URI:     https://www.owhady.com
+ Template:       Divi
+ Version:        1.0.0
+*/
+ 
+ 
+/* =Theme customization starts here
+------------------------------------------------------- */
+/*     Events Page         */
+
+#events-hero .et_pb_column_2 {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-flow: nowrap;
+	    flex-flow: nowrap;
+	-webkit-box-pack: end;
+	    -ms-flex-pack: end;
+	        justify-content: flex-end;
+}
+#events-hero .et_pb_column_2 .et_pb_module {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-flow: colum nowrap;
+	        flex-flow: colum nowrap;
+	-webkit-box-pack: end;
+	    -ms-flex-pack: end;
+	        justify-content: flex-end;
+	margin: 0 0 170px;
+}
+#events-hero .et_pb_column_2 .et_pb_module span {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-flow: column nowrap;
+	        flex-flow: column nowrap;
+	-webkit-box-pack: end;
+	    -ms-flex-pack: end;
+	        justify-content: flex-end;
+}
+
+#events-hero .et_pb_column_0 {
+	background-image: url(/wp-content/uploads/2020/11/Carmen-Simon.png);
+	background-repeat: no-repeat;
+	background-position: cover;
+	width: 40%;
+	margin-right: 3%;
+}
+
+#events-hero .et_pb_column_1 {
+	width: 40%;
+	margin-right: 3%;
+}
+
+#events-hero .et_pb_column_2 {
+	width: 18%;
+}
+
+#events-hero .et_pb_code_1 {
+	margin: 0 0 6% -25px;
+}
+
+#events-hero .et_pb_code {
+	margin-bottom: 6%;
+}
+
+#events-hero::after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 20px;
+	background: #8896CB;
+	position: absolute;
+	bottom: -20px;
+}
+
+#gray-band-section .et_pb_column_3,
+#gray-band-section .et_pb_column_4 {
+	width: 40%;
+	margin-right: 3%;
+}
+
+#gray-band-section .et_pb_column_5 {
+	width: 40%;
+}
+
+#gray-band-section {
+    margin: -109px 0 0;
+}
+
+#mobile-description-section::after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 20px;
+	background: #8896CB;
+	position: absolute;
+	top: -20px;
+}
+
+/*** Responsive Styles Tablet Only ***/
+@media all and (min-width: 768px) and (max-width: 980px) {
+	#events-hero .et_pb_column_0 {
+		height: 83%
+	}
+	#gray-band-section {
+    margin: 0;
+}
+	#gray-band-section .et_pb_column_5 {
+		width: 100%;
+		margin-bottom: 0;
+	}
+}
+
+
+
+/* AGENDA AND TOPICS SECTION */
+
+#agenda-topics-section .topics-items-container .top-item-header {
+	/*display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex; */
+	margin: 0 0 25px;
+}
+
+#agenda-topics-section .topics-items-container .top-item-header .speaker-img {
+	width: 131px;
+	height: 131px;
+	float: left;
+}
+
+#agenda-topics-section .topics-items-container .top-item-header .speaker-img img {
+	width: 100%;
+	height: 100%;
+}
+
+#agenda-topics-section .topics-items-container .top-item-header h4 {
+	color: #8896CB !important;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#agenda-topics-section .topics-items-container .top-item-header .speaker-name {
+	font-size: 20px;
+	font-weight: 500;
+	color: #4D596A;
+	margin: 0 0 10px;
+}
+
+#agenda-topics-section .topic-item-copy {
+	clear: both;
+}
+
+#agenda-topics-section .topics-items-container .top-item-header .speaker-title,
+#mobile-agenda-topics-section .topics-items-container .top-item-header .speaker-title {
+	font-size: 14px;
+	font-weight: 300;
+}
+
+#mobile-agenda-topics-section .topics-items-container .top-item-header .speaker-title {
+	text-align: left;
+}
+
+#mobile-agenda-topics-section .topics-items-container .top-item-header h4 {
+	color: #8896CB !important;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#mobile-agenda-topics-section .topics-items-container .top-item-header .speaker-name {
+	font-size: 20px;
+	font-weight: 500;
+	color: #4D596A;
+	margin: 0 0 10px;
+}
+
+#mobile-agenda-topics-section .topics-items-container:not(:last-child) {
+	padding: 0 0 20px;
+	margin: 0 0 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+#mobile-agenda-topics-section .topics-items-container .top-item-header {
+	text-align: center;
+}
+
+#mobile-agenda-topics-section .topic-item-copy {
+	margin: 20px 0 0;
+}
+
+#mobile-agenda-topics-section #agenda-column-dskt #cta-block{
+	padding: 20px;
+}
+
+#mobile-agenda-topics-section #agenda-column-dskt #cta-block .cta-btn {
+	width: 100%;
+}
+
+#mobile-agenda-topics-section h3 {
+	text-align: center;
+}
+
+#agenda-column-dskt .event-schedule {
+	padding: 20px 20px 40px;
+	border: 1px solid #aaa;
+	margin-bottom: 0;
+}
+.agenda-items-wrap .agenda-item:not(:last-child) {
+	margin: 0 0 20px;
+}
+
+.agenda-items-wrap .agenda-item .agenda-time {
+	
+}
+.agenda-items-wrap .agenda-item .agenda-title   {
+	color: #8896CB;
+	font-family: sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 5px 0 5px 40px;
+}
+.agenda-items-wrap .agenda-item .agenda-speaker  {
+	color: #4E5868;
+	font-family: sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0 0 0 40px;
+}
+
+#agenda-column-dskt #cta-block {
+	background: #28ADE3;
+	padding: 20px 40px;
+	color: #fff;
+}
+#agenda-column-dskt #cta-block .cta-wrapper {
+	text-align: center;
+}
+#agenda-column-dskt #cta-block .cta-hollar h3 {
+	color: #fff;
+	font-size: 45px;
+	font-weight: 500;
+}
+
+#agenda-column-dskt #cta-block  .cta-what {
+	color: #fff;
+	font-size: 18px;
+}
+
+.cta-img {
+	margin: 20px auto;
+}
+
+#agenda-column-dskt #cta-block .cta-btn {
+	width: 85%;
+	position: relative;
+	margin: 0 auto;
+
+}
+
+#agenda-column-dskt #cta-block .cta-btn a:link,
+#agenda-column-dskt #cta-block .cta-btn a:visited {
+	color: #28ADE3;
+	background: #fff;
+	font-weight: 900;
+	font-family: sans-serif;
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 12px 20px;
+	border-radius:40px;
+	border: 2px solid #fff;
+
+}
+
+#agenda-column-dskt #cta-block .cta-btn a:hover {
+	background: #28ADE3;
+	color: #fff;
+}
+
+#agenda-column-dskt #cta-block .dvidr {
+	display: block;
+	width: 72px;
+	height: 3px;
+	background: white;
+	margin: 10px auto 20px;
+}
+
+/*** Responsive Styles Standard Desktop Only ***/
+@media all and (min-width: 1100px) {
+	
+	#agenda-topics-section #agenda-column-dskt {
+		width: 35.87%;
+		margin-right: 3.5%;
+	}
+	#agenda-topics-section #topics-column-dskt {
+		width: 60%;
+	}
+	
+	#agenda-topics-section .topics-items-container:not(:last-child) {
+	margin: 0 0 40px;
+}
+	#agenda-topics-section .topics-items-container .top-item-header .speaker-img {
+		margin: 0 20px 40px 0;
+	}
+}
+
+/*** Responsive Styles Tablet Only ***/
+@media all and (min-width: 768px) and (max-width: 980px) {
+	#agenda-topics-section .topics-items-container .top-item-header .speaker-img {
+		margin: 0 20px 40px 0;
+	}
+	#events-hero .et_pb_column_2 .et_pb_module {
+		margin: 0;
+	}
+}
+
+/*** Responsive Styles Tablet And Below ***/
+@media all and (max-width: 980px) {
+	#agenda-topics-section .topics-items-container:not(:last-child) {
+	margin: 0 0 40px;
+		padding: 0 0 40px;
+	border-bottom: 1px solid #707070;
+}
+}
+
+/*** Responsive Styles Smartphone Only ***/
+@media all and (max-width: 767px) {
+	#agenda-topics-section .topics-items-container .top-item-header {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+		text-align: center;
+	}
+
+}
+
+/*  END   Events Page         */
+
+/* NEW Social listening page */
+
+
+/*** Responsive Styles Tablet and above ***/
+@media all and (min-width: 768px) {
+	
+	#top_video_social_section {
+    background-image: url("/wp-content/uploads/2021/02/large-gray-circle.svg");
+    background-repeat: no-repeat;
+    background-position: -190px -40px;
+    background-size: 680px;
+	}
+	
+	.social-page-title {
+	background-image: url("/wp-content/uploads/2021/02/large-gray-circle.svg");
+    background-repeat: no-repeat;
+    background-position: 116% -180px;
+    background-size: 340px;
+	}
+	
+	#top_video_social_section:after {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 300px;
+		height: 300px;
+		bottom: -210px;
+		left: calc(50% - 300px);
+		border-radius: 50%;
+		background: #efefef;
+	}
+}
+
+#infographic_social_mid_section:after {
+	content: '';
+	width: 100%;
+	height: 370px;
+	display: block;
+	position: absolute;
+	bottom: 0px;
+	background: #4D586A;
+	z-index: 1;
+}
+
+#key_benefits_colm .benefits-list .benefit-check,
+#social-middle-mobile .benefit-check {
+	position: relative;
+	display: block;
+	background: url("/wp-content/uploads/2021/02/benefits-check.svg") no-repeat 0 3px;
+	padding: 0 0 10px 40px;
+	
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c .form-columns-2 input,
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c  fieldset.form-columns-1 .hs-input {
+    width: 100%;
+    border-bottom: 3px solid #8896CB;
+	font-size: 16px;
+    color: #333;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c input.hs-button.primary.large {
+	display: block;
+	width: 400px;
+	height: 60px;
+	margin: 40px auto;
+	font-size: 20px;
+	border: 2px solid #333;
+	border-radius: 20px;
+	background: #fff;
+	color: #333;
+	cursor: pointer;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c input.hs-button.primary.large:hover {
+	background: #333;
+	color: #fff;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c  {
+	max-width: 100%;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c fieldset {
+	max-width: 80%;
+	margin: 0 auto 20px;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c fieldset.form-columns-2 .hs-form-field:first-child {
+	padding: 0 20px 0 0;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c fieldset.form-columns-2 .hs-form-field:last-child  {
+	padding: 0 0 0 20px;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c .hs_recaptcha.hs-recaptcha.field.hs-form-field {
+ 	width: 80%;
+    margin: 0 auto;
+}
+
+#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c .grecaptcha-badge {
+	margin-left: 0;
+}
+
+/*** Responsive Styles Tablet Only ***/
+@media all and (min-width: 768px) and (max-width: 980px) {
+	
+	#infographic_social_mid_section:after {
+		height: 650px;
+	}
+	
+	#infographic_social_mid_section .et_pb_image_wrap {
+		display: block;
+	}
+	
+	#infographic_social_mid_section .et_pb_image_wrap img {
+		display: block !important;
+		margin: 0 auto;
+	}
+	
+	#infographic_social_mid_section #social-info-how-row {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+	}
+	
+	#infographic_social_mid_section #social-info-first-col {
+		-webkit-box-ordinal-group: 3;
+		    -ms-flex-order: 2;
+		        order: 2;
+		margin: 30px 0 0;
+	}
+}
+
+/*** Responsive Styles Smartphone Only ***/
+@media all and (max-width: 767px) {
+	
+	#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c input.hs-button.primary.large {
+		width: 100%;
+	}
+	
+	#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c .hs_recaptcha.hs-recaptcha.field.hs-form-field {
+		width: 100%;
+	}
+
+	#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c fieldset {
+	max-width: 100%;
+	margin: 0 auto;
+	}
+	
+	#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c fieldset.form-columns-2 .hs-form-field:first-child,
+	#hobspot_request_form #hsForm_155e9561-27bd-4432-89e3-d04c52f9959c fieldset.form-columns-2 .hs-form-field:last-child  {
+	padding: 0;
+	}
+	
+}
+
+/* END NEW Social listening page */
+
+
