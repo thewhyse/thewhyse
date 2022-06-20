@@ -59,6 +59,9 @@ Thumbs.db
 # Divi theme cache
 wp-content/et-cache
 
+# nodejs
+wp-content/themes/TheWhyse_DIVIChild/node_modules/
+
 # Phpstorm
 .idea
 
