@@ -847,7 +847,7 @@ abstract class SGPopup
 			}
 		}
 
-		$popupOptions = self::getPopupOptionsById($popupId, $saveMode);
+		$popupOptions = self::getPopupOptionsById($popupId, $saveMode);//
 		if (is_array($popupOptions) && is_array($popupSavedData)) {
 			$popupSavedData = array_merge($popupSavedData, $popupOptions);
 		}

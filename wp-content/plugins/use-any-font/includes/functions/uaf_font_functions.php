@@ -282,7 +282,7 @@ function uaf_get_language_selector(){
 
 function uaf_save_font_assign(){
 	$font_key               = sanitize_key($_POST['font_key']);
-	$elements               = array_map('sanitize_title', $_POST['elements']);
+	$elements               = array_map('sanitize_text_field', $_POST['elements']);
 	$custom_elements		= trim(sanitize_text_field($_POST['custom_elements']));
 
 	$fontsData      		= uaf_get_uploaded_font_data();

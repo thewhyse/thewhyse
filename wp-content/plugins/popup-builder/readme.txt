@@ -8,7 +8,7 @@ Tags: popup, pop up, wordpress popup, popup maker, exit popup, popup builder, wo
 Requires at least: 4.2
 Tested up to: 6.0
 Requires PHP: 5.3.3
-Stable tag: 4.1.10
+Stable tag: 4.1.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,11 @@ Go to the Popup Builder settings and set your desired options.
 14. Registration popup
 
 == Changelog ==
+
+= Version 4.1.11 =
+* Improvement of code: touch event has been added for mobile devices
+* Bug fixed related to symbols in text area
+* Some minor code improvements
 
 = Version 4.1.10 =
 * Code improvements and bug fixes
@@ -551,4 +556,4 @@ Leave us a good review :)
 
 == Upgrade Notice ==
 
-Current Version of Popup Builder is 4.1.10
+Current Version of Popup Builder is 4.1.11

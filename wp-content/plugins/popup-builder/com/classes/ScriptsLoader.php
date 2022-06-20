@@ -78,7 +78,7 @@ class ScriptsLoader
 		} else {
 			$popupOptions = json_encode($popupOptions,JSON_UNESCAPED_UNICODE);
 		}
-		return $popupOptions;
+		return base64_encode($popupOptions);
 	}
 
 	// load popup scripts and styles and add popup data to the footer

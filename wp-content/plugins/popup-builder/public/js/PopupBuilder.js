@@ -1870,7 +1870,7 @@ SGPBPopup.prototype.setMaxWidthForResponsiveImage = function()
 	}
 };
 SGPBPopup.JSONParse = function(data){
-	return JSON.parse(data);
+	return JSON.parse(atob(data, true));
 };
 
 // unused function!
@@ -2622,7 +2622,7 @@ SgpbEventListener.prototype.sgpbClick = function(listenerObj, eventData)
 				jQuery(this).attr('data-popup-id', popupId);
 			}
 			var currentTarget = jQuery(this);
-			currentTarget.bind('click', function(e) {
+			currentTarget.bind('click touchstart', function(e) {
 				if (clickCount > 1) {
 					return true;
 				}

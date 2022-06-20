@@ -31,10 +31,19 @@ add_filter('et_websafe_fonts', 'uaf_send_fonts_divi_list',10,2);
 function uaf_send_fonts_divi_list($fonts){
     $fontsData		= uaf_group_fontdata_by_fontname(uaf_get_uploaded_font_data());
 	$fonts_uaf		= array();
+
 	if (!empty($fontsData)):
 		foreach ($fontsData as $fontName=>$fontData):
+			$variationStyles = array();
+			foreach ($fontData as $fontVariationKey => $fontVariationData){
+				if (array_key_exists('font_weight',$fontVariationData)){
+					$variationStyles[] = $fontVariationData['font_weight'];
+				} else {
+					$variationStyles[] = '400';
+				}				
+			}
 			$fonts_uaf[$fontName] = array(
-				'styles' 		=> '400',
+				'styles' 		=> join(',',$variationStyles),
 				'character_set' => 'cyrillic,greek,latin',
 				'type'			=> 'serif'
 			);	

@@ -965,7 +965,7 @@ class AdminHelper
 		$content = '<div class="sgpb-support-notification-wrapper sgpb-wrapper"><h4 class="sgpb-support-notification-title">'.__('Need some help?', SG_POPUP_TEXT_DOMAIN).'</h4>';
 		$content .= '<h4 class="sgpb-support-notification-title">'.__('Let us know what you think.', SG_POPUP_TEXT_DOMAIN).'</h4>';
 		$content .= '<a class="btn btn-info" target="_blank" href="'.SG_POPUP_RATE_US_URL.'"><span class="dashicons sgpb-dashicons-heart sgpb-info-text-white"></span><span class="sg-info-text">'.__('Rate Us', SG_POPUP_TEXT_DOMAIN).'</span></a>';
-		$content .= '<a class="btn btn-info" target="_blank" href="'.SG_POPUP_TICKET_URL.'"><span class="dashicons sgpb-dashicons-megaphone sgpb-info-text-white"></span>'.__('Support Potal', SG_POPUP_TEXT_DOMAIN).'</a>';
+		$content .= '<a class="btn btn-info" target="_blank" href="'.SG_POPUP_TICKET_URL.'"><span class="dashicons sgpb-dashicons-megaphone sgpb-info-text-white"></span>'.__('Support Portal', SG_POPUP_TEXT_DOMAIN).'</a>';
 		$content .= '<a class="btn btn-info" target="_blank" href="https://wordpress.org/support/plugin/popup-builder"><span class="dashicons sgpb-dashicons-admin-plugins sgpb-info-text-white"></span>'.__('Support Forum', SG_POPUP_TEXT_DOMAIN).'</a>';
 		$content .= '<a class="btn btn-info" target="_blank" href="'.SG_POPUP_STORE_URL.'"><span class="dashicons sgpb-dashicons-editor-help sgpb-info-text-white"></span>'.__('LIVE chat', SG_POPUP_TEXT_DOMAIN).'</a>';
 		$content .= '<a class="btn btn-info" target="_blank" href="mailto:support@popup-builder.com?subject=Hello"><span class="dashicons sgpb-dashicons-email-alt sgpb-info-text-white"></span>'.__('Email', SG_POPUP_TEXT_DOMAIN).'</a></div>';
@@ -2242,7 +2242,6 @@ class AdminHelper
 		$allowedPostTags = wp_kses_allowed_html('post');
 		$allowed_atts = array(
 			'role'             => array(),
-			'onclick'          => array(),
 			'checked'          => array(),
 			'align'            => array(),
 			'preload'          => array(),
@@ -2302,6 +2301,10 @@ class AdminHelper
 			'selected'         => array(),
 			'multiple'         => array()
 		);
+		if ($allowScript){
+			$allowedPostTags['script'] = $allowed_atts;
+			$allowed_atts['onclick'] = array();
+		}
 		$allowedPostTags['select'] = $allowed_atts;
 		$allowedPostTags['optgroup'] = $allowed_atts;
 		$allowedPostTags['option'] = $allowed_atts;
@@ -2314,9 +2317,7 @@ class AdminHelper
 		$allowedPostTags['source'] = $allowed_atts;
 		$allowedPostTags['textarea'] = $allowed_atts;
 		$allowedPostTags['iframe'] = $allowed_atts;
-		if ($allowScript){
-			$allowedPostTags['script'] = $allowed_atts;
-		}
+
 		$allowedPostTags['style'] = $allowed_atts;
 		$allowedPostTags['strong'] = $allowed_atts;
 		$allowedPostTags['small'] = $allowed_atts;
