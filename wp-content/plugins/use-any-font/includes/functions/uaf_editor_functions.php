@@ -127,9 +127,19 @@ function uaf_send_fonts_beaver_builder_list($fonts){
 	$fonts_uaf		= array();
 	if (!empty($fontsData)):
 		foreach ($fontsData as $fontName=>$fontData):
+				
+			$variationStyles = array();
+			foreach ($fontData as $fontVariationKey => $fontVariationData){
+				if (array_key_exists('font_weight',$fontVariationData)){
+					$variationStyles[] = $fontVariationData['font_weight'];
+				} else {
+					$variationStyles[] = '400';
+				}				
+			}
+
 			$fonts_uaf[$fontName] = array(
 												'fallback'  => 'Verdana, Arial, sans-serif',
-												'weights'  => array('400')
+												'weights'   => $variationStyles
 												);
 		endforeach;
 	endif;

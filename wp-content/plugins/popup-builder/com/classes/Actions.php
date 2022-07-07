@@ -1453,7 +1453,8 @@ class Actions
 	public function saveSettings()
 	{
 		$allowToAction = AdminHelper::userCanAccessTo();
-		if (!$allowToAction) {
+		$nonce = isset($_POST['sgpb_saveSettings_nonce']) ? sanitize_text_field($_POST['sgpb_saveSettings_nonce']): '';
+		if (!$allowToAction || !wp_verify_nonce($nonce, 'sgpbSaveSettings')) {
 			wp_redirect(get_home_url());
 			exit();
 		}
