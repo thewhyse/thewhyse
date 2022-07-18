@@ -187,9 +187,15 @@
     .wForm form {
       padding: 0;
       .oneField {
-        border: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
         border-bottom: 3px solid $tw_purple;
         padding: 0;
+        .inputWrapper {
+          max-width: 100%;
+          width: 100%;
+        }
       }
     }
   }
