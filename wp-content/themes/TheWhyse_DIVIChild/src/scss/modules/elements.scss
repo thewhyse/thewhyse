@@ -194,6 +194,15 @@
           width: 48%;
         }
       }
+      #tfa_9 {
+        #tfa_5-D,
+        #tfa_6-D {
+          width: 48%;
+        }
+        #tfa_13-D {
+          width: 100%;
+        }
+      }
 
       .oneField {
         border-top: none;
@@ -209,6 +218,9 @@
           }
         }
       }
+    }
+    .wFormFooter {
+      display: none;
     }
   }
 }
