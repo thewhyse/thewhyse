@@ -186,6 +186,15 @@
     max-width: 100%;
     .wForm form {
       padding: 0;
+
+      .section {
+        display: flex;
+        justify-content: space-between;
+        .oneField {
+          width: 48%;
+        }
+      }
+      
       .oneField {
         border-top: none;
         border-left: none;
@@ -196,7 +205,7 @@
           max-width: 100%;
           width: 100%;
           input {
-            border: none;
+            border: none !important;
           }
         }
       }
