@@ -1,10 +1,3 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.12,
-* Autoprefixer: v10.4.4
-* Browsers: last 4 version
-*/
-
 @import "../base/colors";
 @import "../base/font";
 
@@ -62,7 +55,6 @@
     }
   }
 }
-
 
 /*** Responsive Styles Wide Desktop Only ***/
 @media all and (min-width: 1600px) {
@@ -140,7 +132,6 @@
   }
 }
 
-
 /*** Responsive Styles Smartphone Only ***/
 @media all and (max-width: 767px) {
   #hp-hero-section {
@@ -184,23 +175,42 @@
 #tfa_445_social {
   .wFormContainer {
     max-width: 100%;
+
     .wForm form {
       padding: 0;
 
       #tfa_4 {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
+
         .oneField {
           width: 48%;
         }
       }
+
       #tfa_9 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+
         #tfa_5-D,
         #tfa_6-D {
           width: 48%;
         }
+
         #tfa_13-D {
-          width: 100%;
+          width: 100% !important;
+
+          #tfa_13 {
+            width: 100% !important;
+          }
         }
       }
 
@@ -210,15 +220,18 @@
         border-right: none;
         border-bottom: 3px solid $tw_purple;
         padding: 0;
+
         .inputWrapper {
           max-width: 100%;
           width: 100%;
+
           input {
             border: none !important;
           }
         }
       }
     }
+
     .wFormFooter {
       display: none;
     }
@@ -246,3 +259,4 @@
 @media all and (max-width: 767px) {
 
 }
+
