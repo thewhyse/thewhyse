@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @import "../base/colors";
 @import "../base/font";
 
@@ -199,6 +206,8 @@
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 
         #tfa_5-D,
         #tfa_6-D {
@@ -210,6 +219,9 @@
 
           #tfa_13 {
             width: 100% !important;
+            border-top: none;
+            border-left: none;
+            border-right: none;
           }
         }
       }
@@ -259,4 +271,3 @@
 @media all and (max-width: 767px) {
 
 }
-
