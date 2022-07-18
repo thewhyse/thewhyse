@@ -187,7 +187,9 @@
     .wForm form {
       padding: 0;
       .oneField {
+        border: none;
         border-bottom: 3px solid $tw_purple;
+        padding: 0;
       }
     }
   }
