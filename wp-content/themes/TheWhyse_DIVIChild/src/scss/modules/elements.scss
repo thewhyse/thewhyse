@@ -41,8 +41,6 @@
   }
 }
 
-
-
 /*** Responsive Styles Standard Desktop Only ***/
 @media all and (min-width: 1100px) {
   #hp-hero-section {
@@ -182,6 +180,20 @@
 
 /* END HomePage HERO  */
 
+/*      FormAssembly_ID-445     */
+#tfa_445_social {
+  .wFormContainer {
+    max-width: 100%;
+    .wForm form {
+      padding: 0;
+      .oneField {
+        border-bottom: 3px solid $tw_purple;
+      }
+    }
+  }
+}
+/*   END   FormAssembly_ID-445     */
+
 
 /*** Responsive Styles Wide Desktop  ***/
 @media all and (min-width: 1600px) {
@@ -192,7 +204,6 @@
 @media all and (max-width: 980px) {
 
 }
-
 
 /*** Responsive Styles Tablet Only ***/
 @media all and (min-width: 768px) and (max-width: 980px) {
