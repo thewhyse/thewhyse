@@ -187,14 +187,14 @@
     .wForm form {
       padding: 0;
 
-      .section {
+      #tfa_4 {
         display: flex;
         justify-content: space-between;
         .oneField {
           width: 48%;
         }
       }
-      
+
       .oneField {
         border-top: none;
         border-left: none;
