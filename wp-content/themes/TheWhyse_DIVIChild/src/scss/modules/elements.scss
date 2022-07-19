@@ -338,7 +338,7 @@
             }
           }
         }
-        .tfa_10-D {
+        #tfa_10-D {
           .inputWrapper,
           input {
             width: 100% !important;
@@ -352,6 +352,7 @@
           margin: 40px 0 0 !important;
           #submit_button {
             margin: 0;
+            padding: 10px 60px;
             background: $tw_lavender;
             color: #fff;
             border: 2px solid $tw_lavender;
