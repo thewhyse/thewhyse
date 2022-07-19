@@ -242,6 +242,20 @@
           }
         }
       }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        #submit_button {
+          margin-top: 0;
+          padding: 10px 135px;
+          border-radius: 25px;
+          background-color: #333;
+          color: #fff;
+        }
+      }
     }
 
     .wFormFooter {
