@@ -312,6 +312,39 @@
 
 /*   END   FormAssembly_ID-445     */
 
+/*      FormAssembly_ID-442 Events page     */
+#tfa_events_form {
+  .wFormContainer {
+
+    .wFormHeader,
+    .wFormFooter,
+    .supportInfo {
+      display: none;
+    }
+
+    .wForm {
+      background: $tw_bg_gray;
+      color: $tw_gray;
+      form {
+        padding: 0;
+        #tfa_4 {
+          display: flex;
+          justify-content: space-between;
+          .oneField {
+            width: 48%;
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/*   END   FormAssembly_ID-442 Events page     */
+
 
 /*** Responsive Styles Wide Desktop  ***/
 @media all and (min-width: 1600px) {
