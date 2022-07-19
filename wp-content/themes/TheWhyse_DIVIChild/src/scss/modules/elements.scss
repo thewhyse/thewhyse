@@ -338,6 +338,28 @@
             }
           }
         }
+        .tfa_10-D {
+          .inputWrapper,
+          input {
+            width: 100%;
+          }
+        }
+
+        .actions {
+          display: flex;
+          justify-content: center;
+          #submit_button {
+            margin: 0;
+            background: $tw_lavender;
+            color: #fff;
+            border: 2px solid $tw_lavender;
+            border-radius: 20px;
+            &:hover {
+              background: #fff;
+              color: $tw_lavender;
+            }
+          }
+        }
       }
     }
   }
