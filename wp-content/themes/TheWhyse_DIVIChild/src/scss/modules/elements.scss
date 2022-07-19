@@ -249,11 +249,20 @@
         align-items: center;
 
         #submit_button {
-          margin-top: 0;
-          padding: 10px 135px;
-          border-radius: 25px;
-          background-color: #333;
+          display: block;
+          width: 400px;
+          height: 60px;
+          margin: 40px auto;
+          font-size: 20px;
+          border: 2px solid #333;
+          border-radius: 20px;
+          background: $tw_gray;
           color: #fff;
+          cursor: pointer;
+          &:hover {
+            background: #fff;
+            color: $tw_gray;
+          }
         }
       }
     }
