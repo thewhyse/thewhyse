@@ -341,19 +341,21 @@
         .tfa_10-D {
           .inputWrapper,
           input {
-            width: 100%;
+            width: 100% !important;
           }
         }
 
         .actions {
           display: flex;
           justify-content: center;
+          padding: 0;
+          margin: 40px 0 0 !important;
           #submit_button {
             margin: 0;
             background: $tw_lavender;
             color: #fff;
             border: 2px solid $tw_lavender;
-            border-radius: 20px;
+            border-radius: 16px;
             &:hover {
               background: #fff;
               color: $tw_lavender;
