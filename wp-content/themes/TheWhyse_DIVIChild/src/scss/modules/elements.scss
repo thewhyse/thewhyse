@@ -176,6 +176,10 @@
   .wFormContainer {
     max-width: 100%;
 
+    .wFormHeader {
+      display: none;
+    }
+
     .wForm form {
       padding: 0;
 
