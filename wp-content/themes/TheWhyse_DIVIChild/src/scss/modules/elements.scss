@@ -328,7 +328,11 @@
       form {
         padding: 0;
         #tfa_4 {
+          display: -webkit-box;
+          display: -ms-flexbox;
           display: flex;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
           justify-content: space-between;
           .oneField {
             width: 48%;
@@ -346,7 +350,11 @@
         }
 
         .actions {
+          display: -webkit-box;
+          display: -ms-flexbox;
           display: flex;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
           justify-content: center;
           padding: 0;
           margin: 40px 0 0 !important;
@@ -368,6 +376,27 @@
   }
 }
 
+/*** Responsive Styles Smartphone Only ***/
+@media all and (max-width: 767px) {
+  #tfa_events_form {
+    .wFormContainer {
+
+      .wForm {
+        form {
+          #tfa_4 {
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            .oneField {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
 
 /*   END   FormAssembly_ID-442 Events page     */
 
