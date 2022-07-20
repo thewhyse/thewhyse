@@ -401,6 +401,29 @@
 /*   END   FormAssembly_ID-442 Events page     */
 
 
+/*     FormAssembly_ID-443 Gate Form     */
+
+#tfa_443_popup-gate {
+  .wFormContainer {
+    form {
+      #tfa_4 {
+        display: flex;
+        justify-content: space-between;
+        .oneField {
+          width: 48%;
+          .inputWrapper,
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*   END   FormAssembly_ID-443 Gate Form     */
+
+
 /*** Responsive Styles Wide Desktop  ***/
 @media all and (min-width: 1600px) {
 
