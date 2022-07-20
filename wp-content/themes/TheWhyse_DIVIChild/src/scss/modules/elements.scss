@@ -171,7 +171,7 @@
 
 /* END HomePage HERO  */
 
-/*      FormAssembly_ID-445     */
+/*      FormAssembly_ID-445  social listening   */
 #tfa_445_social {
   .wFormContainer {
     max-width: 100%;
@@ -309,8 +309,7 @@
   }
 }
 
-
-/*   END   FormAssembly_ID-445     */
+/*   END   FormAssembly_ID-445  social listening   */
 
 /*      FormAssembly_ID-442 Events page     */
 #tfa_events_form {
@@ -407,7 +406,11 @@
   .wFormContainer {
     form {
       #tfa_4 {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
 
         .oneField {
@@ -449,6 +452,25 @@
 
     .wFormFooter {
       display: none;
+    }
+  }
+}
+
+/*** Responsive Styles Smartphone Only ***/
+@media all and (max-width: 767px) {
+  #tfa_443_popup-gate {
+    .wFormContainer {
+      form {
+        #tfa_4 {
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+
+          .oneField {
+            width: 100%;
+          }
+        }
+
+      }
     }
   }
 }
