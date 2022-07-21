@@ -183,7 +183,7 @@
     .wForm form {
       padding: 0;
 
-      #tfa_20 {
+      #tfa_20 .htmlContent {
         color: #822222 !important;
       }
       #tfa_4 {
@@ -327,7 +327,7 @@
       color: $tw_gray;
       form {
         padding: 0;
-        #tfa_11 {
+        #tfa_11 .htmlContent {
           color: #822222 !important;
         }
         #tfa_4 {
@@ -409,7 +409,7 @@
 #tfa_443_popup-gate {
   .wFormContainer {
     form {
-      #tfa_13 {
+      #tfa_13 .htmlContent {
         color: #822222 !important;
       }
 
@@ -428,6 +428,13 @@
           input {
             width: 100% !important;
           }
+        }
+      }
+
+      #tfa_10-D {
+        .inputWrapper,
+        input {
+          width: 100% !important;
         }
       }
 
