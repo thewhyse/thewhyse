@@ -233,12 +233,11 @@
         border-bottom: 3px solid $tw_purple;
         padding: 0;
 
-        .inputWrapper {
-          max-width: 100%;
-          width: 100%;
-
+        .inputWrapper,
           input {
-            border: none !important;
+          max-width: 100% !important;
+          width: 100% !important;
+          border: none !important;
           }
         }
       }
@@ -277,7 +276,6 @@
       display: none;
     }
   }
-}
 
 /*** Responsive Styles Smartphone Only ***/
 @media all and (max-width: 767px) {
@@ -343,7 +341,7 @@
             width: 48% !important;
             .inputWrapper,
             input {
-              width: 100%;
+              width: 100% !important;
             }
           }
         }
