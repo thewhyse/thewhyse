@@ -183,6 +183,9 @@
     .wForm form {
       padding: 0;
 
+      #tfa_20 {
+        color: #822222 !important;
+      }
       #tfa_4 {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -192,7 +195,7 @@
         justify-content: space-between;
 
         .oneField {
-          width: 48%;
+          width: 48% !important;
         }
       }
 
@@ -208,7 +211,7 @@
 
         #tfa_5-D,
         #tfa_6-D {
-          width: 48%;
+          width: 48% !important;
         }
 
         #tfa_13-D {
@@ -288,7 +291,7 @@
           flex-wrap: wrap;
 
           .oneField {
-            width: 100%;
+            width: 100% !important;
           }
         }
 
@@ -298,7 +301,7 @@
 
           #tfa_5-D,
           #tfa_6-D {
-            width: 100%;
+            width: 100% !important;
           }
 
         }
@@ -326,6 +329,9 @@
       color: $tw_gray;
       form {
         padding: 0;
+        #tfa_11 {
+          color: #822222 !important;
+        }
         #tfa_4 {
           display: -webkit-box;
           display: -ms-flexbox;
@@ -334,7 +340,7 @@
           -ms-flex-pack: justify;
           justify-content: space-between;
           .oneField {
-            width: 48%;
+            width: 48% !important;
             .inputWrapper,
             input {
               width: 100%;
@@ -387,7 +393,7 @@
             flex-wrap: wrap;
 
             .oneField {
-              width: 100%;
+              width: 100% !important;
             }
           }
         }
@@ -405,6 +411,10 @@
 #tfa_443_popup-gate {
   .wFormContainer {
     form {
+      #tfa_13 {
+        color: #822222 !important;
+      }
+
       #tfa_4 {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -414,11 +424,11 @@
         justify-content: space-between;
 
         .oneField {
-          width: 48%;
+          width: 48% !important;
 
           .inputWrapper,
           input {
-            width: 100%;
+            width: 100% !important;
           }
         }
       }
@@ -466,7 +476,7 @@
           flex-wrap: wrap;
 
           .oneField {
-            width: 100%;
+            width: 100% !important;
           }
         }
       }
