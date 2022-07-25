@@ -491,6 +491,147 @@
 
 /*   END   FormAssembly_ID-443 Gate Form     */
 
+/*      FormAssembly_ID-441 Contact Form      */
+
+#tfa_441_contact-form {
+  .wFormContainer {
+    max-width: 100%;
+
+    .wFormHeader {
+      display: none;
+    }
+
+    .wForm form {
+      padding: 0;
+
+      #tfa_11 .htmlContent {
+        color: #822222 !important;
+      }
+      #tfa_4 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+
+        .oneField {
+          width: 32% !important;
+        }
+      }
+
+      #tfa_9 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+        .oneField {
+          width: 32% !important;
+        }
+
+        //         #tfa_13-D {
+        //           width: 100% !important;
+        //
+        //           #tfa_13 {
+        //             width: 100% !important;
+        //             border-top: none;
+        //             border-left: none;
+        //             border-right: none;
+        //           }
+        //         }
+
+      }
+
+      .oneField {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 3px solid $tw_purple;
+        padding: 0;
+
+        .inputWrapper,
+        input {
+          max-width: 100% !important;
+          width: 100% !important;
+          border: none !important;
+        }
+      }
+    }
+
+    .actions {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+
+      #submit_button {
+        display: block;
+        width: 400px;
+        height: 60px;
+        margin: 40px auto;
+        font-size: 20px;
+        border: 2px solid #333;
+        background: #fff;
+        color: $tw_gray;
+        border-radius: 20px;
+        cursor: pointer;
+        &:hover {
+          background: $tw_gray;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .wFormFooter {
+    display: none;
+  }
+}
+
+/*** Responsive Styles Smartphone Only ***/
+@media all and (max-width: 767px) {
+  #tfa_441_contact-form {
+    .wFormContainer {
+
+      .wForm form {
+
+        #tfa_4 {
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+
+          .oneField {
+            width: 100% !important;
+          }
+        }
+
+        #tfa_9 {
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+
+          .oneField {
+            width: 100% !important;
+          }
+
+        }
+
+      }
+
+    }
+  }
+}
+
+/*   END   FormAssembly_ID-441 Contact Form      */
+
 
 /*** Responsive Styles Wide Desktop  ***/
 @media all and (min-width: 1600px) {
