@@ -72,7 +72,9 @@ $table_prefix = 'wp_';
 if ( ! defined( 'WP_DEBUG' ) ) {
 	define('WP_DEBUG', false);
 }
-
+define('WP_MEMORY_LIMIT', '1024M');
+define( 'WP_MAX_MEMORY_LIMIT', '1024M' );
+define( 'MEDIA_TRASH', true );
 
 /* That's all, stop editing! Happy Pressing. */
 
